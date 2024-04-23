@@ -5,19 +5,20 @@ using System;
 public class Dice : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI jumpDirectionText;
+    private TextMeshProUGUI jumpDirectionText;  // 점프 방향을 표시하는 텍스트
     [SerializeField]
-    private TextMeshProUGUI jumpForceText;
+    private TextMeshProUGUI jumpForceText;      // 점프 힘을 표시하는 텍스트
     [SerializeField]
-    private GameObject arrow;
+    private GameObject arrow;                   // 점프 방향을 나타내는 이미지 오브젝트
 
-    private Vector2 jumpDirection;
-    private float jumpForce = 500f;
+    private Vector2 jumpDirection;              // 점프 방향
+    private float jumpForce = 500f;             // 점프 힘
+    private float gravity;
+
     private Rigidbody2D rb;
 
-    private bool isGround = true;
-    public LayerMask layer;
-
+    
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,9 +31,11 @@ public class Dice : MonoBehaviour
         SetJumpDirection();
         SetArrowTransform();
         SetJumpForce();
-        CheckGround();
+        GroundCheck();
         Jump();
     }
+
+    // 텍스트 설정
     private void SetText()
     {
         jumpDirectionText.text = $"Direction : {jumpDirection}";
@@ -63,48 +66,36 @@ public class Dice : MonoBehaviour
         }
     }
 
-    // 점프 
+    // 점프 힘 변경
     private void SetJumpForce()
     {
-        if(Input.GetKey(KeyCode.UpArrow) && jumpForce < 500)
+        if(Input.GetKeyDown(KeyCode.UpArrow) && jumpForce < 1000)
         {
-            jumpForce += 50;
+            jumpForce += 100;
         }
 
-        if(Input.GetKey(KeyCode.DownArrow) && jumpForce > 100)
+        if(Input.GetKeyDown(KeyCode.DownArrow) && jumpForce > 300)
         {
-            jumpForce -= 50;
+            jumpForce -= 100;
         }
     }
 
     // 점프
     private void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGround)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(jumpDirection * jumpForce);
         }
-    }
-
-    // 
-    private void CheckGround()
-    {
     }
 
     // 화살표 위치, 각도 설정
     private void SetArrowTransform()
     {
         // 위치
-        if(jumpDirection.x >= 0.5f && jumpDirection.x <= -0.5f)
+        if(jumpDirection.x >= 0.5f || jumpDirection.x <= -0.5f)
         {
-            if(jumpDirection.x > 0)
-            {
-                arrow.transform.localPosition = new Vector2(jumpDirection.x+0.5f, (1-Mathf.Abs(jumpDirection.x))*2);
-            }
-            else
-            {
-                arrow.transform.localPosition = new Vector2(-(jumpDirection.x+0.5f), (1-Mathf.Abs(jumpDirection.x))*2);
-            }
+            arrow.transform.localPosition = jumpDirection.x>0? new Vector2(jumpDirection.x+0.5f, (1-Mathf.Abs(jumpDirection.x))*2) : new Vector2(jumpDirection.x-0.5f, (1-Mathf.Abs(jumpDirection.x))*2);
         }
         else
         {
@@ -113,5 +104,10 @@ public class Dice : MonoBehaviour
 
         // 각도
         arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
+    }
+
+    private void GroundCheck()
+    {
+        Debug.DrawRay(transform.position - new Vector3(0,0.5f,0), new Vector2(0,-0.1f), new Color(1,0,0));
     }
 }
