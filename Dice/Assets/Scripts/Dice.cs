@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
 using System;
 
 public class Dice : MonoBehaviour
@@ -9,6 +8,8 @@ public class Dice : MonoBehaviour
     private TextMeshProUGUI jumpDirectionText;
     [SerializeField]
     private TextMeshProUGUI jumpForceText;
+    [SerializeField]
+    private GameObject arrow;
 
     private Vector2 jumpDirection;
     private float jumpForce = 500f;
@@ -27,6 +28,7 @@ public class Dice : MonoBehaviour
     {
         SetText();
         SetJumpDirection();
+        SetArrowTransform();
         SetJumpForce();
         CheckGround();
         Jump();
@@ -37,6 +39,7 @@ public class Dice : MonoBehaviour
         jumpForceText.text = $"JumpForce : {jumpForce}";
     }
 
+    // 점프 방향 변경
     private void SetJumpDirection()
     {
         if(Input.GetKey(KeyCode.LeftArrow) && jumpDirection.x > -1)
@@ -58,9 +61,9 @@ public class Dice : MonoBehaviour
         {
             jumpDirection = new Vector2(-1, 0);
         }
-
     }
 
+    // 점프 
     private void SetJumpForce()
     {
         if(Input.GetKey(KeyCode.UpArrow) && jumpForce < 500)
@@ -74,6 +77,7 @@ public class Dice : MonoBehaviour
         }
     }
 
+    // 점프
     private void Jump()
     {
         if(Input.GetKeyDown(KeyCode.Space) && isGround)
@@ -82,7 +86,32 @@ public class Dice : MonoBehaviour
         }
     }
 
+    // 
     private void CheckGround()
     {
+    }
+
+    // 화살표 위치, 각도 설정
+    private void SetArrowTransform()
+    {
+        // 위치
+        if(jumpDirection.x >= 0.5f && jumpDirection.x <= -0.5f)
+        {
+            if(jumpDirection.x > 0)
+            {
+                arrow.transform.localPosition = new Vector2(jumpDirection.x+0.5f, (1-Mathf.Abs(jumpDirection.x))*2);
+            }
+            else
+            {
+                arrow.transform.localPosition = new Vector2(-(jumpDirection.x+0.5f), (1-Mathf.Abs(jumpDirection.x))*2);
+            }
+        }
+        else
+        {
+            arrow.transform.localPosition = new Vector2(jumpDirection.x*2, 1.5f-Mathf.Abs(jumpDirection.x));
+        }
+
+        // 각도
+        arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
     }
 }
