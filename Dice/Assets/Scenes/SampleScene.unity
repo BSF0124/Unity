@@ -926,6 +926,10 @@ MonoBehaviour:
   jumpDirectionText: {fileID: 40323151}
   jumpForceText: {fileID: 468425130}
   arrow: {fileID: 2127190838}
+  isGrounded: 1
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &585888367 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4337936994785327160, guid: 7322b50494b561f46bfbb4d99d7ac175, type: 3}

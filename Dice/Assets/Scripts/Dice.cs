@@ -14,25 +14,31 @@ public class Dice : MonoBehaviour
     private Vector2 jumpDirection;              // 점프 방향
     private float jumpForce = 500f;             // 점프 힘
     private float gravity;
+    public bool isGrounded = true;
 
     private Rigidbody2D rb;
-
-    
+    private Collider2D collider2D;
+    public LayerMask collisionLayer;
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        collider2D = GetComponent<Collider2D>();
         jumpDirection = new Vector2(0, 1);
     }
 
     private void Update()
     {
         SetText();
-        SetJumpDirection();
-        SetArrowTransform();
+        RaycastVertical();
         SetJumpForce();
-        GroundCheck();
-        Jump();
+
+        if(isGrounded)
+        {
+            SetJumpDirection();
+            SetArrowTransform();
+            Jump();
+        }
     }
 
     // 텍스트 설정
@@ -85,6 +91,7 @@ public class Dice : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            isGrounded = false;
             rb.AddForce(jumpDirection * jumpForce);
         }
     }
@@ -106,8 +113,27 @@ public class Dice : MonoBehaviour
         arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
     }
 
-    private void GroundCheck()
+    private void RaycastVertical()
     {
-        Debug.DrawRay(transform.position - new Vector3(0,0.5f,0), new Vector2(0,-0.1f), new Color(1,0,0));
+        Vector2 rayPosition;
+        Vector2 direction = Vector2.right;
+        float distance = 1f;
+        RaycastHit2D hit;
+
+        Bounds bounds = collider2D.bounds;
+        bounds.Expand(0.015f * -2);
+
+        rayPosition = new Vector2(bounds.min.x, bounds.min.y-0.1f);
+        hit = Physics2D.Raycast(rayPosition, direction, distance, collisionLayer);
+        Debug.DrawRay(rayPosition, direction*distance, Color.red);
+
+        if(hit)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 }
