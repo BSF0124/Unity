@@ -416,7 +416,9 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Assets/Scripts/Dice.cs"
+"Assets/Scripts/CameraController.cs"
+"Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/StageUI.cs"
 -langversion:9.0
 
 /deterministic
