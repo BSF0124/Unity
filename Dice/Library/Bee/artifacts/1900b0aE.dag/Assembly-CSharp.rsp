@@ -418,7 +418,6 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/PlayerController.cs"
-"Assets/Scripts/StageUI.cs"
 -langversion:9.0
 
 /deterministic

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;                     // rigidbodt2D 컴포넌트
     private Collider2D collider2D;              // collider2D 컴포넌트
     public LayerMask collisionLayer;
+    public TextMeshProUGUI text;
 
     private float deathLimitY = -10;
     
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastVertical();
         SetArrowTransform();
+        text.text = rb.velocity.ToString();
 
         if(transform.position.y <= deathLimitY)
             SceneManager.LoadScene(0);
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
             SetJumpDirection();
 
             if(Input.GetKeyDown(KeyCode.A))
-                StartCoroutine(Jump(jumpForce));
+                StartCoroutine(Jump(700));
             if(Input.GetKeyDown(KeyCode.S))
                 StartCoroutine(DoubleJump());
             if(Input.GetKeyDown(KeyCode.D))
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(RandomJump());
             if(Input.GetKeyDown(KeyCode.W))
                 StartCoroutine(WallJump());
-            if(Input.GetKeyDown(KeyCode.Alpha6))
+            if(Input.GetKeyDown(KeyCode.E))
                 StartCoroutine(SuperJump());
         }
     }
@@ -77,10 +80,7 @@ public class PlayerController : MonoBehaviour
         if(hit)
         {
             isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
+            wallJumpOn = false;
         }
     }
 
@@ -89,24 +89,30 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void RaycastHorizontal()
     {
-        Vector2 rayPosition;
-        Vector2 direction = Vector2.up;
         float distance = 0.9f;
-        RaycastHit2D hit;
-
+        Vector2 direction = Vector2.up;
         Bounds bounds = collider2D.bounds;
 
-        rayPosition = new Vector2(bounds.min.x-0.1f, bounds.min.y+0.05f);
-        hit = Physics2D.Raycast(rayPosition, direction, distance, collisionLayer);
-        Debug.DrawRay(rayPosition, direction*distance, Color.red);
+        Vector2 leftRayPosition;
+        Vector2 rightRayPosition;
 
-        if(hit)
+        RaycastHit2D leftHit;
+        RaycastHit2D rightHit;
+
+        leftRayPosition = new Vector2(bounds.min.x-0.1f, bounds.min.y+0.05f);
+        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, collisionLayer);
+        Debug.DrawRay(leftRayPosition, direction*distance, Color.red);
+
+        rightRayPosition = new Vector2(bounds.max.x+0.1f, bounds.min.y+0.05f);
+        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, collisionLayer);
+        Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
+
+        if(leftHit || rightHit)
         {
-
-        }
-        else
-        {
-
+            wallJumpOn = false;
+            jumpDirection.x *= -1;
+            rb.velocity = new Vector2(0,0);
+            StartCoroutine(Jump(jumpForce));
         }
     }
 
@@ -172,6 +178,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DoubleJump()
     {
         isGrounded = false;
+        jumpForce = 700;
         StartCoroutine(Jump(jumpForce));
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(Jump(jumpForce));
@@ -207,7 +214,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
         StartCoroutine(Jump(jumpForce));
         wallJumpOn = true;
-        yield return new WaitForSeconds(3);
+        yield return null;
     }
 
     /// <summary>
