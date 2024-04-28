@@ -8,18 +8,24 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private GameObject arrow;                   // 점프 방향을 나타내는 이미지 오브젝트
-    [HideInInspector]
-    public Vector2 jumpDirection;               // 점프 방향
-    public float jumpForce = 700;
-    private bool isGrounded = true;             // 점프 조건 체크
-    private bool wallJumpOn = false;
+
+    private Vector2 jumpDirection;              // 점프 방향
+    private float jumpForce = 700;              // 점프 힘
+    
+    private float deathLimitY = -10;            // y좌표 제한
+
+    private bool isGrounded = true;             // 착지 여부 확인    
+    private bool isJumping = false;             // 점프 가능 여부 확인
+    private float jumpCoolDown = 1;             // 점프 쿨타임
+
+    private bool wallJump = false;              // 벽점프 가능 여부 확인
+
     private Rigidbody2D rb;                     // rigidbodt2D 컴포넌트
     private Collider2D collider2D;              // collider2D 컴포넌트
-    public LayerMask collisionLayer;
+    public LayerMask collisionLayer;            // LayerMask
+
     public TextMeshProUGUI text;
 
-    private float deathLimitY = -10;
-    
     // 컴포넌트 초기화
     private void Awake()
     {
@@ -30,33 +36,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        RaycastVertical();
         SetArrowTransform();
         text.text = rb.velocity.ToString();
 
         if(transform.position.y <= deathLimitY)
             SceneManager.LoadScene(0);
 
-        if(wallJumpOn)
+        if(!isGrounded)
+        {
+            RaycastVertical();
+        }
+
+        if(wallJump)
         {
             RaycastHorizontal();
         }
-        if(isGrounded)
+        if(!isJumping)
         {
             SetJumpDirection();
 
-            if(Input.GetKeyDown(KeyCode.A))
-                StartCoroutine(Jump(700));
-            if(Input.GetKeyDown(KeyCode.S))
-                StartCoroutine(DoubleJump());
-            if(Input.GetKeyDown(KeyCode.D))
-                StartCoroutine(LongJump());
-            if(Input.GetKeyDown(KeyCode.Q))
-                StartCoroutine(RandomJump());
-            if(Input.GetKeyDown(KeyCode.W))
-                StartCoroutine(WallJump());
-            if(Input.GetKeyDown(KeyCode.E))
-                StartCoroutine(SuperJump());
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                DoJump();
+            }
         }
     }
 
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if(hit)
         {
             isGrounded = true;
-            wallJumpOn = false;
+            StartCoroutine(JumpCoolDown());
         }
     }
 
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         if(leftHit || rightHit)
         {
-            wallJumpOn = false;
+            wallJump = false;
             jumpDirection.x *= -1;
             rb.velocity = new Vector2(0,0);
             StartCoroutine(Jump(jumpForce));
@@ -131,7 +133,6 @@ public class PlayerController : MonoBehaviour
             jumpDirection.x += 0.01f;
             jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
         }
-
         // 점프 방향 보정
         if(jumpDirection.x > 0.8f)
         {
@@ -157,19 +158,67 @@ public class PlayerController : MonoBehaviour
         {
             arrow.transform.localPosition = new Vector2(jumpDirection.x*2, 1.5f-Mathf.Abs(jumpDirection.x));
         }
-
         // 각도
         arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
     }
 
+    // 점프 메서드
+    private void DoJump()
+    {
+        arrow.SetActive(false);
+        int jumpType = UnityEngine.Random.Range(1,7);
+
+        switch(jumpType)
+        {
+            case 1:
+                print($"{jumpType} : Jump");
+                StartCoroutine(Jump(jumpForce));
+                break;
+
+            case 2:
+                print($"{jumpType} : Double Jump");
+                StartCoroutine(DoubleJump());
+                break;
+
+            case 3:
+                print($"{jumpType} : Long Jump");
+                StartCoroutine(LongJump());
+                break;
+
+            case 4:
+                print($"{jumpType} : Random Jump");
+                StartCoroutine(RandomJump());
+                break;
+
+            case 5:
+                print($"{jumpType} : Wall Jump");
+                StartCoroutine(WallJump());
+                break;
+            
+            case 6:
+                print($"{jumpType} : Super Jump");
+                StartCoroutine(SuperJump());
+                break;
+        }
+    }
+    
+    // 점프 쿨타임 측정 코루틴
+    IEnumerator JumpCoolDown()
+    {
+        yield return new WaitForSeconds(jumpCoolDown);
+        arrow.SetActive(true);
+        isJumping = false;
+    }
+
     /// <summary>
-    /// 점프 (1눈)
+    /// 일반 점프 (1눈)
     /// </summary>
     private IEnumerator Jump(float jumpForce)
     {
-        isGrounded = false;
         rb.AddForce(jumpDirection * jumpForce);
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        isJumping = true;
+        isGrounded = false;
     }
 
     /// <summary>
@@ -177,12 +226,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator DoubleJump()
     {
-        isGrounded = false;
         jumpForce = 700;
         StartCoroutine(Jump(jumpForce));
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(Jump(jumpForce));
         yield return null;
+        isJumping = true;
+        isGrounded = false;
     }
 
     /// <summary>
@@ -190,8 +240,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator LongJump()
     {
-        isGrounded = false;
         yield return null;
+        StartCoroutine(Jump(jumpForce*2));
+        isJumping = true;
+        isGrounded = false;
     }
 
     /// <summary>
@@ -199,11 +251,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator RandomJump()
     {
-        isGrounded = false;
         jumpDirection.x = UnityEngine.Random.Range(-0.8f, 0.8f);
         jumpForce = UnityEngine.Random.Range(500, 1000);
         StartCoroutine(Jump(jumpForce));
         yield return null;
+        isJumping = true;
+        isGrounded = false;
     }
 
     /// <summary>
@@ -211,10 +264,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator WallJump()
     {
-        isGrounded = false;
         StartCoroutine(Jump(jumpForce));
-        wallJumpOn = true;
+        wallJump = true;
         yield return null;
+        isJumping = true;
+        isGrounded = false;
     }
 
     /// <summary>
@@ -222,7 +276,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator SuperJump()
     {
-        isGrounded = false;
         yield return null;
+        StartCoroutine(Jump(jumpForce*3));
+        isJumping = true;
+        isGrounded = false;
     }
 }

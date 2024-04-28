@@ -984,8 +984,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 2127190838}
-  jumpDirection: {x: 0, y: 0}
-  jumpForce: 500
   collisionLayer:
     serializedVersion: 2
     m_Bits: 128
