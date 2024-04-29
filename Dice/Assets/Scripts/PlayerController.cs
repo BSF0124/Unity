@@ -9,19 +9,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject arrow;                   // 점프 방향을 나타내는 이미지 오브젝트
 
-    private Vector2 jumpDirection;              // 점프 방향
+    public Vector2 jumpDirection;              // 점프 방향
     private float jumpForce = 700;              // 점프 힘
     
     private float deathLimitY = -10;            // y좌표 제한
 
     private bool isGrounded = true;             // 착지 여부 확인    
     private bool isJumping = false;             // 점프 가능 여부 확인
-    private float jumpCoolDown = 1;             // 점프 쿨타임
+    private float jumpCoolDown = 0.25f;             // 점프 쿨타임
 
     private bool wallJump = false;              // 벽점프 가능 여부 확인
 
     private Rigidbody2D rb;                     // rigidbodt2D 컴포넌트
-    private Collider2D collider2D;              // collider2D 컴포넌트
+    private Collider2D coll;              // collider2D 컴포넌트
     public LayerMask collisionLayer;            // LayerMask
 
     public TextMeshProUGUI text;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        collider2D = GetComponent<Collider2D>();
+        coll = GetComponent<Collider2D>();
         jumpDirection = new Vector2(0, 1);
     }
 
@@ -42,15 +42,9 @@ public class PlayerController : MonoBehaviour
         if(transform.position.y <= deathLimitY)
             SceneManager.LoadScene(0);
 
-        if(!isGrounded)
-        {
-            RaycastVertical();
-        }
+        RaycastVertical();
+        RaycastHorizontal();
 
-        if(wallJump)
-        {
-            RaycastHorizontal();
-        }
         if(!isJumping)
         {
             SetJumpDirection();
@@ -72,14 +66,14 @@ public class PlayerController : MonoBehaviour
         float distance = 0.9f;
         RaycastHit2D hit;
 
-        Bounds bounds = collider2D.bounds;
+        Bounds bounds = coll.bounds;
         // bounds.Expand(0.015f * -2);
 
-        rayPosition = new Vector2(bounds.min.x+0.05f, bounds.min.y-0.1f);
+        rayPosition = new Vector2(bounds.min.x+0.05f, bounds.min.y);
         hit = Physics2D.Raycast(rayPosition, direction, distance, collisionLayer);
         Debug.DrawRay(rayPosition, direction*distance, Color.red);
 
-        if(hit)
+        if(hit && !isGrounded)
         {
             isGrounded = true;
             StartCoroutine(JumpCoolDown());
@@ -93,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         float distance = 0.9f;
         Vector2 direction = Vector2.up;
-        Bounds bounds = collider2D.bounds;
+        Bounds bounds = coll.bounds;
 
         Vector2 leftRayPosition;
         Vector2 rightRayPosition;
@@ -101,20 +95,21 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D leftHit;
         RaycastHit2D rightHit;
 
-        leftRayPosition = new Vector2(bounds.min.x-0.1f, bounds.min.y+0.05f);
+        leftRayPosition = new Vector2(bounds.min.x, bounds.min.y+0.05f);
         leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, collisionLayer);
-        Debug.DrawRay(leftRayPosition, direction*distance, Color.red);
+        Debug.DrawRay(leftRayPosition, direction*distance, Color.blue);
 
-        rightRayPosition = new Vector2(bounds.max.x+0.1f, bounds.min.y+0.05f);
+        rightRayPosition = new Vector2(bounds.max.x, bounds.min.y+0.05f);
         rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, collisionLayer);
         Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
 
-        if(leftHit || rightHit)
+        if((leftHit || rightHit) && wallJump)
         {
             wallJump = false;
             jumpDirection.x *= -1;
             rb.velocity = new Vector2(0,0);
             StartCoroutine(Jump(jumpForce));
+            jumpDirection.x *= -1;
         }
     }
 
@@ -163,10 +158,11 @@ public class PlayerController : MonoBehaviour
     }
 
     // 점프 메서드
-    private void DoJump()
+    public void DoJump()
     {
         arrow.SetActive(false);
-        int jumpType = UnityEngine.Random.Range(1,7);
+        // int jumpType = UnityEngine.Random.Range(1,7);
+        int jumpType = 3;
 
         switch(jumpType)
         {
@@ -181,8 +177,8 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case 3:
-                print($"{jumpType} : Long Jump");
-                StartCoroutine(LongJump());
+                print($"{jumpType} : Clone");
+                StartCoroutine(Clone());
                 break;
 
             case 4:
@@ -236,14 +232,11 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 롱 점프 (3눈)
+    /// 클론 생성 (3눈)
     /// </summary>
-    private IEnumerator LongJump()
+    private IEnumerator Clone()
     {
         yield return null;
-        StartCoroutine(Jump(jumpForce*2));
-        isJumping = true;
-        isGrounded = false;
     }
 
     /// <summary>
@@ -277,7 +270,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SuperJump()
     {
         yield return null;
-        StartCoroutine(Jump(jumpForce*3));
+        StartCoroutine(Jump(jumpForce*2));
         isJumping = true;
         isGrounded = false;
     }
