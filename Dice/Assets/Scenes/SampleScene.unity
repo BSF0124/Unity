@@ -1114,7 +1114,7 @@ Transform:
   m_GameObject: {fileID: 535901434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.22, y: -3.14, z: 0}
+  m_LocalPosition: {x: -8.72, y: -3.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1133,8 +1133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f07b141f743a949ae9f071cad2caa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 1018448985}
   arrow: {fileID: 2127190838}
   jumpDirection: {x: 0, y: 0}
+  isJumping: 0
+  isGrounded: 1
   collisionLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1492,8 +1495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f041dde7adaa274080360b0f9a3aad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 519420033}
   playerController: {fileID: 535901439}
-  cloneDicePrefab: {fileID: 1974581044706854159, guid: 7322b50494b561f46bfbb4d99d7ac175, type: 3}
+  cloneDicePrefab: {fileID: 4684661413828608529, guid: af9f4959090a60a4888c4562f84c056d, type: 3}
   rollingDicePanel: {fileID: 891740748}
   cloneDicePanel: {fileID: 1398880350}
   cloneDiceIamges:

@@ -3,9 +3,13 @@ using UnityEngine;
 
 public class CloneDice : MonoBehaviour
 {
+
+    [HideInInspector]
     public Vector2 jumpDirection;
     private float jumpForce = 700;
+
     private bool wallJump = false;
+
     private Rigidbody2D rb;
     private Collider2D coll;
     public LayerMask collisionLayer;
@@ -20,27 +24,60 @@ public class CloneDice : MonoBehaviour
     {
         RaycastHorizontal();
     }
+
+    /// <summary>
+    /// 벽 충돌 감지
+    /// </summary>
+    private void RaycastHorizontal()
+    {
+        float distance = 0.9f;
+        Vector2 direction = Vector2.up;
+        Bounds bounds = coll.bounds;
+
+        Vector2 leftRayPosition;
+        Vector2 rightRayPosition;
+
+        RaycastHit2D leftHit;
+        RaycastHit2D rightHit;
+
+        leftRayPosition = new Vector2(bounds.min.x, bounds.min.y+0.05f);
+        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, collisionLayer);
+        Debug.DrawRay(leftRayPosition, direction*distance, Color.blue);
+
+        rightRayPosition = new Vector2(bounds.max.x, bounds.min.y+0.05f);
+        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, collisionLayer);
+        Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
+
+        if((leftHit || rightHit) && wallJump)
+        {
+            wallJump = false;
+            jumpDirection.x *= -1;
+            rb.velocity = new Vector2(0,0);
+            StartCoroutine(Jump(jumpForce));
+            jumpDirection.x *= -1;
+        }
+    }
+
+    /// <summary>
+    /// 점프 메서드
+    /// </summary>
     public void DoJump(int jumpType)
     {
         switch(jumpType)
         {
             case 0:
-                print($"{jumpType} : Jump");
                 StartCoroutine(Jump(jumpForce));
                 break;
 
             case 1:
-                print($"{jumpType} : Double Jump");
                 StartCoroutine(DoubleJump());
                 break;
 
             case 2:
-                print($"{jumpType} : Wall Jump");
                 StartCoroutine(WallJump());
                 break;
             
             case 3:
-                print($"{jumpType} : Super Jump");
                 StartCoroutine(SuperJump());
                 break;
         }
@@ -82,40 +119,7 @@ public class CloneDice : MonoBehaviour
     /// </summary>
     private IEnumerator SuperJump()
     {
-        yield return null;
         StartCoroutine(Jump(jumpForce*2));
-    }
-
-    /// <summary>
-    /// 벽 충돌 감지
-    /// </summary>
-    private void RaycastHorizontal()
-    {
-        float distance = 0.9f;
-        Vector2 direction = Vector2.up;
-        Bounds bounds = coll.bounds;
-
-        Vector2 leftRayPosition;
-        Vector2 rightRayPosition;
-
-        RaycastHit2D leftHit;
-        RaycastHit2D rightHit;
-
-        leftRayPosition = new Vector2(bounds.min.x, bounds.min.y+0.05f);
-        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, collisionLayer);
-        Debug.DrawRay(leftRayPosition, direction*distance, Color.blue);
-
-        rightRayPosition = new Vector2(bounds.max.x, bounds.min.y+0.05f);
-        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, collisionLayer);
-        Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
-
-        if((leftHit || rightHit) && wallJump)
-        {
-            wallJump = false;
-            jumpDirection.x *= -1;
-            rb.velocity = new Vector2(0,0);
-            StartCoroutine(Jump(jumpForce));
-            jumpDirection.x *= -1;
-        }
+        yield return null;
     }
 }

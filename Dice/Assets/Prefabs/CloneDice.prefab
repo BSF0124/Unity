@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0d7eed60f83604f82883cd2792dc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpDirection: {x: 0, y: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!61 &5047098752418223508
 BoxCollider2D:
   m_ObjectHideFlags: 0
