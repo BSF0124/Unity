@@ -2,37 +2,33 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private UIManager uiManager;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private GameObject arrow;      // 점프 방향을 나타내는 이미지 오브젝트
 
-    [SerializeField]
-    private GameObject arrow;                   // 점프 방향을 나타내는 이미지 오브젝트
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float radious;
+    [SerializeField] private LayerMask groundLayer; // LayerMask
 
     [HideInInspector]
     public Vector2 jumpDirection;              // 점프 방향
     private float jumpForce = 700;              // 점프 힘
-    
-    private float deathLimitY = -10;            // y좌표 제한
 
-    // [HideInInspector]
-    public bool isJumping = false;             // 점프 가능 여부 확인
-    // [HideInInspector]
-    public bool isGrounded = true;             // 착지 여부 확인    
-    private float jumpCoolDown = 0.25f;         // 점프 쿨타임
-
+    public bool isJumping = false;             // 점프중인지 체크
     private bool wallJump = false;              // 벽점프 가능 여부 확인
 
+    private float jumpCoolDown = 0.5f;         // 점프 쿨타임
+    private float jumpCoolDownCounter;
+
+    private float deathLimitY = -10;            // y좌표 제한
+
+    private bool isFacingRight = true;
+    
     private Rigidbody2D rb;                     // rigidbodt2D 컴포넌트
     private Collider2D coll;              // collider2D 컴포넌트
-    public LayerMask collisionLayer;            // LayerMask
 
-    public TextMeshProUGUI text;
-
-    // 컴포넌트 초기화
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,15 +39,21 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SetArrowTransform();
-        text.text = rb.velocity.ToString();
+        RaycastHorizontal();
 
         if(transform.position.y <= deathLimitY)
             SceneManager.LoadScene(0);
 
-        RaycastVertical();
-        RaycastHorizontal();
-
         if(!isJumping)
+        {
+            jumpCoolDownCounter -= Time.deltaTime;
+        }
+        else
+        {
+            jumpCoolDownCounter = jumpCoolDown;
+        }
+
+        if(jumpCoolDownCounter <= 0f)
         {
             SetJumpDirection();
 
@@ -59,31 +61,45 @@ public class PlayerController : MonoBehaviour
             {
                 DoJump();
             }
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(Jump(jumpForce));
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(DoubleJump());;
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(Clone());
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(RandomJump());
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(WallJump());
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(SuperJump());
+            }
+        }
+    }
+    
+    private void OnCollisionStay2D(Collision2D other) 
+    {
+        if(rb.velocity.x <= 0f && rb.velocity.y <= 0f)
+        {
+            isJumping = false;
         }
     }
 
-    /// <summary>
-    /// 바닥 충돌 감지
-    /// </summary>
-    private void RaycastVertical()
+    private void OnCollisionExit2D(Collision2D other) 
     {
-        Vector2 rayPosition;
-        Vector2 direction = Vector2.right;
-        float distance = 0.9f;
-        RaycastHit2D hit;
-
-        Bounds bounds = coll.bounds;
-        // bounds.Expand(0.015f * -2);
-
-        rayPosition = new Vector2(bounds.min.x+0.05f, bounds.min.y);
-        hit = Physics2D.Raycast(rayPosition, direction, distance, collisionLayer);
-        Debug.DrawRay(rayPosition, direction*distance, Color.red);
-
-        if(hit && !isGrounded)
-        {
-            isGrounded = true;
-            StartCoroutine(JumpCoolDown());
-        }
+        isJumping = true;
     }
 
     /// <summary>
@@ -102,11 +118,11 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rightHit;
 
         leftRayPosition = new Vector2(bounds.min.x, bounds.min.y+0.05f);
-        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, collisionLayer);
+        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, groundLayer);
         Debug.DrawRay(leftRayPosition, direction*distance, Color.blue);
 
         rightRayPosition = new Vector2(bounds.max.x, bounds.min.y+0.05f);
-        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, collisionLayer);
+        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, groundLayer);
         Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
 
         if((leftHit || rightHit) && wallJump)
@@ -124,12 +140,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void SetJumpDirection()
     {
-        if(Input.GetKey(KeyCode.LeftArrow) && jumpDirection.x > -1)
+        if(Input.GetKey(KeyCode.LeftArrow) && jumpDirection.x > -0.8)
         {
             jumpDirection.x += -0.01f;
             jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
         }
-        if(Input.GetKey(KeyCode.RightArrow) && jumpDirection.x < 1)
+        if(Input.GetKey(KeyCode.RightArrow) && jumpDirection.x < 0.8)
         {
             jumpDirection.x += 0.01f;
             jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
@@ -150,17 +166,32 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void SetArrowTransform()
     {
-        // 위치
-        if(jumpDirection.x >= 0.5f || jumpDirection.x <= -0.5f)
+        if(jumpCoolDownCounter <= 0f)
         {
-            arrow.transform.localPosition = jumpDirection.x>0? new Vector2(jumpDirection.x+0.5f, (1-Mathf.Abs(jumpDirection.x))*2) : new Vector2(jumpDirection.x-0.5f, (1-Mathf.Abs(jumpDirection.x))*2);
+            arrow.SetActive(true);
+            
+            // 위치
+            if(jumpDirection.x >= 0.5f || jumpDirection.x <= -0.5f)
+            {
+                arrow.transform.localPosition = jumpDirection.x>0? new Vector2(jumpDirection.x+0.5f, (1-Mathf.Abs(jumpDirection.x))*2) : new Vector2(jumpDirection.x-0.5f, (1-Mathf.Abs(jumpDirection.x))*2);
+            }
+            else
+            {
+                arrow.transform.localPosition = new Vector2(jumpDirection.x*2, 1.5f-Mathf.Abs(jumpDirection.x));
+            }
+
+            // 각도
+            arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
         }
         else
         {
-            arrow.transform.localPosition = new Vector2(jumpDirection.x*2, 1.5f-Mathf.Abs(jumpDirection.x));
+            arrow.SetActive(false);
         }
-        // 각도
-        arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
+    }
+
+    private void Flip()
+    {
+        // if(isFacingRight && rb.velocity)
     }
 
     // 점프 메서드
@@ -168,7 +199,6 @@ public class PlayerController : MonoBehaviour
     {
         arrow.SetActive(false);
         int jumpType = UnityEngine.Random.Range(1,7);
-        // int jumpType = 3;
 
         switch(jumpType)
         {
@@ -203,14 +233,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    
-    // 점프 쿨타임 측정 코루틴
-    IEnumerator JumpCoolDown()
-    {
-        yield return new WaitForSeconds(jumpCoolDown);
-        arrow.SetActive(true);
-        isJumping = false;
-    }
 
     /// <summary>
     /// 일반 점프 (1눈)
@@ -219,8 +241,6 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(jumpDirection * jumpForce);
         yield return new WaitForSeconds(0.1f);
-        isJumping = true;
-        isGrounded = false;
     }
 
     /// <summary>
@@ -239,8 +259,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator Clone()
     {
-        yield return null;
         isJumping = true;
+        yield return null;
         uiManager.cloneDicePanelOnOff();
 
     }

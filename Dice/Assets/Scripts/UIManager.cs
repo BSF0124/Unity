@@ -124,8 +124,7 @@ public class UIManager : MonoBehaviour
         Destroy(cloneDiceObj);
 
         yield return StartCoroutine(mainCamera.SetCameraSize(false));
-
-        playerController.isGrounded = true;
+        
         playerController.isJumping = false;
     }
 }
