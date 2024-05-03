@@ -1,138 +1,66 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject arrow;      // 점프 방향을 나타내는 이미지 오브젝트
 
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float radious;
-    [SerializeField] private LayerMask groundLayer; // LayerMask
-
     [HideInInspector]
     public Vector2 jumpDirection;              // 점프 방향
-    private float jumpForce = 700;              // 점프 힘
+    private float jumpForce = 700;             // 점프 힘
 
     public bool isJumping = false;             // 점프중인지 체크
-    private bool wallJump = false;              // 벽점프 가능 여부 확인
 
-    private float jumpCoolDown = 0.5f;         // 점프 쿨타임
-    private float jumpCoolDownCounter;
+    private float jumpCoolDownTime = 3f;         // 점프 쿨타임
+    private float lastJumpTime;
+    float currentTime;
 
-    private float deathLimitY = -10;            // y좌표 제한
-
-    private bool isFacingRight = true;
+    private float deathLimitY = -10;           // y좌표 제한
     
-    private Rigidbody2D rb;                     // rigidbodt2D 컴포넌트
-    private Collider2D coll;              // collider2D 컴포넌트
+    private Rigidbody2D rb;               // rigidbodt2D 컴포넌트
+    public TextMeshProUGUI text;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
         jumpDirection = new Vector2(0, 1);
     }
 
     private void Update()
     {
+        text.text = rb.velocity.ToString();
         SetArrowTransform();
-        RaycastHorizontal();
 
         if(transform.position.y <= deathLimitY)
             SceneManager.LoadScene(0);
 
+        currentTime = Time.time;
+
         if(!isJumping)
         {
-            jumpCoolDownCounter -= Time.deltaTime;
+            if(currentTime - lastJumpTime > jumpCoolDownTime)
+            {
+                SetJumpDirection();
+
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    DoJump();
+                }
+            }
         }
         else
         {
-            jumpCoolDownCounter = jumpCoolDown;
-        }
-
-        if(jumpCoolDownCounter <= 0f)
-        {
-            SetJumpDirection();
-
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                DoJump();
-            }
-
-            if(Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                StartCoroutine(Jump(jumpForce));
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                StartCoroutine(DoubleJump());;
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                StartCoroutine(Clone());
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                StartCoroutine(RandomJump());
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                StartCoroutine(WallJump());
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                StartCoroutine(SuperJump());
-            }
-        }
-    }
-    
-    private void OnCollisionStay2D(Collision2D other) 
-    {
-        if(rb.velocity.x <= 0f && rb.velocity.y <= 0f)
-        {
-            isJumping = false;
+            lastJumpTime = currentTime;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other) 
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        isJumping = true;
-    }
-
-    /// <summary>
-    /// 벽 충돌 감지
-    /// </summary>
-    private void RaycastHorizontal()
-    {
-        float distance = 0.9f;
-        Vector2 direction = Vector2.up;
-        Bounds bounds = coll.bounds;
-
-        Vector2 leftRayPosition;
-        Vector2 rightRayPosition;
-
-        RaycastHit2D leftHit;
-        RaycastHit2D rightHit;
-
-        leftRayPosition = new Vector2(bounds.min.x, bounds.min.y+0.05f);
-        leftHit = Physics2D.Raycast(leftRayPosition, direction, distance, groundLayer);
-        Debug.DrawRay(leftRayPosition, direction*distance, Color.blue);
-
-        rightRayPosition = new Vector2(bounds.max.x, bounds.min.y+0.05f);
-        rightHit = Physics2D.Raycast(rightRayPosition, direction, distance, groundLayer);
-        Debug.DrawRay(rightRayPosition, direction*distance, Color.red);
-
-        if((leftHit || rightHit) && wallJump)
-        {
-            wallJump = false;
-            jumpDirection.x *= -1;
-            rb.velocity = new Vector2(0,0);
-            StartCoroutine(Jump(jumpForce));
-            jumpDirection.x *= -1;
-        }
+        isJumping = false;
     }
 
     /// <summary>
@@ -166,7 +94,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void SetArrowTransform()
     {
-        if(jumpCoolDownCounter <= 0f)
+        if(currentTime - lastJumpTime > jumpCoolDownTime)
         {
             arrow.SetActive(true);
             
@@ -189,49 +117,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Flip()
-    {
-        // if(isFacingRight && rb.velocity)
-    }
-
     // 점프 메서드
     public void DoJump()
     {
-        arrow.SetActive(false);
-        int jumpType = UnityEngine.Random.Range(1,7);
-
-        switch(jumpType)
-        {
-            case 1:
-                print($"{jumpType} : Jump");
-                StartCoroutine(Jump(jumpForce));
-                break;
-
-            case 2:
-                print($"{jumpType} : Double Jump");
-                StartCoroutine(DoubleJump());
-                break;
-
-            case 3:
-                print($"{jumpType} : Clone");
-                StartCoroutine(Clone());
-                break;
-
-            case 4:
-                print($"{jumpType} : Random Jump");
-                StartCoroutine(RandomJump());
-                break;
-
-            case 5:
-                print($"{jumpType} : Wall Jump");
-                StartCoroutine(WallJump());
-                break;
-            
-            case 6:
-                print($"{jumpType} : Super Jump");
-                StartCoroutine(SuperJump());
-                break;
-        }
+        rb.AddForce(jumpDirection * jumpForce);
+        isJumping = true;
+        lastJumpTime = Time.time;
     }
 
     /// <summary>
@@ -283,7 +174,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return null;
         StartCoroutine(Jump(jumpForce));
-        wallJump = true;
+        isWallJumping = true;
     }
 
     /// <summary>
