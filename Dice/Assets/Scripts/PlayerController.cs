@@ -6,22 +6,26 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private GameObject arrow;      // 점프 방향을 나타내는 이미지 오브젝트
-
-    [HideInInspector]
-    public Vector2 jumpDirection;              // 점프 방향
-    private float jumpForce = 700;             // 점프 힘
-
-    public bool isJumping = false;             // 점프중인지 체크
-
-    private float jumpCoolDownTime = 3f;         // 점프 쿨타임
-    private float lastJumpTime;
-    float currentTime;
-
-    private float deathLimitY = -10;           // y좌표 제한
+    [SerializeField] private UIManager uiManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
+    [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
     
-    private Rigidbody2D rb;               // rigidbodt2D 컴포넌트
+    [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크 트랜스폼
+    [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크 트랜스폼
+    [SerializeField] private float radious = 0.2f;
+    [SerializeField] private LayerMask wallLayer;
+    
+    [HideInInspector] public Vector2 jumpDirection;     // 점프 방향
+    [HideInInspector] public bool isCloneJumping = false;
+    private bool isJumping = false;                     // 점프중인지 체크
+    private bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    private float jumpForce = 700;                      // 점프 힘
+    private float jumpCoolDownTime = 1f;              // 점프 쿨타임
+    private float lastJumpTime;                         // 마지막으로 점프한 시간
+    private float currentTime;                          // 현재 시간
+    private float deathLimitY = -10;                    // y좌표 제한
+
+    private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
+
     public TextMeshProUGUI text;
 
     private void Awake()
@@ -40,16 +44,27 @@ public class PlayerController : MonoBehaviour
 
         currentTime = Time.time;
 
-        if(!isJumping)
+        if(!isJumping && !isCloneJumping)
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
             {
                 SetJumpDirection();
-
+                isWallJumping = false;
                 if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    DoJump();
-                }
+                {DoJump();}
+                
+                if(Input.GetKeyDown(KeyCode.Alpha1))
+                {StartCoroutine(Jump(jumpForce));}
+                if(Input.GetKeyDown(KeyCode.Alpha2))
+                {StartCoroutine(DoubleJump());}
+                if(Input.GetKeyDown(KeyCode.Alpha3))
+                {StartCoroutine(Clone());}
+                if(Input.GetKeyDown(KeyCode.Alpha4))
+                {StartCoroutine(RandomJump());}
+                if(Input.GetKeyDown(KeyCode.Alpha5))
+                {StartCoroutine(WallJump());}
+                if(Input.GetKeyDown(KeyCode.Alpha6))
+                {StartCoroutine(SuperJump());}
             }
         }
         else
@@ -58,9 +73,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    // 땅 위에 있으면 isJumping = false
+    private void OnCollisionStay2D(Collision2D other)
     {
         isJumping = false;
+    }
+
+    // 땅에서 벗어나면 isJumping = true
+    private void OnCollisionExit2D(Collision2D other) 
+    {
+        isJumping = true;
+    }
+
+    // 벽점프
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(IsWalled() && isWallJumping)
+        {
+            isWallJumping = false;
+            jumpDirection.x *= -1;
+            rb.velocity = new Vector2(0,0);
+            StartCoroutine(Jump(jumpForce));
+            jumpDirection.x *= -1;
+        }
+    }
+
+    // 벽에 닿았는지 확인하는 메서드(벽에 닿았으면 true 리턴)
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(leftwallCheck.position, radious, wallLayer) || Physics2D.OverlapCircle(rightwallCheck.position, radious, wallLayer);
     }
 
     /// <summary>
@@ -94,7 +135,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void SetArrowTransform()
     {
-        if(currentTime - lastJumpTime > jumpCoolDownTime)
+        if(!isJumping && !isCloneJumping && currentTime - lastJumpTime > jumpCoolDownTime)
         {
             arrow.SetActive(true);
             
@@ -120,9 +161,40 @@ public class PlayerController : MonoBehaviour
     // 점프 메서드
     public void DoJump()
     {
-        rb.AddForce(jumpDirection * jumpForce);
-        isJumping = true;
-        lastJumpTime = Time.time;
+        int jumpType = UnityEngine.Random.Range(1,7);
+
+        switch(jumpType)
+        {
+            case 1:
+                print($"{jumpType} : Jump");
+                StartCoroutine(Jump(jumpForce));
+                break;
+
+            case 2:
+                print($"{jumpType} : Double Jump");
+                StartCoroutine(DoubleJump());
+                break;
+
+            case 3:
+                print($"{jumpType} : Clone");
+                StartCoroutine(Clone());
+                break;
+
+            case 4:
+                print($"{jumpType} : Random Jump");
+                StartCoroutine(RandomJump());
+                break;
+
+            case 5:
+                print($"{jumpType} : Wall Jump");
+                StartCoroutine(WallJump());
+                break;
+            
+            case 6:
+                print($"{jumpType} : Super Jump");
+                StartCoroutine(SuperJump());
+                break;
+        }
     }
 
     /// <summary>
@@ -130,6 +202,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator Jump(float jumpForce)
     {
+        isJumping = true;
+        lastJumpTime = Time.time;
         rb.AddForce(jumpDirection * jumpForce);
         yield return new WaitForSeconds(0.1f);
     }
@@ -142,6 +216,7 @@ public class PlayerController : MonoBehaviour
         jumpForce = 700;
         StartCoroutine(Jump(jumpForce));
         yield return new WaitForSeconds(0.5f);
+        rb.velocity = Vector3.zero;
         StartCoroutine(Jump(jumpForce));
     }
 
@@ -150,7 +225,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator Clone()
     {
-        isJumping = true;
+        isCloneJumping = true;
         yield return null;
         uiManager.cloneDicePanelOnOff();
 
@@ -173,8 +248,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator WallJump()
     {
         yield return null;
-        StartCoroutine(Jump(jumpForce));
         isWallJumping = true;
+        StartCoroutine(Jump(jumpForce));
     }
 
     /// <summary>
@@ -183,6 +258,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SuperJump()
     {
         yield return null;
-        StartCoroutine(Jump(jumpForce*2));
+        StartCoroutine(Jump(jumpForce*1.5f));
     }
 }

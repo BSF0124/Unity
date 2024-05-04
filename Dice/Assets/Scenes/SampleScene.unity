@@ -549,6 +549,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &338724700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 338724701}
+  m_Layer: 6
+  m_Name: LeftWallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &338724701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338724700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 535901438}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386791457
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,9 +842,9 @@ GameObject:
   m_Component:
   - component: {fileID: 535901438}
   - component: {fileID: 535901437}
-  - component: {fileID: 535901439}
   - component: {fileID: 535901436}
   - component: {fileID: 535901435}
+  - component: {fileID: 535901439}
   m_Layer: 6
   m_Name: Dice
   m_TagString: Untagged
@@ -963,6 +994,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2127190839}
+  - {fileID: 338724701}
   - {fileID: 1064995916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -980,13 +1012,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1018448985}
   arrow: {fileID: 2127190838}
-  wallCheck: {fileID: 1064995916}
+  leftwallCheck: {fileID: 338724701}
+  rightwallCheck: {fileID: 1064995916}
   radious: 0.2
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
   jumpDirection: {x: 0, y: 0}
-  isJumping: 0
+  isCloneJumping: 0
   text: {fileID: 1959751005}
 --- !u!4 &585888367 stripped
 Transform:
@@ -1252,9 +1285,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1018448984}
   - component: {fileID: 1018448983}
-  - component: {fileID: 1018448985}
   - component: {fileID: 1018448982}
   - component: {fileID: 1018448981}
+  - component: {fileID: 1018448985}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1361,10 +1394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 519420033}
   playerController: {fileID: 535901439}
-  cloneDicePrefab: {fileID: 4684661413828608529, guid: af9f4959090a60a4888c4562f84c056d, type: 3}
+  cloneDicePrefab: {fileID: 162546818171930925, guid: af9f4959090a60a4888c4562f84c056d, type: 3}
   rollingDicePanel: {fileID: 891740748}
   cloneDicePanel: {fileID: 1398880350}
-  cloneDiceIamges:
+  cloneDiceImages:
   - {fileID: 1911668051}
   - {fileID: 315783399}
   - {fileID: 1402220574}
@@ -1379,7 +1412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1064995916}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: RightWallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

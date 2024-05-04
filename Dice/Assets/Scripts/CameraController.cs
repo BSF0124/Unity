@@ -3,28 +3,35 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject dice;
     private Camera mainCamera;
 
+    public GameObject dice;         // 플레이어
+    private GameObject diceObject;  // 카메라가 추적할 오브젝트        
+
     private float start = 7.5f;
-    private float end = 10f;
+    private float end = 15f;
     private float duration = 0.1f;
 
     private void Awake()
     {
         mainCamera = GetComponent<Camera>();
+        diceObject = dice;
     }
 
     private void Update()
     {
-        SetCameraPosition(dice);
+        SetCameraPosition();
     }
 
-    public void SetCameraPosition(GameObject diceObject)
+    public void SetCameraPosition()
     {
         Vector3 position = new Vector3(diceObject.transform.position.x, diceObject.transform.position.y, -10);
         transform.position = position;
+    }
+
+    public void SetDiceObject(GameObject newDice)
+    {
+        diceObject = newDice;
     }
 
     public IEnumerator SetCameraSize(bool sizeUp)

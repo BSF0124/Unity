@@ -4,25 +4,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    private CameraController mainCamera;
-    [SerializeField]
-    private PlayerController playerController;
-    [SerializeField]
-    private GameObject cloneDicePrefab;
-    [SerializeField]
-    private GameObject rollingDicePanel;        // 주사위 굴리기 패널  
-    [SerializeField]
-    private GameObject cloneDicePanel;          // 클론 주사위 패널   
-    [SerializeField]
-    private Image[] cloneDiceIamges = new Image[4];   // 클론 주사위 이미지 배열
+    [SerializeField] private CameraController mainCamera;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameObject cloneDicePrefab;
+    [SerializeField] private GameObject rollingDicePanel;        // 주사위 굴리기 패널  
+    [SerializeField] private GameObject cloneDicePanel;          // 클론 주사위 패널   
+    [SerializeField] private Image[] cloneDiceImages = new Image[4];   // 클론 주사위 이미지 배열
 
     private GameObject cloneDiceObj;
     private int currentDice = 0;                // 선택된 클론 주사위
-
-    private void Awake()
-    {
-    }
 
     private void Update()
     {
@@ -58,10 +48,10 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             if(i == currentDice)
-                cloneDiceIamges[i].color = Color.green;
+                cloneDiceImages[i].color = Color.green;
 
             else
-                cloneDiceIamges[i].color = Color.white;
+                cloneDiceImages[i].color = Color.white;
         }
     }
 
@@ -107,24 +97,16 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return))
         {
             cloneDicePanelOnOff();
-            StartCoroutine(CloneDiceJump());
+            StartCoroutine(CreateClone());
         }
     }
 
-    private IEnumerator CloneDiceJump()
+    private IEnumerator CreateClone()
     {
         yield return StartCoroutine(mainCamera.SetCameraSize(true));
-
-        cloneDiceObj = Instantiate(cloneDicePrefab, 
-        playerController.transform.position, Quaternion.identity);
+        cloneDiceObj = Instantiate(cloneDicePrefab, playerController.transform.position, Quaternion.identity);
         cloneDiceObj.GetComponent<CloneDice>().jumpDirection = playerController.jumpDirection;
+        mainCamera.SetDiceObject(cloneDiceObj);
         cloneDiceObj.GetComponent<CloneDice>().DoJump(currentDice);
-
-        yield return new WaitForSeconds(3f);
-        Destroy(cloneDiceObj);
-
-        yield return StartCoroutine(mainCamera.SetCameraSize(false));
-        
-        playerController.isJumping = false;
     }
 }
