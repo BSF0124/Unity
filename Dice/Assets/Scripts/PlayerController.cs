@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
 
+    private bool isCoroutineRun = false;
     public TextMeshProUGUI text;
 
     private void Awake()
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
         text.text = rb.velocity.ToString();
         SetArrowTransform();
 
@@ -43,6 +46,8 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(0);
 
         currentTime = Time.time;
+
+        if(isCoroutineRun) {return;}
 
         if(!isJumping && !isCloneJumping)
         {
@@ -228,7 +233,6 @@ public class PlayerController : MonoBehaviour
         isCloneJumping = true;
         yield return null;
         uiManager.cloneDicePanelOnOff();
-
     }
 
     /// <summary>
@@ -236,10 +240,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private IEnumerator RandomJump()
     {
-        yield return null;
-        jumpDirection.x = UnityEngine.Random.Range(-0.8f, 0.8f);
+        isCoroutineRun = true;
+        yield return StartCoroutine(ArrowBackandForth());
+        yield return StartCoroutine(ArrowBackandForth());
+
+        float direction = UnityEngine.Random.Range(-0.8f, 0.8f);
         jumpForce = UnityEngine.Random.Range(500, 1000);
+
+        yield return StartCoroutine(SetArrowCoroutine(direction));
+
         StartCoroutine(Jump(jumpForce));
+        isCoroutineRun = false;
     }
 
     /// <summary>
@@ -259,5 +270,36 @@ public class PlayerController : MonoBehaviour
     {
         yield return null;
         StartCoroutine(Jump(jumpForce*1.5f));
+    }
+
+
+    // 화살표 이동 코루틴
+    private IEnumerator SetArrowCoroutine(float direction)
+    {
+        while(jumpDirection.x >= direction)
+        {
+            jumpDirection.x -= 0.1f;
+            yield return null;
+        }
+        jumpDirection.x = direction;
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    private IEnumerator ArrowBackandForth()
+    {
+        while(jumpDirection.x > -0.8f)
+        {
+            jumpDirection.x -= 0.1f;
+            yield return null;
+        }
+        jumpDirection.x = -0.8f;
+
+        while(jumpDirection.x < 0.8f)
+        {
+            jumpDirection.x += 0.1f;
+            yield return null;
+        }
+        jumpDirection.x = 0.8f;
     }
 }
