@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -2165808416186281336, guid: 6ce243f99451d264aab170772d12697d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,14 +104,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0d7eed60f83604f82883cd2792dc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  playerController: {fileID: 0}
   leftwallCheck: {fileID: 1733294394287030666}
   rightwallCheck: {fileID: 483683685407066418}
   radious: 0.2
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  diceImages:
+  - {fileID: -2165808416186281336, guid: 6ce243f99451d264aab170772d12697d, type: 3}
+  - {fileID: -418678913202170186, guid: 9c64ca37ec3cecd4ab29387b12b4f494, type: 3}
+  - {fileID: 2360226604868353026, guid: 317a3bc39aab4d641b09a9128b4728a6, type: 3}
+  - {fileID: 3383016452190782798, guid: 9df85f6841870da429f5709ec2d5a0cf, type: 3}
   jumpDirection: {x: 0, y: 0}
 --- !u!61 &7550907724976166604
 BoxCollider2D:

@@ -6,16 +6,28 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private CameraController mainCamera;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private RolltheDice rolltheDice;
     [SerializeField] private GameObject cloneDicePrefab;
-    [SerializeField] private GameObject rollingDicePanel;        // 주사위 굴리기 패널  
-    [SerializeField] private GameObject cloneDicePanel;          // 클론 주사위 패널   
-    [SerializeField] private Image[] cloneDiceImages = new Image[4];   // 클론 주사위 이미지 배열
+    [SerializeField] private GameObject rollDicePanel;
+    [SerializeField] private GameObject rollDiceUI;
+    [SerializeField] private GameObject cloneDicePanel;          // 클론 주사위 패널
+    [SerializeField] private Image[] cloneDiceSelectImages = new Image[4];   // 클론 주사위 선택 이미지
 
     private GameObject cloneDiceObj;
-    private int currentDice = 0;                // 선택된 클론 주사위
+    private int diceJumpType;
+    private int cloneDiceType = 0;                // 선택된 클론 주사위
 
     private void Update()
     {
+        if(rollDicePanel.activeSelf)
+        {
+            if(rolltheDice.isRollEnd)
+            {
+                diceJumpType = rolltheDice.currentDice;
+                rollDicePanelOnOff();
+            }
+        }
+
         if(cloneDicePanel.activeSelf)
         {
             SelectCloneDice();
@@ -23,21 +35,35 @@ public class UIManager : MonoBehaviour
     }
 
     // 주사위 굴리기 패널 활성화/비활성화
-    public void rollingDicePanelOnOff()
+    public void rollDicePanelOnOff()
     {
-        if(rollingDicePanel.activeSelf)
-            rollingDicePanel.SetActive(false);
+        if(rollDicePanel.activeSelf)
+        {
+            playerController.isDiceRoll = false;
+            rollDicePanel.SetActive(false);
+            rollDiceUI.SetActive(false);
+            StartCoroutine(playerController.DoJump(diceJumpType));
+        }
+
         else
-            rollingDicePanel.SetActive(true);
+        {
+            playerController.isDiceRoll = true;
+            rollDiceUI.SetActive(true);
+            rollDicePanel.SetActive(true);
+        }
     }
 
     // 클론 주사위를 고르는 패널 활성화/비활성화
     public void cloneDicePanelOnOff()
     {
         if(cloneDicePanel.activeSelf)
+        {
+            // playerController.isDiceRoll = true;
             cloneDicePanel.SetActive(false);
+        }
         else
         {
+            // playerController.isDiceRoll = true;
             cloneDicePanel.SetActive(true);
             refreshImage();
         }
@@ -47,11 +73,11 @@ public class UIManager : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            if(i == currentDice)
-                cloneDiceImages[i].color = Color.green;
+            if(i == cloneDiceType)
+                cloneDiceSelectImages[i].gameObject.SetActive(true);
 
             else
-                cloneDiceImages[i].color = Color.white;
+                cloneDiceSelectImages[i].gameObject.SetActive(false);
         }
     }
 
@@ -60,36 +86,36 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if(currentDice >= 2)
+            if(cloneDiceType >= 2)
             {
-                currentDice -= 2;
+                cloneDiceType -= 2;
                 refreshImage();
             }
         }
 
         if(Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if(currentDice <= 1)
+            if(cloneDiceType <= 1)
             {
-                currentDice += 2;
+                cloneDiceType += 2;
                 refreshImage();
             }
         }
 
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if(currentDice % 2 == 1)
+            if(cloneDiceType % 2 == 1)
             {
-                currentDice -= 1;
+                cloneDiceType -= 1;
                 refreshImage();
             }
         }
 
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if(currentDice % 2 == 0)
+            if(cloneDiceType % 2 == 0)
             {
-                currentDice += 1;
+                cloneDiceType += 1;
                 refreshImage();
             }
         }
@@ -105,8 +131,9 @@ public class UIManager : MonoBehaviour
     {
         yield return StartCoroutine(mainCamera.SetCameraSize(true));
         cloneDiceObj = Instantiate(cloneDicePrefab, playerController.transform.position, Quaternion.identity);
+        cloneDiceObj.GetComponent<CloneDice>().SetSprite(cloneDiceType);
         cloneDiceObj.GetComponent<CloneDice>().jumpDirection = playerController.jumpDirection;
         mainCamera.SetDiceObject(cloneDiceObj);
-        cloneDiceObj.GetComponent<CloneDice>().DoJump(currentDice);
+        cloneDiceObj.GetComponent<CloneDice>().DoJump(cloneDiceType);
     }
 }

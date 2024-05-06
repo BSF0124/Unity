@@ -2,21 +2,18 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
     [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
-    
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크 트랜스폼
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크 트랜스폼
-    [SerializeField] private float radious = 0.2f;
     [SerializeField] private LayerMask wallLayer;
-    
     [HideInInspector] public Vector2 jumpDirection;     // 점프 방향
     [HideInInspector] public bool isCloneJumping = false;
+    [HideInInspector] public bool isDiceRoll = false;
+    private float radious = 0.2f;
     private bool isJumping = false;                     // 점프중인지 체크
     private bool isWallJumping = false;                 // 벽점프 가능 여부 확인
     private float jumpForce = 700;                      // 점프 힘
@@ -28,7 +25,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
 
     private bool isCoroutineRun = false;
-    public TextMeshProUGUI text;
 
     private void Awake()
     {
@@ -38,8 +34,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
-        text.text = rb.velocity.ToString();
         SetArrowTransform();
 
         if(transform.position.y <= deathLimitY)
@@ -49,27 +43,16 @@ public class PlayerController : MonoBehaviour
 
         if(isCoroutineRun) {return;}
 
-        if(!isJumping && !isCloneJumping)
+        if(!isJumping && !isCloneJumping && !isDiceRoll)
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
             {
                 SetJumpDirection();
                 isWallJumping = false;
                 if(Input.GetKeyDown(KeyCode.Space))
-                {DoJump();}
-                
-                if(Input.GetKeyDown(KeyCode.Alpha1))
-                {StartCoroutine(Jump(jumpForce));}
-                if(Input.GetKeyDown(KeyCode.Alpha2))
-                {StartCoroutine(DoubleJump());}
-                if(Input.GetKeyDown(KeyCode.Alpha3))
-                {StartCoroutine(Clone());}
-                if(Input.GetKeyDown(KeyCode.Alpha4))
-                {StartCoroutine(RandomJump());}
-                if(Input.GetKeyDown(KeyCode.Alpha5))
-                {StartCoroutine(WallJump());}
-                if(Input.GetKeyDown(KeyCode.Alpha6))
-                {StartCoroutine(SuperJump());}
+                {
+                    uiManager.rollDicePanelOnOff();
+                }
             }
         }
         else
@@ -140,7 +123,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void SetArrowTransform()
     {
-        if(!isJumping && !isCloneJumping && currentTime - lastJumpTime > jumpCoolDownTime)
+        if(!isJumping && !isCloneJumping && !isDiceRoll && currentTime - lastJumpTime > jumpCoolDownTime)
         {
             arrow.SetActive(true);
             
@@ -164,39 +147,38 @@ public class PlayerController : MonoBehaviour
     }
 
     // 점프 메서드
-    public void DoJump()
+    public IEnumerator DoJump(int jumpType)
     {
-        int jumpType = UnityEngine.Random.Range(1,7);
-
+        yield return new WaitForSeconds(1f);
         switch(jumpType)
         {
             case 1:
-                print($"{jumpType} : Jump");
+                print(1);
                 StartCoroutine(Jump(jumpForce));
                 break;
 
             case 2:
-                print($"{jumpType} : Double Jump");
+                print(2);
                 StartCoroutine(DoubleJump());
                 break;
 
             case 3:
-                print($"{jumpType} : Clone");
+                print(3);
                 StartCoroutine(Clone());
                 break;
 
             case 4:
-                print($"{jumpType} : Random Jump");
+                print(4);
                 StartCoroutine(RandomJump());
                 break;
 
             case 5:
-                print($"{jumpType} : Wall Jump");
+                print(5);
                 StartCoroutine(WallJump());
                 break;
             
             case 6:
-                print($"{jumpType} : Super Jump");
+                print(6);
                 StartCoroutine(SuperJump());
                 break;
         }

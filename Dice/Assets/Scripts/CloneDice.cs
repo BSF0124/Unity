@@ -7,6 +7,7 @@ public class CloneDice : MonoBehaviour
     [SerializeField] private Transform rightwallCheck;
     [SerializeField] private float radious = 0.2f;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private Sprite[] diceImages;
     [HideInInspector] public Vector2 jumpDirection;
     private bool isJumping = true;    // 점프중인지 체크
     private bool isWallJumping = false;
@@ -40,6 +41,12 @@ public class CloneDice : MonoBehaviour
         {
             lastJumpTime = currentTime;
         }
+    }
+
+    public void SetSprite(int type)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = diceImages[type];
     }
 
     // 벽점프
@@ -138,6 +145,9 @@ public class CloneDice : MonoBehaviour
         StartCoroutine(Jump(jumpForce*1.5f));
     }
 
+    /// <summary>
+    /// 클론 주사위 제거 및 카메라 전환
+    /// </summary>
     private IEnumerator DestroyClone()
     {
         mainCamera.SetDiceObject(mainCamera.dice);
