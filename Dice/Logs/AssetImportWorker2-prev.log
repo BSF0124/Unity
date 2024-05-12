@@ -1,0 +1,884 @@
+Using pre-set license
+Built from '6000.0/release' branch; Version is '6000.0.0b11 (a707ca4efec4) revision 10946506'; Using compiler version '193431935'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) 64bit Professional' Language: 'ko' Physical Memory: 16227 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+D:\Unity\6000.0.0b11\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker2
+-projectPath
+D:/Github/Unity/Dice
+-logFile
+Logs/AssetImportWorker2.log
+-srvPort
+1850
+-job-worker-count
+5
+-background-job-worker-count
+8
+-asset-garbage-collectors
+1
+Successfully changed project path to: D:/Github/Unity/Dice
+D:/Github/Unity/Dice
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [12052]  Target information:
+
+Player connection [12052]  * "[IP] 192.168.75.100 [Port] 0 [Flags] 2 [Guid] 285928966 [EditorId] 285928966 [Version] 1048832 [Id] WindowsEditor(7,NYJ) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [12052] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [12052] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 5
+Library Redirect Path: Library/
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+Refreshing native plugins compatible for Editor in 3.83 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 6000.0.0b11 (a707ca4efec4)
+[Subsystems] Discovering subsystems at path D:/Unity/6000.0.0b11/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Github/Unity/Dice/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 Ti (ID=0x1c8c)
+    Vendor:   NVIDIA
+    VRAM:     4007 MB
+    Driver:   31.0.15.5222
+Initialize mono
+Mono path[0] = 'D:/Unity/6000.0.0b11/Editor/Data/Managed'
+Mono path[1] = 'D:/Unity/6000.0.0b11/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'D:/Unity/6000.0.0b11/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56224
+Begin MonoManager ReloadAssembly
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+Registering precompiled unity dll's ...
+Register platform support module: D:/Unity/6000.0.0b11/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: D:/Unity/6000.0.0b11/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: D:/Unity/6000.0.0b11/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Registered in 0.006620 seconds.
+- Loaded All Assemblies, in  0.562 seconds
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 391 ms
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+- Finished resetting the current domain, in  0.896 seconds
+Domain Reload Profiling: 1458ms
+	BeginReloadAssembly (210ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (52ms)
+	RebuildNativeTypeToScriptingClass (17ms)
+	initialDomainReloadingComplete (59ms)
+	LoadAllAssembliesAndSetupDomain (222ms)
+		LoadAssemblies (211ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (216ms)
+			TypeCache.Refresh (215ms)
+				TypeCache.ScanAssembly (198ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (897ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (830ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (549ms)
+			SetLoadedEditorAssemblies (5ms)
+			BeforeProcessingInitializeOnLoad (11ms)
+			ProcessInitializeOnLoadAttributes (175ms)
+			ProcessInitializeOnLoadMethodAttributes (91ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+- Loaded All Assemblies, in  1.157 seconds
+Refreshing native plugins compatible for Editor in 2.42 ms, found 4 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.982 seconds
+Domain Reload Profiling: 2136ms
+	BeginReloadAssembly (406ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (7ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (32ms)
+	RebuildCommonClasses (47ms)
+	RebuildNativeTypeToScriptingClass (15ms)
+	initialDomainReloadingComplete (56ms)
+	LoadAllAssembliesAndSetupDomain (630ms)
+		LoadAssemblies (551ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (255ms)
+			TypeCache.Refresh (197ms)
+				TypeCache.ScanAssembly (177ms)
+			BuildScriptInfoCaches (49ms)
+			ResolveRequiredComponents (6ms)
+	FinalizeReload (982ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (727ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (26ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (56ms)
+			ProcessInitializeOnLoadAttributes (577ms)
+			ProcessInitializeOnLoadMethodAttributes (59ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (13ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 2.55 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 28 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4302 unused Assets / (1.4 MB). Loaded Objects now: 4913.
+Memory consumption went from 133.8 MB to 132.4 MB.
+Total: 8.030300 ms (FindLiveObjects: 0.615200 ms CreateObjectMapping: 0.659300 ms MarkObjects: 5.428500 ms  DeleteObjects: 1.325900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 873.723699 seconds.
+  path: Assets/Sprites/Chess/king.png
+  artifactKey: Guid(19e838c95d25b5d47afc2d6acc44c8fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Chess/king.png using Guid(19e838c95d25b5d47afc2d6acc44c8fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f01a9e4931febb3b5e7a7ece3f38dd2d') in 0.1307956 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.112701 seconds.
+  path: Assets/Sprites/Go
+  artifactKey: Guid(635fc23d8807e254aab5039e0e38b1eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go using Guid(635fc23d8807e254aab5039e0e38b1eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '83f128ae27a7534369f139f1f3648c1c') in 0.0006148 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.204455 seconds.
+  path: Assets/Sprites/Dice
+  artifactKey: Guid(c73f772335c453e43878864a7d7eb18a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Dice using Guid(c73f772335c453e43878864a7d7eb18a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '6a97988fe93c88e94fbf92dd6253e32c') in 0.0006687 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.673173 seconds.
+  path: Assets/Sprites/Go/Go.png
+  artifactKey: Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go.png using Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '416cf84256ebe5f655004138c9c8235e') in 0.0340353 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.155419 seconds.
+  path: Assets/Sprites/Go/Go.png
+  artifactKey: Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go.png using Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'd4afab1d7b9c796f297350564e1954a1') in 0.0117197 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.013688 seconds.
+  path: Assets/Sprites/Go/Go_black.png
+  artifactKey: Guid(26c0a8fdd62332e429d079161b31ba89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go_black.png using Guid(26c0a8fdd62332e429d079161b31ba89) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'efec0a3e5c217f6ee568b2c31dc613e0') in 0.026078 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.691386 seconds.
+  path: Assets/Sprites/Janggi
+  artifactKey: Guid(8df49665361a2d247b521bb976edec61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi using Guid(8df49665361a2d247b521bb976edec61) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '2b9411aba4dd5a5e1a89461768e8604c') in 0.0006186 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028051 seconds.
+  path: Assets/Sprites/Janggi/Cannons1.png
+  artifactKey: Guid(157bd2b585ab826439f1474b6fd64ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Cannons1.png using Guid(157bd2b585ab826439f1474b6fd64ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '14036ef205c8cea1e980c40e0fe5c597') in 0.0104552 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/Sprites/Janggi/Elephants2.png
+  artifactKey: Guid(1a2c3c42432ff584d8a3341b87660939) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Elephants2.png using Guid(1a2c3c42432ff584d8a3341b87660939) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '667a16cc36f94d3c98023509deadfb09') in 0.0227528 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Sprites/Janggi/Guards1.png
+  artifactKey: Guid(273a2cf6330a3754a93bcaaffbcf1da9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Guards1.png using Guid(273a2cf6330a3754a93bcaaffbcf1da9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '21448009d56096a907365c3b57373e01') in 0.0151639 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Sprites/Janggi/Guards2.png
+  artifactKey: Guid(b65a334ce07fe844b907ee6880335e96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Guards2.png using Guid(b65a334ce07fe844b907ee6880335e96) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'accc97583ee346f5435b280bcbb3c846') in 0.0152309 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/Sprites/Janggi/Horses2.png
+  artifactKey: Guid(989d2123f0766dd40a9c20d9c3693c20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Horses2.png using Guid(989d2123f0766dd40a9c20d9c3693c20) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '7c1f8d290d1966c361c455c8836c1d57') in 0.0150835 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.587445 seconds.
+  path: Assets/Sprites/Janggi/Guards2.png
+  artifactKey: Guid(b65a334ce07fe844b907ee6880335e96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Guards2.png using Guid(b65a334ce07fe844b907ee6880335e96) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '2c58482536f54e1541986fc3fbcef840') in 0.0078057 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017691 seconds.
+  path: Assets/Sprites/Janggi/Cannons1.png
+  artifactKey: Guid(157bd2b585ab826439f1474b6fd64ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Cannons1.png using Guid(157bd2b585ab826439f1474b6fd64ab2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'e72dff0c6e6ae0720ee489523aef890a') in 0.0149265 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000094 seconds.
+  path: Assets/Sprites/Janggi/Elephants2.png
+  artifactKey: Guid(1a2c3c42432ff584d8a3341b87660939) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Elephants2.png using Guid(1a2c3c42432ff584d8a3341b87660939) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '6a802386a9fdd6cbb476bbc7d2525848') in 0.0123596 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/Sprites/Janggi/General_2.png
+  artifactKey: Guid(7da4ac5ad5c44f849a8d7bc9da41c245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/General_2.png using Guid(7da4ac5ad5c44f849a8d7bc9da41c245) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '227f9b51ce2d0137d07441bc28e71738') in 0.0133838 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000124 seconds.
+  path: Assets/Sprites/Janggi/Janggi.png
+  artifactKey: Guid(e2b136677c96ad24980fba59f7a19dba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Janggi/Janggi.png using Guid(e2b136677c96ad24980fba59f7a19dba) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '7605ef054bcfc8491fde5227a3131cb1') in 0.0191669 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.589832 seconds.
+  path: Assets/Sprites/Mahjong
+  artifactKey: Guid(c6e8a34859f5bc243a6a8311a8cb20fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong using Guid(c6e8a34859f5bc243a6a8311a8cb20fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '2a2a88c5902b1c28c0e6696197155c46') in 0.0009157 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.100846 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_1.png
+  artifactKey: Guid(b22689f74bfbdde4ebf72db75553f8bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_1.png using Guid(b22689f74bfbdde4ebf72db75553f8bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '3da1542b33d1f1b303d0b6e1f82f1f83') in 0.0160047 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_5.png
+  artifactKey: Guid(cccc0bd20931d4942bac61005ee7d4b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_5.png using Guid(cccc0bd20931d4942bac61005ee7d4b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '0ce7ce8b69e1d8e97b5840bcd3a56b6e') in 0.0312235 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/Sprites/Mahjong/Dots_9.png
+  artifactKey: Guid(572a4fc722d590a41bc8359576b74fb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_9.png using Guid(572a4fc722d590a41bc8359576b74fb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f6213260628bc9369003be93bb87f810') in 0.013841 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_7.png
+  artifactKey: Guid(0728f85cf65095b44a84425a0c762158) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_7.png using Guid(0728f85cf65095b44a84425a0c762158) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '538c39b5a2c2e89b362cc47043e4b1ce') in 0.0173119 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000198 seconds.
+  path: Assets/Sprites/Mahjong/Characters_5.png
+  artifactKey: Guid(964ecdd414cee444580e83e765ff2af2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_5.png using Guid(964ecdd414cee444580e83e765ff2af2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '4b443f0366930fa2af0b545dae51f2c4') in 0.015681 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000075 seconds.
+  path: Assets/Sprites/Mahjong/Dots_8.png
+  artifactKey: Guid(2580fb97c7749cf4abe27ce8f3b95ff6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_8.png using Guid(2580fb97c7749cf4abe27ce8f3b95ff6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'c11d2023d9da4a8aaae3d5c1a981105b') in 0.0183853 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000083 seconds.
+  path: Assets/Sprites/Mahjong/Characters_3.png
+  artifactKey: Guid(33726f04b0ae17e41901ae30c3232392) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_3.png using Guid(33726f04b0ae17e41901ae30c3232392) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '3134c963eedcd20d6ba83fcb3091b797') in 0.0156905 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Sprites/Mahjong/Dots_2.png
+  artifactKey: Guid(3afe2516950c5ae4c87f37aae77e9330) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_2.png using Guid(3afe2516950c5ae4c87f37aae77e9330) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '7b2dc77b3fe75d2e53ad64659a210071') in 0.014754 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000118 seconds.
+  path: Assets/Sprites/Mahjong/Characters_1.png
+  artifactKey: Guid(bae1e8cf271da02488db5eae5c028180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_1.png using Guid(bae1e8cf271da02488db5eae5c028180) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '0bace726963a278f4797d2c0cbc9693d') in 0.0166615 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.423357 seconds.
+  path: Assets/Sprites/Mahjong/Dots_2.png
+  artifactKey: Guid(3afe2516950c5ae4c87f37aae77e9330) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_2.png using Guid(3afe2516950c5ae4c87f37aae77e9330) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'eae67d304c1075fbbf70a85340049411') in 0.0091015 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.022786 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_1.png
+  artifactKey: Guid(b22689f74bfbdde4ebf72db75553f8bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_1.png using Guid(b22689f74bfbdde4ebf72db75553f8bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'cfa1217b830c0fb235e04e59e953de05') in 0.0126598 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000157 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_5.png
+  artifactKey: Guid(cccc0bd20931d4942bac61005ee7d4b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_5.png using Guid(cccc0bd20931d4942bac61005ee7d4b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'ac94938fa2cce58ee3185d4f966d57c1') in 0.0128101 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000091 seconds.
+  path: Assets/Sprites/Mahjong/Dots_6.png
+  artifactKey: Guid(c6262658c72051248810f4c5e4f7a53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_6.png using Guid(c6262658c72051248810f4c5e4f7a53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f7345fbdd2eb59db5c8e965ce34c10ee') in 0.0115465 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000082 seconds.
+  path: Assets/Sprites/Mahjong/Characters_9.png
+  artifactKey: Guid(4ce4b2b17914db64a9deecd469ca1638) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_9.png using Guid(4ce4b2b17914db64a9deecd469ca1638) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '3b54c0ac089c5dd38ea85ca861cc535a') in 0.0143565 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000062 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_6.png
+  artifactKey: Guid(dd2268711fccdd248b07054798e580fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_6.png using Guid(dd2268711fccdd248b07054798e580fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f23836df039fb005078657e8ec6904d5') in 0.0138648 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/Sprites/Mahjong/Dots_4.png
+  artifactKey: Guid(a8d25ce17f3e7d2458b5c5fc1f2d8092) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Dots_4.png using Guid(a8d25ce17f3e7d2458b5c5fc1f2d8092) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'debc46bbeccb954c6daf20440ac7145b') in 0.0112841 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000209 seconds.
+  path: Assets/Sprites/Mahjong/Bamboo_4.png
+  artifactKey: Guid(37de4acf7aad92f46934916679da906e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Bamboo_4.png using Guid(37de4acf7aad92f46934916679da906e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '122736cbf07e69e4c0d1b21840e50339') in 0.0144679 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/Sprites/Mahjong/Characters_7.png
+  artifactKey: Guid(a4a7eea854db2864a8b14355d97a7b33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_7.png using Guid(a4a7eea854db2864a8b14355d97a7b33) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'e28e9ab8596e7935ef2d6690d0381f2c') in 0.0131585 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000073 seconds.
+  path: Assets/Sprites/Mahjong/Characters_1.png
+  artifactKey: Guid(bae1e8cf271da02488db5eae5c028180) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Mahjong/Characters_1.png using Guid(bae1e8cf271da02488db5eae5c028180) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'b4a2e696160e52e0cefc3d0b66a9dd29') in 0.0140876 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.218736 seconds.
+  path: Assets/Sprites/Othello
+  artifactKey: Guid(382862b3d0af5e74ca497a433fb3fdb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Othello using Guid(382862b3d0af5e74ca497a433fb3fdb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '8a93bc0be63fed45f2d0c004bc3d9a85') in 0.0006038 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.029750 seconds.
+  path: Assets/Sprites/Othello/Othello.png
+  artifactKey: Guid(53bdcaf5be34bde4fb87397f585f7cfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Othello/Othello.png using Guid(53bdcaf5be34bde4fb87397f585f7cfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '574d72147201c32f9c34c91dc1061550') in 0.0601424 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.186260 seconds.
+  path: Assets/Sprites/Othello/Othello_White.png
+  artifactKey: Guid(f2af7bd38d5250b4fbf9063ab6490853) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Othello/Othello_White.png using Guid(f2af7bd38d5250b4fbf9063ab6490853) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'c632843e7b06f4ae0b151c2cf7c54b79') in 0.0085196 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.013901 seconds.
+  path: Assets/Sprites/Othello/Othello.png
+  artifactKey: Guid(53bdcaf5be34bde4fb87397f585f7cfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Othello/Othello.png using Guid(53bdcaf5be34bde4fb87397f585f7cfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'be59d88d40650501c2e285f94a940700') in 0.0106968 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.913451 seconds.
+  path: Assets/Sprites/Playing cards
+  artifactKey: Guid(bad6c5af767161544ae046168d131d91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Playing cards using Guid(bad6c5af767161544ae046168d131d91) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '1740859b21b948dfaa06c0f57f7770e4') in 0.0010665 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.025726 seconds.
+  path: Assets/Sprites/Playing cards/Clover.png
+  artifactKey: Guid(5d194762546de674ca0bb4e4b5dccf06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Playing cards/Clover.png using Guid(5d194762546de674ca0bb4e4b5dccf06) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'd00e54a6479c23c238da4e5ff902860a') in 0.0554735 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Sprites/Playing cards/Spade.png
+  artifactKey: Guid(52f687af1bda13c4889d6c689b63a42b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Playing cards/Spade.png using Guid(52f687af1bda13c4889d6c689b63a42b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f5e71888f1f52e9cf9496f61b2f83f8d') in 0.0536199 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.631511 seconds.
+  path: Assets/Sprites/Playing cards/Heart.png
+  artifactKey: Guid(24c94953c767c64458e0b24ef539eab7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Playing cards/Heart.png using Guid(24c94953c767c64458e0b24ef539eab7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '0b157088e2b94ccd6b62265dd10f1e6e') in 0.050037 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Sprites/Playing cards/Spade.png
+  artifactKey: Guid(52f687af1bda13c4889d6c689b63a42b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Playing cards/Spade.png using Guid(52f687af1bda13c4889d6c689b63a42b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '87b110d538d8ddb979025b07e41c844b') in 0.0538578 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.350682 seconds.
+  path: Assets/Sprites/TicTacToe
+  artifactKey: Guid(93d7d20d64654f1418100908e84ca1dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/TicTacToe using Guid(93d7d20d64654f1418100908e84ca1dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '78d6c9a43b4fe74463c767e11fc87fa1') in 0.0006425 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.024363 seconds.
+  path: Assets/Sprites/TicTacToe/O.png
+  artifactKey: Guid(99f3bdb92c119bc4ea820d38847532e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/TicTacToe/O.png using Guid(99f3bdb92c119bc4ea820d38847532e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '0f993b2dc9c6f57ae706bb6990040616') in 0.0756704 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.324487 seconds.
+  path: Assets/Sprites/TicTacToe/O.png
+  artifactKey: Guid(99f3bdb92c119bc4ea820d38847532e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/TicTacToe/O.png using Guid(99f3bdb92c119bc4ea820d38847532e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'f8f0d6e03bb98b1e7ae5f7f6027c98ac') in 0.0087022 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.012989 seconds.
+  path: Assets/Sprites/TicTacToe/TicTacToe.png
+  artifactKey: Guid(557051845608d5d4d86480c5c0cdd065) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/TicTacToe/TicTacToe.png using Guid(557051845608d5d4d86480c5c0cdd065) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '30198e159907a016b3ceb220bf15b297') in 0.0131049 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.947586 seconds.
+  path: Assets/Sprites/ChineseCheckers.png
+  artifactKey: Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/ChineseCheckers.png using Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '79d6eb9c4d179c395f35ab6543cf9fc9') in 0.014325 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.226495 seconds.
+  path: Assets/Sprites/ChineseCheckers.png
+  artifactKey: Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/ChineseCheckers.png using Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '56281b945c70c5d09813fc6e24ab9ad9') in 0.0259551 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.262660 seconds.
+  path: Assets/Sprites/ChineseCheckers.png
+  artifactKey: Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/ChineseCheckers.png using Guid(6ea8bdf19ca906a4b84a4f9671250e81) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '6acde43b625f9783755b3b89c67731be') in 0.0086572 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.978621 seconds.
+  path: Assets/Sprites/Go/Go.png
+  artifactKey: Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go.png using Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '294ffc6583af9124574360695735bb69') in 0.0118457 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.809347 seconds.
+  path: Assets/Sprites/Go/Go.png
+  artifactKey: Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go.png using Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: 'bb4292d02d655c6675117e42ee27763c') in 0.009331 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.364193 seconds.
+  path: Assets/Sprites/Go/Go.png
+  artifactKey: Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Go/Go.png using Guid(634500ec363a61644af8fab3560316a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter)[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 5 workers.
+ -> (artifact id: '3efd32a05e34d9ef89c1c160ddb6158d') in 0.028322 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+- Loaded All Assemblies, in  2.496 seconds
+Refreshing native plugins compatible for Editor in 5.67 ms, found 4 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  3.063 seconds
+Domain Reload Profiling: 5552ms
+	BeginReloadAssembly (925ms)
+		ExecutionOrderSort (1ms)
+		DisableScriptedObjects (50ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (2ms)
+		CreateAndSetChildDomain (240ms)
+	RebuildCommonClasses (100ms)
+	RebuildNativeTypeToScriptingClass (35ms)
+	initialDomainReloadingComplete (129ms)
+	LoadAllAssembliesAndSetupDomain (1299ms)
+		LoadAssemblies (1308ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (494ms)
+			TypeCache.Refresh (36ms)
+				TypeCache.ScanAssembly (1ms)
+			BuildScriptInfoCaches (415ms)
+			ResolveRequiredComponents (37ms)
+	FinalizeReload (3064ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (2372ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (67ms)
+			SetLoadedEditorAssemblies (15ms)
+			BeforeProcessingInitializeOnLoad (207ms)
+			ProcessInitializeOnLoadAttributes (1937ms)
+			ProcessInitializeOnLoadMethodAttributes (140ms)
+			AfterProcessingInitializeOnLoad (7ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (36ms)
+Refreshing native plugins compatible for Editor in 6.19 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4300 unused Assets / (0.8 MB). Loaded Objects now: 4948.
+Memory consumption went from 127.7 MB to 126.9 MB.
+Total: 52.452700 ms (FindLiveObjects: 0.752000 ms CreateObjectMapping: 1.594300 ms MarkObjects: 45.625100 ms  DeleteObjects: 4.479400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+C:\build\output\Unity-Technologies\mono\mono\metadata\icall.c:1842:
+- Loaded All Assemblies, in  2.103 seconds
+Refreshing native plugins compatible for Editor in 6.63 ms, found 4 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  2.381 seconds
+Domain Reload Profiling: 4485ms
+	BeginReloadAssembly (634ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (26ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (1ms)
+		CreateAndSetChildDomain (113ms)
+	RebuildCommonClasses (130ms)
+	RebuildNativeTypeToScriptingClass (34ms)
+	initialDomainReloadingComplete (73ms)
+	LoadAllAssembliesAndSetupDomain (1232ms)
+		LoadAssemblies (1188ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (464ms)
+			TypeCache.Refresh (28ms)
+				TypeCache.ScanAssembly (1ms)
+			BuildScriptInfoCaches (409ms)
+			ResolveRequiredComponents (20ms)
+	FinalizeReload (2382ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1856ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (67ms)
+			SetLoadedEditorAssemblies (21ms)
+			BeforeProcessingInitializeOnLoad (173ms)
+			ProcessInitializeOnLoadAttributes (1423ms)
+			ProcessInitializeOnLoadMethodAttributes (159ms)
+			AfterProcessingInitializeOnLoad (12ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (38ms)
+Refreshing native plugins compatible for Editor in 5.29 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4300 unused Assets / (1.4 MB). Loaded Objects now: 4950.
+Memory consumption went from 127.7 MB to 126.3 MB.
+Total: 17.124500 ms (FindLiveObjects: 1.003800 ms CreateObjectMapping: 1.027600 ms MarkObjects: 12.000900 ms  DeleteObjects: 3.089500 ms)
+
+Prepare: number of updated asset objects reloaded= 0

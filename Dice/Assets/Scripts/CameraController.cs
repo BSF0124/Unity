@@ -6,7 +6,10 @@ public class CameraController : MonoBehaviour
     private Camera mainCamera;
 
     public GameObject dice;         // 플레이어
-    private GameObject diceObject;  // 카메라가 추적할 오브젝트        
+    private GameObject diceObject;  // 카메라가 추적할 오브젝트     
+
+    public float minX = 0f;   
+    public float minY = 0f;   
 
     private float start = 7.5f;
     private float end = 15f;
@@ -26,6 +29,15 @@ public class CameraController : MonoBehaviour
     public void SetCameraPosition()
     {
         Vector3 position = new Vector3(diceObject.transform.position.x, diceObject.transform.position.y, -10);
+        
+        if(position.x <= minX)
+        {
+            position.x = minX;
+        }
+        if(position.y <= minY)
+        {
+            position.y = minY;
+        }
         transform.position = position;
     }
 
