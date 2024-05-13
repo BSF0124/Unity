@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private RolltheDice rolltheDice;
     [SerializeField] private GameObject cloneDicePrefab;
+    [SerializeField] private GameObject rollDiceObject;
     [SerializeField] private GameObject rollDicePanel;
-    [SerializeField] private GameObject rollDiceUI;
     [SerializeField] private GameObject cloneDicePanel;          // 클론 주사위 패널
     [SerializeField] private Image[] cloneDiceSelectImages = new Image[4];   // 클론 주사위 선택 이미지
 
@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if(rollDicePanel.activeSelf)
+        if(rollDiceObject.activeSelf)
         {
             if(rolltheDice.isRollEnd)
             {
@@ -37,19 +37,19 @@ public class UIManager : MonoBehaviour
     // 주사위 굴리기 패널 활성화/비활성화
     public void rollDicePanelOnOff()
     {
-        if(rollDicePanel.activeSelf)
+        if(rollDiceObject.activeSelf)
         {
             playerController.isDiceRoll = false;
+            rollDiceObject.SetActive(false);
             rollDicePanel.SetActive(false);
-            rollDiceUI.SetActive(false);
             StartCoroutine(playerController.DoJump(diceJumpType));
         }
 
         else
         {
             playerController.isDiceRoll = true;
-            rollDiceUI.SetActive(true);
             rollDicePanel.SetActive(true);
+            rollDiceObject.SetActive(true);
         }
     }
 
@@ -129,11 +129,10 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator CreateClone()
     {
-        yield return StartCoroutine(mainCamera.SetCameraSize(true));
         cloneDiceObj = Instantiate(cloneDicePrefab, playerController.transform.position, Quaternion.identity);
         cloneDiceObj.GetComponent<CloneDice>().SetSprite(cloneDiceType);
         cloneDiceObj.GetComponent<CloneDice>().jumpDirection = playerController.jumpDirection;
-        mainCamera.SetDiceObject(cloneDiceObj);
+        yield return StartCoroutine(mainCamera.SetDiceObject(cloneDiceObj));
         cloneDiceObj.GetComponent<CloneDice>().DoJump(cloneDiceType);
     }
 }

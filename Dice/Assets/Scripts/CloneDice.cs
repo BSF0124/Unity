@@ -30,6 +30,11 @@ public class CloneDice : MonoBehaviour
     {
         currentTime = Time.time;
 
+        if(transform.position.y <= -10)
+        {
+            StartCoroutine(DestroyClone());
+        }
+
         if(!isJumping)
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
@@ -150,8 +155,7 @@ public class CloneDice : MonoBehaviour
     /// </summary>
     private IEnumerator DestroyClone()
     {
-        mainCamera.SetDiceObject(mainCamera.dice);
-        yield return StartCoroutine(mainCamera.SetCameraSize(false));
+        yield return StartCoroutine(mainCamera.SetDiceObject(mainCamera.dice));
         playerController.isCloneJumping = false;
         Destroy(gameObject);
     }

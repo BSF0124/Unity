@@ -16,7 +16,7 @@ public class RolltheDice : MonoBehaviour
     [HideInInspector] public int currentDice;
     
     private int chance = 3;
-    private float timer = 4f;
+    private float timer = 1.5f;
     private float currentTime;
     
     private void Awake()

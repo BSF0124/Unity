@@ -153,32 +153,26 @@ public class PlayerController : MonoBehaviour
         switch(jumpType)
         {
             case 1:
-                print(1);
                 StartCoroutine(Jump(jumpForce));
                 break;
 
             case 2:
-                print(2);
                 StartCoroutine(DoubleJump());
                 break;
 
             case 3:
-                print(3);
                 StartCoroutine(Clone());
                 break;
 
             case 4:
-                print(4);
                 StartCoroutine(RandomJump());
                 break;
 
             case 5:
-                print(5);
                 StartCoroutine(WallJump());
                 break;
             
             case 6:
-                print(6);
                 StartCoroutine(SuperJump());
                 break;
         }
