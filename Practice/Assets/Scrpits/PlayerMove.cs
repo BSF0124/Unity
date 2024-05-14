@@ -1,47 +1,75 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float jumpForce = 10f;
-    public float moveSpeed = 5f;
+    [SerializeField] private Camera mainCamera;
+    private Vector2 screenLeft;
+    private Vector2 screenRight;
+    private Vector2 screenTop;
+    private Vector2 screenBottom;
 
+    public TextMeshProUGUI leftText;
+    public TextMeshProUGUI rightText;
+    public TextMeshProUGUI topText;
+    public TextMeshProUGUI bottomText;
+    public TextMeshProUGUI playerText;
+
+    public float moveSpeed = 5f;
+    private float horizontal;
+    private float vertical;
     private Rigidbody2D rb;
-    private bool isGrounded;
-    private bool isFacingRight = true;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main;
+
+        // screenWidth = mainCamera.ScreenToViewportPoint(new Vector3(Screen.width, 0f, 0f)).x
+        // - mainCamera.ScreenToViewportPoint(Vector3.zero).x;
+
+        screenRight = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height*0.5f));
+        screenLeft = -screenRight;
+        screenTop = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width*0.5f, Screen.height));
+        screenBottom = -screenTop;
+
+        leftText.text = screenLeft.ToString();
+        rightText.text = screenRight.ToString();
+        topText.text = screenTop.ToString();
+        bottomText.text = screenBottom.ToString();
     }
 
-    private void Update()
+    private void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
-        }
+        // WrapScreen();
+        textSet();
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+        rb.velocity = new Vector2(horizontal * moveSpeed, vertical * moveSpeed);
     }
 
-    private void FixedUpdate() 
+    private void textSet()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
-        isGrounded = hit.collider != null;
-
-        if(!isGrounded)
-        {
-            float moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        }
+        Vector2 position = transform.position;
+        playerText.text = position.ToString();
     }
 
-    private void Jump()
+    private void WrapScreen()
     {
-        rb.velocity = new Vector2(isFacingRight ? moveSpeed : -moveSpeed, jumpForce);
-    }
+        // Vector3 currentPosition = transform.position;
+        // Vector3 viewportPosition = mainCamera.WorldToViewportPoint(currentPosition);
 
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0f, 180f, 0f);
+        // if(viewportPosition.x < 0)
+        // {
+        //     currentPosition.x += screenWidth;
+        // }
+        // else if(viewportPosition.x > 1)
+        // {
+        //     currentPosition.x -= screenWidth;
+        // }
+
+        // transform.position = currentPosition;
     }
 }
