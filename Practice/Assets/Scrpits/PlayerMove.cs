@@ -1,75 +1,75 @@
-using TMPro;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
-    private Vector2 screenLeft;
-    private Vector2 screenRight;
-    private Vector2 screenTop;
-    private Vector2 screenBottom;
+    public float moveSpeed = 5f;            // 이동 속도
+    private float horizontal;               // 좌,우 방향키 입력 확인
+    private float vertical;                 // 상,하 방향키 입력 확인
+    private Rigidbody2D rb2D;               // 플레이어 이동을 위한 Rigidbody2D 컴포넌트
+    private PlayerManager playerManager;
+    
+    // 화면 크기
+    public float screenLeft;
+    public float screenRight;
+    public float screenTop;
+    public float screenBottom;
 
-    public TextMeshProUGUI leftText;
-    public TextMeshProUGUI rightText;
-    public TextMeshProUGUI topText;
-    public TextMeshProUGUI bottomText;
-    public TextMeshProUGUI playerText;
-
-    public float moveSpeed = 5f;
-    private float horizontal;
-    private float vertical;
-    private Rigidbody2D rb;
-
+    // 플레이어 오브젝트 크기의 절반값
+    public float width;
+    public float height;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        mainCamera = Camera.main;
+        rb2D = GetComponent<Rigidbody2D>();
+        width = GetComponent<Collider2D>().bounds.extents.x;
+        height = GetComponent<Collider2D>().bounds.extents.y;
+        playerManager = transform.parent.GetComponent<PlayerManager>();
 
-        // screenWidth = mainCamera.ScreenToViewportPoint(new Vector3(Screen.width, 0f, 0f)).x
-        // - mainCamera.ScreenToViewportPoint(Vector3.zero).x;
-
-        screenRight = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height*0.5f));
-        screenLeft = -screenRight;
-        screenTop = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width*0.5f, Screen.height));
-        screenBottom = -screenTop;
-
-        leftText.text = screenLeft.ToString();
-        rightText.text = screenRight.ToString();
-        topText.text = screenTop.ToString();
-        bottomText.text = screenBottom.ToString();
     }
 
-    private void Update() 
+    private void Update()
     {
-        // WrapScreen();
-        textSet();
+        CheckPosition();
 
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector2(horizontal * moveSpeed, vertical * moveSpeed);
+        rb2D.velocity = new Vector2(horizontal * moveSpeed, vertical * moveSpeed);
     }
 
-    private void textSet()
+    // 위치 확인
+    private void CheckPosition()
     {
-        Vector2 position = transform.position;
-        playerText.text = position.ToString();
-    }
+        // 화면 밖으로 벗어남 (좌,우)
+        if(transform.position.x < screenLeft - width || transform.position.x > screenRight + width)
+        {
+            playerManager.isVertical = false;
+            playerManager.objectList.Remove(gameObject);
+            Destroy(gameObject);
 
-    private void WrapScreen()
-    {
-        // Vector3 currentPosition = transform.position;
-        // Vector3 viewportPosition = mainCamera.WorldToViewportPoint(currentPosition);
+        }
 
-        // if(viewportPosition.x < 0)
-        // {
-        //     currentPosition.x += screenWidth;
-        // }
-        // else if(viewportPosition.x > 1)
-        // {
-        //     currentPosition.x -= screenWidth;
-        // }
+        // 화면 밖으로 벗어남 (상,하)
+        if(transform.position.y < screenBottom - height || transform.position.y > screenTop + height)
+        {
+            playerManager.isHorizontal = false;
+            playerManager.objectList.Remove(gameObject);
+            Destroy(gameObject);
+        }
 
-        // transform.position = currentPosition;
+        // 오브젝트가 좌,우 모서리에 위치
+        if((transform.position.x < screenLeft + width && transform.position.x > screenLeft - width) ||
+        (transform.position.x > screenRight - width && transform.position.x < screenRight + width))
+        {
+            playerManager.CreateVertical(transform.position);
+            playerManager.isVertical = true;
+        }
+
+        // 오브젝트가 상,하 모서리에 위치
+        if((transform.position.y > screenTop - height && transform.position.y < screenTop + height) ||
+        (transform.position.y < screenBottom + height && transform.position.y > screenBottom - height))
+        {
+            playerManager.CreateHorizontal(transform.position);
+            playerManager.isHorizontal = true;
+        }
     }
 }

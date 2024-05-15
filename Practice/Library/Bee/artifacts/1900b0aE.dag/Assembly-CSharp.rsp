@@ -426,6 +426,7 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/Scrpits/PlayerController.cs"
+"Assets/Scrpits/PlayerManager.cs"
 "Assets/Scrpits/PlayerMove.cs"
 -langversion:9.0
 
