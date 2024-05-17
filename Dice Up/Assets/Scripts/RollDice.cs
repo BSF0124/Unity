@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class RollDice : MonoBehaviour
 {
     [SerializeField] private Sprite[] diceImages;
-    [SerializeField] private TextMeshProUGUI chanceText;
+    [SerializeField] private GameObject[] chanceImage;
     [SerializeField] private Slider timerSlider;
 
     private SpriteRenderer spriteRenderer;
@@ -16,7 +16,7 @@ public class RollDice : MonoBehaviour
     [HideInInspector] public int currentDice;
     
     private int chance = 3;
-    private float timer = 1.5f;
+    private float timer = 3f;
     private float currentTime;
     
     private void Awake()
@@ -70,7 +70,7 @@ public class RollDice : MonoBehaviour
         currentDice = Random.Range(1, 7);
         spriteRenderer.sprite = diceImages[currentDice-1];
         currentTime = timer;
-        chanceText.text = "X " + chance;
+        SetChanceImage();
         Roll();
     }
 
@@ -82,6 +82,33 @@ public class RollDice : MonoBehaviour
         force.x = rand1==0? Random.Range(-1500, -500) : Random.Range(500, 1500);
         force.y = rand2==0? Random.Range(-1500, -500) : Random.Range(500, 1500);
         rb.AddForce(force);
+    }
+
+    private void SetChanceImage()
+    {
+        switch(chance)
+        {
+            case 3:
+                chanceImage[0].SetActive(true);
+                chanceImage[1].SetActive(true);
+                chanceImage[2].SetActive(true);
+                break;
+            case 2:
+                chanceImage[0].SetActive(true);
+                chanceImage[1].SetActive(true);
+                chanceImage[2].SetActive(false);
+                break;
+            case 1:
+                chanceImage[0].SetActive(true);
+                chanceImage[1].SetActive(false);
+                chanceImage[2].SetActive(false);
+                break;
+            case 0:
+                chanceImage[0].SetActive(false);
+                chanceImage[1].SetActive(false);
+                chanceImage[2].SetActive(false);
+                break;
+        }
     }
 
     private void SetRollEnd()

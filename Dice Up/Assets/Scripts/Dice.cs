@@ -4,39 +4,53 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    [SerializeField] private UIManager uiManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
+    [SerializeField] private GameManager gameManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
     [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
-    [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크 트랜스폼
-    [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크 트랜스폼
+    [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
+    [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
-    
+
     [HideInInspector] public Vector2 jumpDirection;     // 점프 방향
     [HideInInspector] public bool isCloneJumping = false;
     [HideInInspector] public bool isDiceRoll = false;
     
-    private float radious = 0.2f;
+    // 화면 크기
+    [HideInInspector] public float screenLeft;
+    [HideInInspector] public float screenRight;
+
+    // 플레이어 오브젝트의 크기
+    [HideInInspector] public float objectWidth;
+    // [HideInInspector] public float objectHeight;
+
+    private PlayerManager playerManager;
+    private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
+
     private bool isJumping = false;                     // 점프중인지 체크
     private bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    private bool isCoroutineRun = false;
+
+    private float radious = 0.2f;
     private float jumpForce = 700;                      // 점프 힘
-    private float jumpCoolDownTime = 1f;              // 점프 쿨타임
+    private float jumpCoolDownTime = 1f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
     private float deathLimitY = -10;                    // y좌표 제한
 
-    private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
 
-    private bool isCoroutineRun = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerManager = transform.parent.GetComponent<PlayerManager>();
+        objectWidth = GetComponent<Collider2D>().bounds.extents.x;
+        // objectHeight = GetComponent<Collider2D>().bounds.extents.y;
         jumpDirection = new Vector2(0, 1);
     }
 
     private void Update()
     {
+        CheckPosition();
         SetArrowTransform();
-
         currentTime = Time.time;
 
         if(isCoroutineRun) {return;}
@@ -49,13 +63,32 @@ public class Dice : MonoBehaviour
                 isWallJumping = false;
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
-                    uiManager.rollDicePanelOnOff();
+                    gameManager.rollDicePanelOnOff();
                 }
             }
         }
         else
         {
             lastJumpTime = currentTime;
+        }
+    }
+
+    private void CheckPosition()
+    {
+        // 화면 밖으로 벗어남 (좌,우)
+        if(transform.position.x < screenLeft - objectWidth || transform.position.x > screenRight + objectWidth)
+        {
+            playerManager.isVertical = false;
+            playerManager.objectList.Remove(gameObject);
+            Destroy(gameObject);
+        }
+
+        // 오브젝트가 좌,우 모서리에 위치
+        if((transform.position.x < screenLeft + objectWidth && transform.position.x > screenLeft - objectWidth) ||
+        (transform.position.x > screenRight - objectWidth && transform.position.x < screenRight + objectWidth))
+        {
+            playerManager.CreateVertical(transform.position);
+            playerManager.isVertical = true;
         }
     }
 
@@ -204,9 +237,7 @@ public class Dice : MonoBehaviour
     /// </summary>
     private IEnumerator Clone()
     {
-        isCloneJumping = true;
         yield return null;
-        uiManager.cloneDicePanelOnOff();
     }
 
     /// <summary>

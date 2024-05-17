@@ -418,9 +418,9 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/Scripts/CameraManager.cs"
 "Assets/Scripts/Dice.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/PlayerManager.cs"
 "Assets/Scripts/RollDice.cs"
-"Assets/Scripts/UIManager.cs"
 -langversion:9.0
 
 /deterministic
