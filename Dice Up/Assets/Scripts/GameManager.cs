@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             if(rollDice.isRollEnd)
             {
                 diceJumpType = rollDice.currentDice;
-                rollDicePanelOnOff();
+                Invoke("rollDicePanelOnOff", 1f);
             }
         }
     }

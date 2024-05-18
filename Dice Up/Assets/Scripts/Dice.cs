@@ -10,20 +10,15 @@ public class Dice : MonoBehaviour
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
 
-    [HideInInspector] public Vector2 jumpDirection;     // 점프 방향
     [HideInInspector] public bool isCloneJumping = false;
     [HideInInspector] public bool isDiceRoll = false;
-    
-    // 화면 크기
-    [HideInInspector] public float screenLeft;
-    [HideInInspector] public float screenRight;
 
     // 플레이어 오브젝트의 크기
     [HideInInspector] public float objectWidth;
-    // [HideInInspector] public float objectHeight;
 
     private PlayerManager playerManager;
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
+    private Vector2 jumpDirection;
 
     private bool isJumping = false;                     // 점프중인지 체크
     private bool isWallJumping = false;                 // 벽점프 가능 여부 확인
@@ -34,21 +29,18 @@ public class Dice : MonoBehaviour
     private float jumpCoolDownTime = 1f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
-    private float deathLimitY = -10;                    // y좌표 제한
-
-
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerManager = transform.parent.GetComponent<PlayerManager>();
         objectWidth = GetComponent<Collider2D>().bounds.extents.x;
-        // objectHeight = GetComponent<Collider2D>().bounds.extents.y;
-        jumpDirection = new Vector2(0, 1);
+        jumpDirection = playerManager.jumpDirection;
     }
 
     private void Update()
     {
+        jumpDirection = playerManager.jumpDirection;
         CheckPosition();
         SetArrowTransform();
         currentTime = Time.time;
@@ -59,7 +51,6 @@ public class Dice : MonoBehaviour
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
             {
-                SetJumpDirection();
                 isWallJumping = false;
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
@@ -76,19 +67,9 @@ public class Dice : MonoBehaviour
     private void CheckPosition()
     {
         // 화면 밖으로 벗어남 (좌,우)
-        if(transform.position.x < screenLeft - objectWidth || transform.position.x > screenRight + objectWidth)
+        if(transform.position.x < playerManager.screenSize - objectWidth || transform.position.x > playerManager.screenRight + objectWidth)
         {
-            playerManager.isVertical = false;
-            playerManager.objectList.Remove(gameObject);
             Destroy(gameObject);
-        }
-
-        // 오브젝트가 좌,우 모서리에 위치
-        if((transform.position.x < screenLeft + objectWidth && transform.position.x > screenLeft - objectWidth) ||
-        (transform.position.x > screenRight - objectWidth && transform.position.x < screenRight + objectWidth))
-        {
-            playerManager.CreateVertical(transform.position);
-            playerManager.isVertical = true;
         }
     }
 
@@ -121,32 +102,6 @@ public class Dice : MonoBehaviour
     private bool IsWalled()
     {
         return Physics2D.OverlapCircle(leftwallCheck.position, radious, wallLayer) || Physics2D.OverlapCircle(rightwallCheck.position, radious, wallLayer);
-    }
-
-    /// <summary>
-    /// 점프 방향 변경
-    /// </summary>
-    private void SetJumpDirection()
-    {
-        if(Input.GetKey(KeyCode.LeftArrow) && jumpDirection.x > -0.8)
-        {
-            jumpDirection.x += -0.01f;
-            jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
-        }
-        if(Input.GetKey(KeyCode.RightArrow) && jumpDirection.x < 0.8)
-        {
-            jumpDirection.x += 0.01f;
-            jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
-        }
-        // 점프 방향 보정
-        if(jumpDirection.x > 0.8f)
-        {
-            jumpDirection.x = 0.8f;;
-        }
-        if(jumpDirection.x < -0.8f)
-        {
-            jumpDirection.x = -0.8f;
-        }
     }
 
     /// <summary>
