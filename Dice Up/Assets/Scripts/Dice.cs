@@ -10,9 +10,6 @@ public class Dice : MonoBehaviour
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
 
-    [HideInInspector] public bool isCloneJumping = false;
-    [HideInInspector] public bool isDiceRoll = false;
-
     // 플레이어 오브젝트의 크기
     [HideInInspector] public float objectWidth;
 
@@ -20,8 +17,8 @@ public class Dice : MonoBehaviour
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
     private Vector2 jumpDirection;
 
-    private bool isJumping = false;                     // 점프중인지 체크
-    private bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    public bool isJumping = false;                     // 점프중인지 체크
+    public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
     private bool isCoroutineRun = false;
 
     private float radious = 0.2f;
@@ -47,27 +44,25 @@ public class Dice : MonoBehaviour
 
         if(isCoroutineRun) {return;}
 
-        if(!isJumping && !isCloneJumping && !isDiceRoll)
+        if(!isJumping && !playerManager.isDiceRoll)
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
             {
                 isWallJumping = false;
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    gameManager.rollDicePanelOnOff();
-                }
+                playerManager.jump = true;
             }
         }
         else
         {
             lastJumpTime = currentTime;
+            playerManager.jump = false;
         }
     }
 
     private void CheckPosition()
     {
         // 화면 밖으로 벗어남 (좌,우)
-        if(transform.position.x < playerManager.screenSize - objectWidth || transform.position.x > playerManager.screenRight + objectWidth)
+        if(transform.position.x < -playerManager.screenSize + objectWidth || transform.position.x > playerManager.screenRight - objectWidth)
         {
             Destroy(gameObject);
         }
@@ -109,7 +104,7 @@ public class Dice : MonoBehaviour
     /// </summary>
     private void SetArrowTransform()
     {
-        if(!isJumping && !isCloneJumping && !isDiceRoll && currentTime - lastJumpTime > jumpCoolDownTime)
+        if(!isJumping && !playerManager.isDiceRoll && currentTime - lastJumpTime > jumpCoolDownTime)
         {
             arrow.SetActive(true);
             
@@ -132,53 +127,20 @@ public class Dice : MonoBehaviour
         }
     }
 
-    // 점프 메서드
-    public IEnumerator DoJump(int jumpType)
-    {
-        yield return new WaitForSeconds(1f);
-        switch(jumpType)
-        {
-            case 1:
-                StartCoroutine(Jump(jumpForce));
-                break;
-
-            case 2:
-                StartCoroutine(DoubleJump());
-                break;
-
-            case 3:
-                StartCoroutine(Clone());
-                break;
-
-            case 4:
-                StartCoroutine(RandomJump());
-                break;
-
-            case 5:
-                StartCoroutine(WallJump());
-                break;
-            
-            case 6:
-                StartCoroutine(SuperJump());
-                break;
-        }
-    }
-
     /// <summary>
     /// 일반 점프 (1눈)
     /// </summary>
-    private IEnumerator Jump(float jumpForce)
+    public IEnumerator Jump(float jumpForce)
     {
         isJumping = true;
         lastJumpTime = Time.time;
         rb.AddForce(jumpDirection * jumpForce);
         yield return new WaitForSeconds(0.1f);
     }
-
     /// <summary>
     /// 더블 점프 (2눈)
     /// </summary>
-    private IEnumerator DoubleJump()
+    public IEnumerator DoubleJump()
     {
         jumpForce = 700;
         StartCoroutine(Jump(jumpForce));
@@ -186,19 +148,17 @@ public class Dice : MonoBehaviour
         rb.velocity = Vector3.zero;
         StartCoroutine(Jump(jumpForce));
     }
-
     /// <summary>
     /// 클론 생성 (3눈)
     /// </summary>
-    private IEnumerator Clone()
+    public IEnumerator Clone()
     {
         yield return null;
     }
-
     /// <summary>
     /// 랜덤 점프 (4눈)
     /// </summary>
-    private IEnumerator RandomJump()
+    public IEnumerator RandomJump()
     {
         isCoroutineRun = true;
         yield return StartCoroutine(ArrowBackandForth());
@@ -212,26 +172,23 @@ public class Dice : MonoBehaviour
         StartCoroutine(Jump(jumpForce));
         isCoroutineRun = false;
     }
-
     /// <summary>
     /// 벽 점프 (5눈)
     /// </summary>
-    private IEnumerator WallJump()
+    public IEnumerator WallJump()
     {
         yield return null;
         isWallJumping = true;
         StartCoroutine(Jump(jumpForce));
     }
-
     /// <summary>
     /// 슈퍼 점프 (6눈)
     /// </summary>
-    private IEnumerator SuperJump()
+    public IEnumerator SuperJump()
     {
         yield return null;
         StartCoroutine(Jump(jumpForce*1.5f));
     }
-
 
     // 화살표 이동 코루틴
     private IEnumerator SetArrowCoroutine(float direction)
@@ -245,7 +202,6 @@ public class Dice : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
     }
-
     private IEnumerator ArrowBackandForth()
     {
         while(jumpDirection.x > -0.8f)

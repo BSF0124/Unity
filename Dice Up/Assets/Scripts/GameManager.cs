@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private RollDice rollDice;
     [SerializeField] private GameObject rollDicePanel;
-    [HideInInspector] public GameObject dice;
 
     private int diceJumpType;
 
@@ -26,15 +25,15 @@ public class GameManager : MonoBehaviour
     {
         if(rollDicePanel.activeSelf)
         {
-            dice.GetComponent<Dice>().isDiceRoll = false;
+            playerManager.GetComponent<PlayerManager>().isDiceRoll = false;
             rollDicePanel.SetActive(false);
             rollDicePanel.SetActive(false);
-            StartCoroutine(dice.GetComponent<Dice>().DoJump(diceJumpType));
+            playerManager.DoJump(diceJumpType);
         }
 
         else
         {
-            dice.GetComponent<Dice>().isDiceRoll = true;
+            playerManager.GetComponent<PlayerManager>().isDiceRoll = true;
             rollDicePanel.SetActive(true);
             rollDicePanel.SetActive(true);
         }
