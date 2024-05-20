@@ -434,6 +434,7 @@
 "Assets/KoreanTyper/DemoScene/KoreanTyperDemo_Simple.cs"
 "Assets/KoreanTyper/Scripts/KoreanTyperStringExtensions.cs"
 "Assets/Scripts/MainMenu.cs"
+"Assets/Scripts/Menu.cs"
 "Assets/Scripts/ScrollView.cs"
 "Assets/Scripts/ScrollViewPosition.cs"
 "Assets/Scripts/X/DefaultTextTyping.cs"
