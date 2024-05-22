@@ -421,11 +421,13 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Assets/Scripts/CameraManager.cs"
-"Assets/Scripts/Dice.cs"
-"Assets/Scripts/GameManager.cs"
-"Assets/Scripts/ObjectDestroyByTime.cs"
-"Assets/Scripts/RollDice.cs"
+"Assets/Scripts/Dice/Dice.cs"
+"Assets/Scripts/Dice/ObjectDestroyByTime.cs"
+"Assets/Scripts/Dice/RollDice.cs"
+"Assets/Scripts/Manager/CameraManager.cs"
+"Assets/Scripts/Manager/GameManager.cs"
+"Assets/Scripts/Manager/PlatformManager.cs"
+"Assets/Scripts/Platform/BasicPlatform.cs"
 -langversion:9.0
 
 /deterministic
