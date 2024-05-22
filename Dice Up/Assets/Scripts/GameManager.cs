@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private RollDice rollDice;
+    [SerializeField] private Dice dice;
+    [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
 
     private int diceJumpType;
@@ -12,10 +14,10 @@ public class GameManager : MonoBehaviour
     {
         if(rollDicePanel.activeSelf)
         {
-            if(rollDice.isRollEnd)
+            if(rolltheDice.isRollEnd)
             {
-                diceJumpType = rollDice.currentDice;
-                Invoke("rollDicePanelOnOff", 1f);
+                diceJumpType = rolltheDice.currentDice;
+                rollDicePanelOnOff();
             }
         }
     }
@@ -25,16 +27,14 @@ public class GameManager : MonoBehaviour
     {
         if(rollDicePanel.activeSelf)
         {
-            playerManager.GetComponent<PlayerManager>().isDiceRoll = false;
+            dice.isDiceRoll = false;
             rollDicePanel.SetActive(false);
-            rollDicePanel.SetActive(false);
-            playerManager.DoJump(diceJumpType);
+            StartCoroutine(dice.DoJump(diceJumpType));
         }
 
         else
         {
-            playerManager.GetComponent<PlayerManager>().isDiceRoll = true;
-            rollDicePanel.SetActive(true);
+            dice.isDiceRoll = true;
             rollDicePanel.SetActive(true);
         }
     }

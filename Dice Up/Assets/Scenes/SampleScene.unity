@@ -848,7 +848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &151091642
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -919,7 +919,7 @@ Transform:
   m_Children:
   - {fileID: 2064217355}
   - {fileID: 1109024179}
-  m_Father: {fileID: 1365822330}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &151091644
 MonoBehaviour:
@@ -933,14 +933,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa0c651e172ba346aaabea0b0926b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 519420031}
   gameManager: {fileID: 451047019}
   arrow: {fileID: 1921767372}
+  landingEffect: {fileID: 4979125253743653010, guid: 525b1640fecea414fbec32943dbee617, type: 3}
   leftwallCheck: {fileID: 929237974}
   rightwallCheck: {fileID: 1766541528}
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
   objectWidth: 0
+  isDiceRoll: 0
+  isJumping: 0
+  isWallJumping: 0
 --- !u!50 &151091645
 Rigidbody2D:
   serializedVersion: 4
@@ -1209,8 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72036ff2c0065c45b8a478982b90e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 1365822331}
-  rollDice: {fileID: 94225467}
+  dice: {fileID: 151091644}
+  rolltheDice: {fileID: 94225467}
   rollDicePanel: {fileID: 956841392}
 --- !u!4 &451047020
 Transform:
@@ -1329,17 +1334,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 47b3042150c570445847efa1062d1053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 32
-  m_RefResolutionX: 960
-  m_RefResolutionY: 540
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
+  dice: {fileID: 151091641}
 --- !u!1 &650547934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.25}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109024180
@@ -1822,7 +1820,7 @@ Transform:
   m_GameObject: {fileID: 1359510788}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1855,15 +1853,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.25
-    y: 0
-    width: 0.5
-    height: 1
+    x: 0
+    y: 0.25
+    width: 1
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1879,63 +1877,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &1365822329
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1365822330}
-  - component: {fileID: 1365822331}
-  m_Layer: 0
-  m_Name: PlayerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1365822330
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365822329}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 151091643}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1365822331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365822329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68014f99eda4b8644b793818bc2a96ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
-  gameManager: {fileID: 451047019}
-  objectArray:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  jumpDirection: {x: 0, y: 0}
-  isDiceRoll: 0
-  diceObject: {fileID: 151091641}
-  screenSize: 0
-  screenLeft: 0
-  screenRight: 0
 --- !u!1 &1754203885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,7 +2112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -7.72}
+  m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855289108
@@ -2265,7 +2206,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -8, z: 0}
-  m_LocalScale: {x: 180, y: 1, z: 1}
+  m_LocalScale: {x: 14, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 380160331}
@@ -2463,7 +2404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1921767373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2648,6 +2589,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 451047020}
-  - {fileID: 1365822330}
+  - {fileID: 151091643}
   - {fileID: 380160331}
   - {fileID: 956841393}

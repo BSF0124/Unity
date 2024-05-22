@@ -1,19 +1,21 @@
 using System;
 using System.Collections; 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dice : MonoBehaviour
 {
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private GameManager gameManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
     [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
+    [SerializeField] private GameObject landingEffect;
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
 
-    // 플레이어 오브젝트의 크기
     [HideInInspector] public float objectWidth;
+    [HideInInspector] public bool isDiceRoll = false;
 
-    private PlayerManager playerManager;
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
     private Vector2 jumpDirection;
 
@@ -26,45 +28,65 @@ public class Dice : MonoBehaviour
     private float jumpCoolDownTime = 1f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
+    private float deathLimitY = -10;                    // y좌표 제한
+
+    private Vector2 screenVector;
+    private float screenLeft;
+    private float screenRight;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerManager = transform.parent.GetComponent<PlayerManager>();
         objectWidth = GetComponent<Collider2D>().bounds.extents.x;
-        jumpDirection = playerManager.jumpDirection;
+        jumpDirection = new Vector2(0, 1);
+
+        mainCamera = Camera.main;
+        screenVector = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        screenLeft = -screenVector.x;
+        screenRight = screenVector.x;
     }
 
     private void Update()
     {
-        jumpDirection = playerManager.jumpDirection;
-        CheckPosition();
         SetArrowTransform();
+        CheckPosition();
+
+        if(transform.position.y <= deathLimitY)
+            SceneManager.LoadScene(0);
+
         currentTime = Time.time;
 
         if(isCoroutineRun) {return;}
 
-        if(!isJumping && !playerManager.isDiceRoll)
+        if(!isJumping && !isDiceRoll)
         {
             if(currentTime - lastJumpTime > jumpCoolDownTime)
             {
+                SetJumpDirection();
                 isWallJumping = false;
-                playerManager.jump = true;
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    gameManager.rollDicePanelOnOff();
+                }
             }
         }
         else
         {
             lastJumpTime = currentTime;
-            playerManager.jump = false;
         }
     }
 
     private void CheckPosition()
     {
         // 화면 밖으로 벗어남 (좌,우)
-        if(transform.position.x < -playerManager.screenSize + objectWidth || transform.position.x > playerManager.screenRight - objectWidth)
+        if(transform.position.x < screenLeft - objectWidth)
         {
-            Destroy(gameObject);
+            transform.position = new Vector2(screenRight, transform.position.y);
+        }
+
+        if(transform.position.x > screenRight + objectWidth)
+        {
+            transform.position = new Vector2(screenLeft, transform.position.y);
         }
     }
 
@@ -91,6 +113,12 @@ public class Dice : MonoBehaviour
             StartCoroutine(Jump(jumpForce));
             jumpDirection.x *= -1;
         }
+        else
+        {
+            Instantiate(landingEffect, transform.position, Quaternion.identity);
+            mainCamera.GetComponent<CameraManager>().CameraShake();
+
+        }
     }
 
     // 벽에 닿았는지 확인하는 메서드(벽에 닿았으면 true 리턴)
@@ -100,11 +128,37 @@ public class Dice : MonoBehaviour
     }
 
     /// <summary>
+    /// 점프 방향 변경
+    /// </summary>
+    private void SetJumpDirection()
+    {
+        if(Input.GetKey(KeyCode.LeftArrow) && jumpDirection.x > -0.8)
+        {
+            jumpDirection.x += -0.01f;
+            jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
+        }
+        if(Input.GetKey(KeyCode.RightArrow) && jumpDirection.x < 0.8)
+        {
+            jumpDirection.x += 0.01f;
+            jumpDirection.y = (float)Math.Sqrt(1 - (jumpDirection.x * jumpDirection.x));
+        }
+        // 점프 방향 보정
+        if(jumpDirection.x > 0.8f)
+        {
+            jumpDirection.x = 0.8f;;
+        }
+        if(jumpDirection.x < -0.8f)
+        {
+            jumpDirection.x = -0.8f;
+        }
+    }
+
+    /// <summary>
     /// 화살표 위치, 각도 설정
     /// </summary>
     private void SetArrowTransform()
     {
-        if(!isJumping && !playerManager.isDiceRoll && currentTime - lastJumpTime > jumpCoolDownTime)
+        if(!isJumping && !isDiceRoll && currentTime - lastJumpTime > jumpCoolDownTime)
         {
             arrow.SetActive(true);
             
@@ -124,6 +178,38 @@ public class Dice : MonoBehaviour
         else
         {
             arrow.SetActive(false);
+        }
+    }
+
+    // 점프 메서드
+    public IEnumerator DoJump(int jumpType)
+    {
+        yield return new WaitForSeconds(1f);
+        switch(jumpType)
+        {
+            case 1:
+                StartCoroutine(Jump(jumpForce));
+                break;
+
+            case 2:
+                StartCoroutine(DoubleJump());
+                break;
+
+            case 3:
+                StartCoroutine(Clone());
+                break;
+
+            case 4:
+                StartCoroutine(RandomJump());
+                break;
+
+            case 5:
+                StartCoroutine(WallJump());
+                break;
+            
+            case 6:
+                StartCoroutine(SuperJump());
+                break;
         }
     }
 
@@ -149,7 +235,7 @@ public class Dice : MonoBehaviour
         StartCoroutine(Jump(jumpForce));
     }
     /// <summary>
-    /// 클론 생성 (3눈)
+    /// (3눈)
     /// </summary>
     public IEnumerator Clone()
     {
