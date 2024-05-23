@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicPlatform : MonoBehaviour
+public class BasicPlatform : Platform
 {
     public Sprite[] sprites;
     public GameObject platform_Prefab;
@@ -9,13 +9,10 @@ public class BasicPlatform : MonoBehaviour
     private int column;
     private int row;
 
-    private void Awake()
+    private void Start()
     {
-        row = Random.Range(2, 6);
+        row = Random.Range(2, 5);
         column = Random.Range(1, 3);
-        print(row);
-        print(column);
-
         platforms = new GameObject[row * column];
 
         SetPlatform();

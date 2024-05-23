@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Dice : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CameraManager mainCamera;
     [SerializeField] private GameManager gameManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
     [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
     [SerializeField] private GameObject landingEffect;
@@ -14,6 +14,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
 
     [HideInInspector] public float objectWidth;
+    [HideInInspector] public float objectHeight;
     [HideInInspector] public bool isDiceRoll = false;
 
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
@@ -28,31 +29,19 @@ public class Dice : MonoBehaviour
     private float jumpCoolDownTime = 1f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
-    private float deathLimitY = -10;                    // y좌표 제한
-
-    private Vector2 screenVector;
-    private float screenLeft;
-    private float screenRight;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         objectWidth = GetComponent<Collider2D>().bounds.extents.x;
+        objectHeight = GetComponent<Collider2D>().bounds.extents.y;
         jumpDirection = new Vector2(0, 1);
-
-        mainCamera = Camera.main;
-        screenVector = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        screenLeft = -screenVector.x;
-        screenRight = screenVector.x;
     }
 
     private void Update()
     {
         SetArrowTransform();
         CheckPosition();
-
-        if(transform.position.y <= deathLimitY)
-            SceneManager.LoadScene(0);
 
         currentTime = Time.time;
 
@@ -79,14 +68,20 @@ public class Dice : MonoBehaviour
     private void CheckPosition()
     {
         // 화면 밖으로 벗어남 (좌,우)
-        if(transform.position.x < screenLeft - objectWidth)
+        if(transform.position.x < PlayerPrefs.GetFloat("screenLeft") - objectWidth)
         {
-            transform.position = new Vector2(screenRight, transform.position.y);
+            transform.position = new Vector2(PlayerPrefs.GetFloat("screenRight"), transform.position.y);
         }
 
-        if(transform.position.x > screenRight + objectWidth)
+        if(transform.position.x > PlayerPrefs.GetFloat("screenRight") + objectWidth)
         {
-            transform.position = new Vector2(screenLeft, transform.position.y);
+            transform.position = new Vector2(PlayerPrefs.GetFloat("screenLeft"), transform.position.y);
+        }
+
+        if(transform.position.y + objectHeight <= PlayerPrefs.GetFloat("DeadLine") + 1f)
+        {
+            GameManager.isGameOver = true;
+            Destroy(gameObject);
         }
     }
 
@@ -94,6 +89,14 @@ public class Dice : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         isJumping = false;
+
+        if(currentTime - lastJumpTime > jumpCoolDownTime)
+        {
+            print(other.transform.name);
+            int score = int.Parse(other.transform.name);
+            if(score > PlayerPrefs.GetInt("Score"))
+                PlayerPrefs.SetInt("Score", score);
+        }
     }
 
     // 땅에서 벗어나면 isJumping = true
@@ -116,8 +119,7 @@ public class Dice : MonoBehaviour
         else
         {
             Instantiate(landingEffect, transform.position, Quaternion.identity);
-            mainCamera.GetComponent<CameraManager>().CameraShake();
-
+            mainCamera.CameraShake();
         }
     }
 

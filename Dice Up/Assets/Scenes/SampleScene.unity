@@ -427,7 +427,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &94225469
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa0c651e172ba346aaabea0b0926b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
+  mainCamera: {fileID: 519420033}
   gameManager: {fileID: 451047019}
   arrow: {fileID: 1921767372}
   landingEffect: {fileID: 4979125253743653010, guid: 525b1640fecea414fbec32943dbee617, type: 3}
@@ -943,6 +943,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   objectWidth: 0
+  objectHeight: 0
   isDiceRoll: 0
   isJumping: 0
   isWallJumping: 0
@@ -972,7 +973,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &151091646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1028,6 +1029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 380160331}
+  - component: {fileID: 380160332}
   m_Layer: 0
   m_Name: Platforms
   m_TagString: Untagged
@@ -1051,6 +1053,20 @@ Transform:
   - {fileID: 1891411441}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &380160332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380160330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01b58870c6309c4fa9550abf2526877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platform_Prefabs:
+  - {fileID: 1798129011069895297, guid: db6ff87ba6ecfa1418bc97c0d664573c, type: 3}
 --- !u!1 &391170952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1233,7 @@ MonoBehaviour:
   dice: {fileID: 151091644}
   rolltheDice: {fileID: 94225467}
   rollDicePanel: {fileID: 956841392}
+  scoreText: {fileID: 508359902}
 --- !u!4 &451047020
 Transform:
   m_ObjectHideFlags: 0
@@ -1697,7 +1714,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &704455777
 RectTransform:

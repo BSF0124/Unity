@@ -1,15 +1,21 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool isGameOver = false;
+    
     [SerializeField] private Dice dice;
     [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
+    [SerializeField] TextMeshProUGUI scoreText;
 
     private int diceJumpType;
 
+    private void Awake()
+    {
+        PlayerPrefs.SetInt("Score", 0);
+    }
     private void Update()
     {
         if(rollDicePanel.activeSelf)
@@ -20,6 +26,13 @@ public class GameManager : MonoBehaviour
                 rollDicePanelOnOff();
             }
         }
+
+        if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
+        }
+
+        scoreText.text = PlayerPrefs.GetInt("Score").ToString();
     }
 
     // 주사위 굴리기 패널 활성화/비활성화

@@ -428,6 +428,7 @@
 "Assets/Scripts/Manager/GameManager.cs"
 "Assets/Scripts/Manager/PlatformManager.cs"
 "Assets/Scripts/Platform/BasicPlatform.cs"
+"Assets/Scripts/Platform/Platform.cs"
 -langversion:9.0
 
 /deterministic

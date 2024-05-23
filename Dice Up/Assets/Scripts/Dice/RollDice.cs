@@ -86,8 +86,8 @@ public class RollDice : MonoBehaviour
         Vector3 force = Vector3.zero;
         int rand1 = Random.Range(0, 2);
         int rand2 = Random.Range(0, 2);
-        force.x = rand1==0? Random.Range(-1500, -500) : Random.Range(500, 1500);
-        force.y = rand2==0? Random.Range(-1500, -500) : Random.Range(500, 1500);
+        force.x = rand1==0? Random.Range(-1200, -600) : Random.Range(600, 1200);
+        force.y = rand2==0? Random.Range(-1200, -600) : Random.Range(600, 1200);
         rb.AddForce(force);
     }
 
