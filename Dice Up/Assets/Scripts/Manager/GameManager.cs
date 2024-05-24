@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Dice dice;
     [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
-    [SerializeField] TextMeshProUGUI scoreText;
 
     private int diceJumpType;
 
@@ -16,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Score", 0);
     }
+    
     private void Update()
     {
         if(rollDicePanel.activeSelf)
@@ -32,7 +32,10 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
         }
 
-        scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     // 주사위 굴리기 패널 활성화/비활성화

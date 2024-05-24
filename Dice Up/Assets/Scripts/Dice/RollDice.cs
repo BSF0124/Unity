@@ -16,13 +16,14 @@ public class RollDice : MonoBehaviour
     [HideInInspector] public int currentDice;           // 현재 주사위 눈
     
     private int chance = 3;                             // 굴리기 횟수
-    private float timer = 3f;                           // 제한 시간
+    private float time = 1.5f;                          // 제한 시간
     private float currentTime;                          // 현재 시간
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        timerSlider.maxValue = time;
         position = transform.position;
         SetDice();
     }
@@ -45,8 +46,8 @@ public class RollDice : MonoBehaviour
         // 제한 시간 종료
         if(currentTime <= 0)
         {
-            SetRollEnd();
             timerSlider.transform.GetChild(1).gameObject.SetActive(false);
+            SetRollEnd();
             rb.velocity = Vector3.zero;
         }
 
@@ -75,7 +76,7 @@ public class RollDice : MonoBehaviour
         transform.position = position;
         currentDice = Random.Range(1, 7);
         spriteRenderer.sprite = diceImages[currentDice-1];
-        currentTime = timer;
+        currentTime = time;
         SetChanceImage();
         Roll();
     }

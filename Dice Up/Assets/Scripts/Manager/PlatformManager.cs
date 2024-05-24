@@ -9,9 +9,9 @@ public class PlatformManager : MonoBehaviour
     
     void Start()
     {
-        coordinates_Y = Random.Range(-4.5f, -3.5f);
+        coordinates_Y = Random.Range(-3.0f, -2.0f);
         count++;
-        GameObject platform = Instantiate(platform_Prefabs[0], new Vector2(Random.Range(-1, PlayerPrefs.GetFloat("screenRight")), coordinates_Y), Quaternion.identity, transform);
+        GameObject platform = Instantiate(platform_Prefabs[0], new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")), coordinates_Y), Quaternion.identity, transform);
         platform.transform.name = count.ToString();
     }
 
@@ -31,14 +31,14 @@ public class PlatformManager : MonoBehaviour
             Vector2 position;
             if(count % 2 == 0)
             {
-                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), 1),
+                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
                 Random.Range(4.0f, 6.0f) + coordinates_Y);
                 coordinates_Y = position.y;
             }
 
             else
             {
-                position = new Vector2(Random.Range(-1, PlayerPrefs.GetFloat("screenRight")),
+                position = new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")),
                 Random.Range(4.0f, 6.0f) + coordinates_Y);
                 coordinates_Y = position.y;
             }

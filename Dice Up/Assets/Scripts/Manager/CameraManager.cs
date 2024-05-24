@@ -16,14 +16,14 @@ public class CameraManager: MonoBehaviour
         screenVector = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         PlayerPrefs.SetFloat("screenLeft", -screenVector.x);
         PlayerPrefs.SetFloat("screenRight", screenVector.x);
-        PlayerPrefs.SetFloat("CreateLine", transform.position.y + screenVector.y + 1f);
-        PlayerPrefs.SetFloat("DeadLine", transform.position.y - screenVector.y - 1f);
+        PlayerPrefs.SetFloat("CreateLine", transform.position.y + screenVector.y + 1.5f);
+        PlayerPrefs.SetFloat("DeadLine", transform.position.y - screenVector.y - 1.5f);
     }
     private void Update()
     {
         SetPosition();
-        PlayerPrefs.SetFloat("CreateLine", transform.position.y + screenVector.y + 1f);
-        PlayerPrefs.SetFloat("DeadLine", transform.position.y - screenVector.y - 1f);
+        PlayerPrefs.SetFloat("CreateLine", transform.position.y + screenVector.y + 1.5f);
+        PlayerPrefs.SetFloat("DeadLine", transform.position.y - screenVector.y - 1.5f);
     }
 
     private void SetPosition()

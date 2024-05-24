@@ -1,7 +1,7 @@
 using System;
 using System.Collections; 
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Dice : MonoBehaviour
 {
@@ -12,6 +12,8 @@ public class Dice : MonoBehaviour
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] TextMeshProUGUI scoreText;
+
 
     [HideInInspector] public float objectWidth;
     [HideInInspector] public float objectHeight;
@@ -23,10 +25,11 @@ public class Dice : MonoBehaviour
     public bool isJumping = false;                     // 점프중인지 체크
     public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
     private bool isCoroutineRun = false;
+    private bool scoreCheck = false;
 
     private float radious = 0.2f;
     private float jumpForce = 700;                      // 점프 힘
-    private float jumpCoolDownTime = 1f;                // 점프 쿨타임
+    private float jumpCoolDownTime = 0.5f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
 
@@ -42,10 +45,13 @@ public class Dice : MonoBehaviour
     {
         SetArrowTransform();
         CheckPosition();
-
         currentTime = Time.time;
 
-        if(isCoroutineRun) {return;}
+        if(isCoroutineRun)
+        {return;}
+        
+        if(!GetComponent<BoxCollider2D>().isActiveAndEnabled && rb.velocity.y < 0)
+        {GetComponent<BoxCollider2D>().enabled = true;}
 
         if(!isJumping && !isDiceRoll)
         {
@@ -53,12 +59,14 @@ public class Dice : MonoBehaviour
             {
                 SetJumpDirection();
                 isWallJumping = false;
+                scoreCheck = true;
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     gameManager.rollDicePanelOnOff();
                 }
             }
         }
+
         else
         {
             lastJumpTime = currentTime;
@@ -85,17 +93,19 @@ public class Dice : MonoBehaviour
         }
     }
 
-    // 땅 위에 있으면 isJumping = false
+    // 땅 위에 있으면
     private void OnCollisionStay2D(Collision2D other)
     {
         isJumping = false;
 
-        if(currentTime - lastJumpTime > jumpCoolDownTime)
+        if(scoreCheck)
         {
-            print(other.transform.name);
             int score = int.Parse(other.transform.name);
             if(score > PlayerPrefs.GetInt("Score"))
+            {
                 PlayerPrefs.SetInt("Score", score);
+                scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+            }
         }
     }
 
@@ -103,6 +113,7 @@ public class Dice : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other) 
     {
         isJumping = true;
+        scoreCheck = false;
     }
 
     // 벽점프
@@ -177,6 +188,7 @@ public class Dice : MonoBehaviour
             // 각도
             arrow.transform.rotation = Quaternion.Euler(0,0,jumpDirection.x * -90f);
         }
+
         else
         {
             arrow.SetActive(false);
@@ -230,7 +242,6 @@ public class Dice : MonoBehaviour
     /// </summary>
     public IEnumerator DoubleJump()
     {
-        jumpForce = 700;
         StartCoroutine(Jump(jumpForce));
         yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector3.zero;
@@ -241,6 +252,8 @@ public class Dice : MonoBehaviour
     /// </summary>
     public IEnumerator Clone()
     {
+        GetComponent<BoxCollider2D>().enabled = false;
+        StartCoroutine(Jump(jumpForce * 1.2f));
         yield return null;
     }
     /// <summary>
@@ -290,6 +303,7 @@ public class Dice : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
     }
+
     private IEnumerator ArrowBackandForth()
     {
         while(jumpDirection.x > -0.8f)
