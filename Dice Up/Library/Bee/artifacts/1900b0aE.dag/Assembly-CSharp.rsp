@@ -427,10 +427,10 @@
 "Assets/Scripts/Manager/CameraManager.cs"
 "Assets/Scripts/Manager/GameManager.cs"
 "Assets/Scripts/Manager/PlatformManager.cs"
-"Assets/Scripts/Menu/MainMenu.cs"
-"Assets/Scripts/Menu/Option.cs"
 "Assets/Scripts/Platform/BasicPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
+"Assets/Scripts/UI/ButtonEffect.cs"
+"Assets/Scripts/UI/MainMenu.cs"
 -langversion:9.0
 
 /deterministic
