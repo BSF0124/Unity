@@ -18,14 +18,6 @@ public class MainMenu : MonoBehaviour
     {
         if(howtoplayPanel.activeSelf)
         {
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-
-            }
-            if(Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                
-            }
             if(Input.GetKeyDown(KeyCode.Escape))
             {
                 howtoplayPanel.SetActive(false);
@@ -76,10 +68,10 @@ public class MainMenu : MonoBehaviour
         switch(currentButton)
             {
                 case 0:
-                    print(0);
+                    print("Play");
                     break;
                 case 1:
-                    print(1);
+                    howtoplayPanel.SetActive(true);
                     break;
                 case 2:
                     Application.Quit();

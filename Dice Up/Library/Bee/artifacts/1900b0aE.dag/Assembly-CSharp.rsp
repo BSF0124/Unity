@@ -430,7 +430,9 @@
 "Assets/Scripts/Platform/BasicPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
 "Assets/Scripts/UI/ButtonEffect.cs"
+"Assets/Scripts/UI/HowToPlay.cs"
 "Assets/Scripts/UI/MainMenu.cs"
+"Assets/Scripts/UI/Page_1.cs"
 -langversion:9.0
 
 /deterministic
