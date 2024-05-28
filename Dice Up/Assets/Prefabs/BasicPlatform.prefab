@@ -92,10 +92,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: -5113850848988359095, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
-  - {fileID: -687121299, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
-  - {fileID: 924072054, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
-  - {fileID: -589226204, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
-  - {fileID: 1519896698, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
-  - {fileID: -1865958214, guid: f18ee7bdcd7d9614aa74391fd833ad68, type: 3}
+  - {fileID: -4574494966680398608, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
+  - {fileID: 1451505112, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
+  - {fileID: 1727865606, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
+  - {fileID: 1394900501, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
+  - {fileID: -591688583, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
+  - {fileID: -2075036360, guid: 90807d88e0904f346b26a800cd69a0c0, type: 3}
   platform_Prefab: {fileID: 2947822895021937857, guid: 551deb4a26292df46bd56ad9dc0128c7, type: 3}

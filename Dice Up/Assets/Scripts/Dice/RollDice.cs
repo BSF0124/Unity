@@ -66,16 +66,28 @@ public class RollDice : MonoBehaviour
     // 벽에 닿으면 무작위 주사위로 변경
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        currentDice = Random.Range(1, 7);
-        spriteRenderer.sprite = diceImages[currentDice - 1];
+        while(true)
+        {
+            int rand = Random.Range(0, diceImages.Length);
+            if(rand == currentDice)
+            {
+                continue;
+            }
+            else
+            {
+                currentDice = rand;
+                spriteRenderer.sprite = diceImages[currentDice];
+                break;
+            }
+    }
     }
 
     // 굴리기 전 각종 설정을 한 뒤, 주사위를 굴림
     private void SetDice()
     {
         transform.position = position;
-        currentDice = Random.Range(1, 7);
-        spriteRenderer.sprite = diceImages[currentDice-1];
+        currentDice = Random.Range(0, diceImages.Length);
+        spriteRenderer.sprite = diceImages[currentDice];
         currentTime = time;
         SetChanceImage();
         Roll();

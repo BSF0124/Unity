@@ -14,12 +14,14 @@ public class Dice : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] TextMeshProUGUI scoreText;
 
+    public Sprite[] diceSprites;
 
     [HideInInspector] public float objectWidth;
     [HideInInspector] public float objectHeight;
     [HideInInspector] public bool isDiceRoll = false;
 
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
+    private SpriteRenderer diceSprite;
     private Vector2 jumpDirection;
 
     public bool isJumping = false;                     // 점프중인지 체크
@@ -36,6 +38,7 @@ public class Dice : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        diceSprite = GetComponent<SpriteRenderer>();
         objectWidth = GetComponent<Collider2D>().bounds.extents.x;
         objectHeight = GetComponent<Collider2D>().bounds.extents.y;
         jumpDirection = new Vector2(0, 1);
@@ -198,30 +201,31 @@ public class Dice : MonoBehaviour
     // 점프 메서드
     public IEnumerator DoJump(int jumpType)
     {
-        yield return new WaitForSeconds(1f);
+        diceSprite.sprite = diceSprites[jumpType];
+        yield return new WaitForSeconds(0.5f);
         switch(jumpType)
         {
-            case 1:
+            case 0:
                 StartCoroutine(Jump(jumpForce));
                 break;
 
-            case 2:
+            case 1:
                 StartCoroutine(DoubleJump());
                 break;
 
-            case 3:
+            case 2:
                 StartCoroutine(Clone());
                 break;
 
-            case 4:
+            case 3:
                 StartCoroutine(RandomJump());
                 break;
 
-            case 5:
+            case 4:
                 StartCoroutine(WallJump());
                 break;
             
-            case 6:
+            case 5:
                 StartCoroutine(SuperJump());
                 break;
         }

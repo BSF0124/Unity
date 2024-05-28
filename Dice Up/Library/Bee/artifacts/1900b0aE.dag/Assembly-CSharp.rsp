@@ -433,6 +433,10 @@
 "Assets/Scripts/UI/HowToPlay.cs"
 "Assets/Scripts/UI/MainMenu.cs"
 "Assets/Scripts/UI/Page_1.cs"
+"Assets/Scripts/UI/Page_2.cs"
+"Assets/Scripts/UI/Page_3.cs"
+"Assets/Scripts/UI/Page_4.cs"
+"Assets/Scripts/UI/Page_5.cs"
 -langversion:9.0
 
 /deterministic
