@@ -25,9 +25,9 @@ public class Page_5 : MonoBehaviour
         Vector2 controlPos = (startPos + endPos) / 2 + Vector3.up * 250;
         Vector3[] path = new Vector3[] {startPos, controlPos, endPos};
 
-        diceSequence_5.Append(dice_5.DOAnchorPos(new Vector2(-150, -50), duration/3).SetEase(Ease.OutQuad))
-        .Append(dice_5.DOLocalPath(path, duration/2, PathType.CatmullRom).SetEase(Ease.OutQuad))
-        .AppendInterval(1f)
+        diceSequence_5.Append(dice_5.DOAnchorPos(new Vector2(-150, -50), duration/3).SetEase(Ease.Linear))
+        .Append(dice_5.DOLocalPath(path, duration, PathType.CatmullRom).SetEase(Ease.Linear))
+        .AppendInterval(0.5f)
         .OnComplete(SetAnchoredPosition);
 
         diceSequence_6.Append(dice_6.DOAnchorPos(new Vector2(270, 400), duration).SetEase(Ease.OutQuad))

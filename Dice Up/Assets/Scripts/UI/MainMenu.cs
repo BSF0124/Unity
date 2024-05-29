@@ -1,26 +1,33 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
     [HideInInspector] public int currentButton;
     public ButtonEffect[] buttons;
     public GameObject howtoplayPanel;
+    private RectTransform rectTransform;
+    private bool isCoroutineRun = false;
 
     void Awake()
     {
+        rectTransform = howtoplayPanel.transform.GetComponent<RectTransform>();
         currentButton = -1;
         RefreshSprite();
     }
 
     void Update()
     {
+        if(isCoroutineRun)
+        {return;}
+
         if(howtoplayPanel.activeSelf)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                howtoplayPanel.SetActive(false);
+                StartCoroutine(HowToPlayPanelEffect(true));
             }
         }
 
@@ -71,7 +78,7 @@ public class MainMenu : MonoBehaviour
                     print("Play");
                     break;
                 case 1:
-                    howtoplayPanel.SetActive(true);
+                    StartCoroutine(HowToPlayPanelEffect(false));
                     break;
                 case 2:
                     Application.Quit();
@@ -91,5 +98,26 @@ public class MainMenu : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             RefreshSprite();
         }
+    }
+
+    IEnumerator HowToPlayPanelEffect(bool isActivated)
+    {
+        isCoroutineRun = true;
+        if(isActivated)
+        {
+            rectTransform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+            yield return new WaitForSeconds(0.6f);
+            howtoplayPanel.SetActive(false);
+            rectTransform.localScale = Vector3.zero;
+        }
+
+        else
+        {
+            howtoplayPanel.SetActive(true);
+            rectTransform.localScale = Vector3.zero;
+            rectTransform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(0.6f);
+        }
+        isCoroutineRun = false;
     }
 }

@@ -24,7 +24,7 @@ public class HowToPlay : MonoBehaviour
             SetSprite();
         }
 
-        if(currentPage < circles.Length && Input.GetKeyDown(KeyCode.RightArrow))
+        if(currentPage < pages.Length - 1 && Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentPage++;
             PageActivate();
