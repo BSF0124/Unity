@@ -9,7 +9,7 @@ public class BasicPlatform : Platform
     private int column;
     private int row;
 
-    private void Start()
+    private void Awake()
     {
         row = Random.Range(2, 5);
         column = Random.Range(1, 3);

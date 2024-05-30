@@ -7,7 +7,7 @@ public class PlatformManager : MonoBehaviour
 
     private float coordinates_Y;
     
-    void Start()
+    void Awake()
     {
         coordinates_Y = Random.Range(-3.0f, -2.0f);
         count++;
@@ -27,8 +27,10 @@ public class PlatformManager : MonoBehaviour
 
         else
         {
-            count++;
+            GameObject platform;
             Vector2 position;
+
+            count++;
             if(count % 2 == 0)
             {
                 position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
@@ -43,7 +45,27 @@ public class PlatformManager : MonoBehaviour
                 coordinates_Y = position.y;
             }
 
-            GameObject platform = Instantiate(platform_Prefabs[0], position, Quaternion.identity, transform);
+            if(count >= 40)
+            {
+                platform = Instantiate(platform_Prefabs[4], position, Quaternion.identity, transform);
+            }
+
+            else if(count >= 30)
+            {
+                platform = Instantiate(platform_Prefabs[3], position, Quaternion.identity, transform);
+            }
+            else if(count >= 20)
+            {
+                platform = Instantiate(platform_Prefabs[2], position, Quaternion.identity, transform);
+            }
+            else if(count >= 10)
+            {
+                platform = Instantiate(platform_Prefabs[1], position, Quaternion.identity, transform);
+            }
+            else
+            {
+                platform = Instantiate(platform_Prefabs[0], position, Quaternion.identity, transform);
+            }
             platform.transform.name = count.ToString();
         }
     }

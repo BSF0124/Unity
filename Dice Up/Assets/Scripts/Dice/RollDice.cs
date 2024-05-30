@@ -77,6 +77,7 @@ public class RollDice : MonoBehaviour
             {
                 currentDice = rand;
                 spriteRenderer.sprite = diceImages[currentDice];
+                print(currentDice);
                 break;
             }
     }
