@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 186528408006611993}
   - component: {fileID: 5533583161825181932}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Janggi
   m_TagString: Untagged
   m_Icon: {fileID: 0}

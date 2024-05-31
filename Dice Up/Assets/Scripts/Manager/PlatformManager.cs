@@ -9,7 +9,7 @@ public class PlatformManager : MonoBehaviour
     
     void Awake()
     {
-        coordinates_Y = Random.Range(-3.0f, -2.0f);
+        coordinates_Y = Random.Range(-4.0f, -3.0f);
         count++;
         GameObject platform = Instantiate(platform_Prefabs[0], new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")), coordinates_Y), Quaternion.identity, transform);
         platform.transform.name = count.ToString();
@@ -34,14 +34,14 @@ public class PlatformManager : MonoBehaviour
             if(count % 2 == 0)
             {
                 position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
-                Random.Range(4.0f, 6.0f) + coordinates_Y);
+                Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
             }
 
             else
             {
                 position = new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")),
-                Random.Range(4.0f, 6.0f) + coordinates_Y);
+                Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
             }
 

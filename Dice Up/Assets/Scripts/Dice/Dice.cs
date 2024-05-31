@@ -26,6 +26,7 @@ public class Dice : MonoBehaviour
 
     public bool isJumping = false;                     // 점프중인지 체크
     public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    public bool setCamera = false;
     private bool isCoroutineRun = false;
     private bool scoreCheck = false;
 
@@ -63,6 +64,7 @@ public class Dice : MonoBehaviour
                 SetJumpDirection();
                 isWallJumping = false;
                 scoreCheck = true;
+                setCamera = true;
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     gameManager.rollDicePanelOnOff();
@@ -117,6 +119,7 @@ public class Dice : MonoBehaviour
     {
         isJumping = true;
         scoreCheck = false;
+        setCamera = false;
     }
 
     // 벽점프
