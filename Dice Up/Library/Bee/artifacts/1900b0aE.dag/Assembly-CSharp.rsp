@@ -423,6 +423,7 @@
 -analyzer:"D:/Unity/6000.0.0b11/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
 "Assets/AdvancedPolygonCollider/Script/AdvancedPolygonCollider.cs"
 "Assets/AdvancedPolygonCollider/Script/AdvancedPolygonColliderUtilities.cs"
+"Assets/Scripts/Dice/CloneDice.cs"
 "Assets/Scripts/Dice/Dice.cs"
 "Assets/Scripts/Dice/ObjectDestroyByTime.cs"
 "Assets/Scripts/Dice/RollDice.cs"

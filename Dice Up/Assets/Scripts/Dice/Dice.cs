@@ -7,8 +7,9 @@ public class Dice : MonoBehaviour
 {
     [SerializeField] private CameraManager mainCamera;
     [SerializeField] private GameManager gameManager;       // UIManager 컴포넌트를 가지고 있는 게임 오브젝트
-    [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
     [SerializeField] private GameObject landingEffect;
+    [SerializeField] private GameObject cloneDicePrefab;
+    [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
@@ -19,14 +20,15 @@ public class Dice : MonoBehaviour
     [HideInInspector] public float objectWidth;
     [HideInInspector] public float objectHeight;
     [HideInInspector] public bool isDiceRoll = false;
+    [HideInInspector] public bool isJumping = false;                     // 점프중인지 체크
+    [HideInInspector] public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    [HideInInspector] public bool setCamera = false;
 
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
     private SpriteRenderer diceSprite;
     private Vector2 jumpDirection;
+    public GameObject cloneDice;
 
-    public bool isJumping = false;                     // 점프중인지 체크
-    public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
-    public bool setCamera = false;
     private bool isCoroutineRun = false;
     private bool scoreCheck = false;
 
@@ -68,6 +70,20 @@ public class Dice : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     gameManager.rollDicePanelOnOff();
+                }
+                
+                if(cloneDice == null)
+                {
+                    if(Input.GetKeyDown(KeyCode.Q))
+                    {CreateCloneDice(0);}
+                    if(Input.GetKeyDown(KeyCode.W))
+                    {CreateCloneDice(1);}
+                    if(Input.GetKeyDown(KeyCode.E))
+                    {CreateCloneDice(2);}
+                    if(Input.GetKeyDown(KeyCode.D))
+                    {CreateCloneDice(3);}
+                    if(Input.GetKeyDown(KeyCode.T))
+                    {CreateCloneDice(4);}
                 }
             }
         }
@@ -278,6 +294,7 @@ public class Dice : MonoBehaviour
         yield return StartCoroutine(SetArrowCoroutine(direction));
 
         StartCoroutine(Jump(jumpForce));
+        jumpForce = 700;
         isCoroutineRun = false;
     }
     /// <summary>
@@ -326,5 +343,12 @@ public class Dice : MonoBehaviour
             yield return null;
         }
         jumpDirection.x = 0.8f;
+    }
+
+    private void CreateCloneDice(int type)
+    {
+        cloneDice = Instantiate(cloneDicePrefab, transform.position, Quaternion.identity);
+        cloneDice.GetComponent<CloneDice>().jumpDirection = jumpDirection;
+        cloneDice.GetComponent<CloneDice>().StartCoroutine(Jump(type));
     }
 }

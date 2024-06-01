@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 151091646}
   - component: {fileID: 151091645}
   - component: {fileID: 151091644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,8 +935,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 519420033}
   gameManager: {fileID: 451047019}
-  arrow: {fileID: 1921767372}
   landingEffect: {fileID: 4979125253743653010, guid: 525b1640fecea414fbec32943dbee617, type: 3}
+  cloneDicePrefab: {fileID: 4680488779518099113, guid: a3c5acd0febe7cb4bb10fca6d8a6d6a8, type: 3}
+  arrow: {fileID: 1921767372}
   leftwallCheck: {fileID: 929237974}
   rightwallCheck: {fileID: 1766541528}
   wallLayer:
@@ -956,6 +957,7 @@ MonoBehaviour:
   isJumping: 0
   isWallJumping: 0
   setCamera: 0
+  cloneDice: {fileID: 0}
 --- !u!50 &151091645
 Rigidbody2D:
   serializedVersion: 4
@@ -1844,7 +1846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929237974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1914,7 +1916,7 @@ GameObject:
   - component: {fileID: 1109024182}
   - component: {fileID: 1109024181}
   - component: {fileID: 1109024180}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2255,7 +2257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1766541528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2658,7 +2660,7 @@ GameObject:
   - component: {fileID: 1898227927}
   - component: {fileID: 1898227929}
   - component: {fileID: 1898227928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2733,7 +2735,7 @@ GameObject:
   - component: {fileID: 1921767375}
   - component: {fileID: 1921767374}
   - component: {fileID: 1921767373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2894,7 +2896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064217355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

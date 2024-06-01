@@ -7,5 +7,6 @@ public class Janggi_Prefab : MonoBehaviour
     void Awake()
     {
         GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
+        transform.localPosition = Vector3.zero;
     }
 }

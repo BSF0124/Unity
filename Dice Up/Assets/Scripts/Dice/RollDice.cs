@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,7 +76,6 @@ public class RollDice : MonoBehaviour
             {
                 currentDice = rand;
                 spriteRenderer.sprite = diceImages[currentDice];
-                print(currentDice);
                 break;
             }
     }
@@ -100,8 +98,8 @@ public class RollDice : MonoBehaviour
         Vector3 force = Vector3.zero;
         int rand1 = Random.Range(0, 2);
         int rand2 = Random.Range(0, 2);
-        force.x = rand1==0? Random.Range(-1200, -600) : Random.Range(600, 1200);
-        force.y = rand2==0? Random.Range(-1200, -600) : Random.Range(600, 1200);
+        force.x = rand1==0? Random.Range(-1000, -700) : Random.Range(700, 1000);
+        force.y = rand2==0? Random.Range(-1000, -700) : Random.Range(700, 1000);
         rb.AddForce(force);
     }
 

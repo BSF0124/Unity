@@ -16,12 +16,14 @@ public class Chess : Platform
         switch(num)
         {
             case 0:
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(80f, 100f)));
+                chess.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(80f, 100f)));
                 break;
             case 1:
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(260f, 280f)));
+                chess.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(260f, 280f)));
                 break;
             
         }
+
+        chess.transform.localPosition = Vector3.zero;
     }
 }
