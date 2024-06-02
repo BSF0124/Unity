@@ -1,7 +1,9 @@
 using System;
 using System.Collections; 
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class Dice : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private GameObject landingEffect;
     [SerializeField] private GameObject cloneDicePrefab;
     [SerializeField] private GameObject arrow;          // 점프 방향을 나타내는 이미지 오브젝트
+    [SerializeField] private Image arrowFill;
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
@@ -143,11 +146,10 @@ public class Dice : MonoBehaviour
     {
         if(IsWalled() && isWallJumping)
         {
-            isWallJumping = false;
+            // isWallJumping = false;
             jumpDirection.x *= -1;
             rb.velocity = new Vector2(0,0);
             StartCoroutine(Jump(jumpForce));
-            jumpDirection.x *= -1;
         }
         else
         {
@@ -233,7 +235,7 @@ public class Dice : MonoBehaviour
                 break;
 
             case 2:
-                StartCoroutine(Clone());
+                StartCoroutine(Transparent());
                 break;
 
             case 3:
@@ -273,7 +275,7 @@ public class Dice : MonoBehaviour
     /// <summary>
     /// (3눈)
     /// </summary>
-    public IEnumerator Clone()
+    public IEnumerator Transparent()
     {
         GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(Jump(jumpForce * 1.2f));
@@ -285,16 +287,18 @@ public class Dice : MonoBehaviour
     public IEnumerator RandomJump()
     {
         isCoroutineRun = true;
+        arrowFill.fillAmount = 0;
         yield return StartCoroutine(ArrowBackandForth());
         yield return StartCoroutine(ArrowBackandForth());
 
         float direction = UnityEngine.Random.Range(-0.8f, 0.8f);
-        jumpForce = UnityEngine.Random.Range(500, 1000);
+        jumpForce = UnityEngine.Random.Range(500, 1500);
 
         yield return StartCoroutine(SetArrowCoroutine(direction));
 
         StartCoroutine(Jump(jumpForce));
         jumpForce = 700;
+        arrowFill.fillAmount = 1;
         isCoroutineRun = false;
     }
     /// <summary>
@@ -325,6 +329,7 @@ public class Dice : MonoBehaviour
         }
         jumpDirection.x = direction;
 
+        arrowFill.DOFillAmount((jumpForce - 500) / 1000, 0.5f).SetEase(Ease.InOutQuad);
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -349,6 +354,6 @@ public class Dice : MonoBehaviour
     {
         cloneDice = Instantiate(cloneDicePrefab, transform.position, Quaternion.identity);
         cloneDice.GetComponent<CloneDice>().jumpDirection = jumpDirection;
-        cloneDice.GetComponent<CloneDice>().StartCoroutine(Jump(type));
+        StartCoroutine(cloneDice.GetComponent<CloneDice>().DoJump(type));
     }
 }

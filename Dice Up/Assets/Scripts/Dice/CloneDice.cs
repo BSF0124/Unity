@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CloneDice : MonoBehaviour
 {
-    [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
-    [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
+    [SerializeField] private Transform leftwallCheck; // 왼쪽 벽 체크
+    [SerializeField] private Transform rightwallCheck; // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
     public Sprite[] diceSprites;
 
@@ -12,13 +12,16 @@ public class CloneDice : MonoBehaviour
     [HideInInspector] public float objectWidth;
     [HideInInspector] public float objectHeight;
     [HideInInspector] public bool isDiceRoll = false;
-    [HideInInspector] public bool isWallJumping = false;                 // 벽점프 가능 여부 확인
+    [HideInInspector] public bool isWallJumping = false; // 벽점프 가능 여부 확인
 
-    private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
+    private Rigidbody2D rb; // rigidbodt2D 컴포넌트
     private SpriteRenderer diceSprite;
 
     private float radious = 0.2f;
-    private float jumpForce = 700;                      // 점프 힘
+    private float jumpForce = 700; // 점프 힘
+    private float timer = 1f;
+    private float currentTime = 0; // 현재 시간
+    private bool isGrounded = false;
 
     private void Awake()
     {
@@ -30,11 +33,22 @@ public class CloneDice : MonoBehaviour
 
     private void Update()
     {
+        if(currentTime >= timer)
+        {
+            Destroy(gameObject);
+        }
+
         CheckPosition();
         if(!GetComponent<BoxCollider2D>().isActiveAndEnabled && rb.velocity.y < 0)
         {
             GetComponent<BoxCollider2D>().enabled = true;
         }
+
+        if(isGrounded)
+        {
+            currentTime += Time.deltaTime;
+        }
+
     }
 
     private void CheckPosition()
@@ -62,12 +76,19 @@ public class CloneDice : MonoBehaviour
     {
         if(IsWalled() && isWallJumping)
         {
-            isWallJumping = false;
+            // isWallJumping = false;
             jumpDirection.x *= -1;
             rb.velocity = new Vector2(0,0);
             StartCoroutine(Jump(jumpForce));
-            jumpDirection.x *= -1;
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        isGrounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        isGrounded = false;
     }
 
     // 벽에 닿았는지 확인하는 메서드(벽에 닿았으면 true 리턴)
@@ -80,7 +101,6 @@ public class CloneDice : MonoBehaviour
     public IEnumerator DoJump(int jumpType)
     {
         diceSprite.sprite = diceSprites[jumpType];
-        yield return new WaitForSeconds(0.5f);
         switch(jumpType)
         {
             case 0:
@@ -92,7 +112,7 @@ public class CloneDice : MonoBehaviour
                 break;
 
             case 2:
-                StartCoroutine(Clone());
+                StartCoroutine(Transparent());
                 break;
 
             case 3:
@@ -103,9 +123,7 @@ public class CloneDice : MonoBehaviour
                 StartCoroutine(SuperJump());
                 break;
         }
-
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        yield return null;
     }
 
     /// <summary>
@@ -129,7 +147,7 @@ public class CloneDice : MonoBehaviour
     /// <summary>
     /// (3눈)
     /// </summary>
-    public IEnumerator Clone()
+    public IEnumerator Transparent()
     {
         GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(Jump(jumpForce * 1.2f));

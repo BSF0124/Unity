@@ -435,6 +435,7 @@
 "Assets/Scripts/Platform/Janggi.cs"
 "Assets/Scripts/Platform/Janggi_Prefab.cs"
 "Assets/Scripts/Platform/Mahjong.cs"
+"Assets/Scripts/Platform/MovingPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
 "Assets/Scripts/Platform/PlayingCard.cs"
 "Assets/Scripts/UI/ButtonEffect.cs"
