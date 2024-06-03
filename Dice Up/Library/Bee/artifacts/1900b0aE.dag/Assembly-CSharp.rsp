@@ -446,6 +446,7 @@
 "Assets/Scripts/UI/Page_3.cs"
 "Assets/Scripts/UI/Page_4.cs"
 "Assets/Scripts/UI/Page_5.cs"
+"Assets/Scripts/UI/Page_6.cs"
 -langversion:9.0
 
 /deterministic

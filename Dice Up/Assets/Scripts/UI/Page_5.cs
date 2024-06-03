@@ -25,8 +25,15 @@ public class Page_5 : MonoBehaviour
         Vector2 controlPos = (startPos + endPos) / 2 + Vector3.up * 250;
         Vector3[] path = new Vector3[] {startPos, controlPos, endPos};
 
-        diceSequence_5.Append(dice_5.DOAnchorPos(new Vector2(-150, -50), duration/3).SetEase(Ease.Linear))
-        .Append(dice_5.DOLocalPath(path, duration, PathType.CatmullRom).SetEase(Ease.Linear))
+        // diceSequence_5.Append(dice_5.DOAnchorPos(new Vector2(-150, -50), duration/3).SetEase(Ease.Linear))
+        // .Append(dice_5.DOLocalPath(path, duration, PathType.CatmullRom).SetEase(Ease.Linear))
+        // .AppendInterval(0.5f)
+        // .OnComplete(SetAnchoredPosition);
+        diceSequence_5.Append(dice_5.DOAnchorPos(new Vector2(-150, 0), duration/2).SetEase(Ease.OutQuad))
+        .Append(dice_5.DOAnchorPos(new Vector2(-305, 250), duration/2).SetEase(Ease.OutQuad))
+        .Append(dice_5.DOAnchorPos(new Vector2(-150, 500), duration/2).SetEase(Ease.OutQuad))
+        .Append(dice_5.DOAnchorPos(new Vector2(-305, 750), duration/2).SetEase(Ease.OutQuad))
+        .Append(dice_5.DOAnchorPos(new Vector2(-150, 1050), duration/2).SetEase(Ease.OutQuad))
         .AppendInterval(0.5f)
         .OnComplete(SetAnchoredPosition);
 
@@ -60,7 +67,8 @@ public class Page_5 : MonoBehaviour
 
     private void objectReset()
     {
-        dice_5.anchoredPosition = new Vector2(-270, -200);
+        // dice_5.anchoredPosition = new Vector2(-270, -200);
+        dice_5.anchoredPosition = new Vector2(-228, -200);
         dice_6.anchoredPosition = new Vector2(270, -200);
     }
 }
