@@ -20,6 +20,7 @@ public class Dice : MonoBehaviour
 
     public Sprite[] diceSprites;
 
+    [HideInInspector] public GameObject cloneDice;
     [HideInInspector] public float objectWidth;
     [HideInInspector] public float objectHeight;
     [HideInInspector] public bool isDiceRoll = false;
@@ -30,10 +31,9 @@ public class Dice : MonoBehaviour
     private Rigidbody2D rb;                             // rigidbodt2D 컴포넌트
     private SpriteRenderer diceSprite;
     private Vector2 jumpDirection;
-    public GameObject cloneDice;
 
     private bool isCoroutineRun = false;
-    private bool scoreCheck = false;
+    public bool scoreCheck = false;
 
     private float radious = 0.2f;
     private float jumpForce = 700;                      // 점프 힘
@@ -79,13 +79,13 @@ public class Dice : MonoBehaviour
                 {
                     if(Input.GetKeyDown(KeyCode.Q))
                     {CreateCloneDice(0);}
-                    if(Input.GetKeyDown(KeyCode.W))
+                    else if(Input.GetKeyDown(KeyCode.W))
                     {CreateCloneDice(1);}
-                    if(Input.GetKeyDown(KeyCode.E))
+                    else if(Input.GetKeyDown(KeyCode.E))
                     {CreateCloneDice(2);}
-                    if(Input.GetKeyDown(KeyCode.D))
+                    else if(Input.GetKeyDown(KeyCode.R))
                     {CreateCloneDice(3);}
-                    if(Input.GetKeyDown(KeyCode.T))
+                    else if(Input.GetKeyDown(KeyCode.T))
                     {CreateCloneDice(4);}
                 }
             }
@@ -124,11 +124,14 @@ public class Dice : MonoBehaviour
 
         if(scoreCheck)
         {
-            int score = int.Parse(other.transform.name);
-            if(score > PlayerPrefs.GetInt("Score"))
+            if(rb.velocityY == 0)
             {
-                PlayerPrefs.SetInt("Score", score);
-                scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+                int score = int.Parse(other.transform.name);
+                if(score > PlayerPrefs.GetInt("Score"))
+                {
+                    PlayerPrefs.SetInt("Score", score);
+                    scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+                }
             }
         }
     }
@@ -295,7 +298,7 @@ public class Dice : MonoBehaviour
         jumpForce = UnityEngine.Random.Range(500, 1500);
 
         yield return StartCoroutine(SetArrowCoroutine(direction));
-
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(Jump(jumpForce));
         jumpForce = 700;
         arrowFill.fillAmount = 1;

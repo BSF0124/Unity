@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
         switch(currentButton)
             {
                 case 0:
-                    print("Play");
+                    StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
                     break;
                 case 1:
                     StartCoroutine(HowToPlayPanelEffect(false));

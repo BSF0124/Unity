@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -8,33 +9,70 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Dice dice;
     [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
+    [SerializeField] private Image exitCircle;
 
     private int diceJumpType;
+    private float exitTime = 1f;
+    private float currentTime;
 
     private void Awake()
     {
         PlayerPrefs.SetInt("Score", 0);
+        currentTime = 0;
     }
     
     private void Update()
     {
-        if(rollDicePanel.activeSelf)
+        if(isGameOver)
         {
-            if(rolltheDice.isRollEnd)
+            if(Input.GetKeyDown(KeyCode.Escape))
             {
-                diceJumpType = rolltheDice.currentDice;
-                rollDicePanelOnOff();
+                isGameOver = false;
+                StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+            }
+            else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            {
+                isGameOver = false;
+                StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
             }
         }
-
-        if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
+        else
         {
-            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
-        }
+            if(currentTime >= exitTime)
+            {
+                StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+            }
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(0);
+            if(rollDicePanel.activeSelf)
+            {
+                if(rolltheDice.isRollEnd)
+                {
+                    diceJumpType = rolltheDice.currentDice;
+                    rollDicePanelOnOff();
+                }
+            }
+
+            if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
+            {
+                PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
+            }
+
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                if(currentTime < exitTime)
+                {
+                    currentTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if(currentTime != 0)
+                {
+                    currentTime -= Time.deltaTime;
+                }
+            }
+
+            exitCircle.fillAmount = currentTime/exitTime;
         }
     }
 

@@ -7,15 +7,14 @@ public class RollDice : MonoBehaviour
     [SerializeField] private GameObject[] chanceImage;  // 굴리기 남은 횟수 표시 이미지
     [SerializeField] private Slider timerSlider;        // 남은 시간을 표시하기 위한 슬라이더
 
+    [HideInInspector] public bool isRollEnd = false;    // 굴리기 끝
+    [HideInInspector] public int currentDice;           // 현재 주사위 눈
+
     private SpriteRenderer spriteRenderer;              // 주사위 이미지 변경을 위한 SpriteRenderer 
     private Rigidbody2D rb;                             // 주사위를 굴리기 위한 rigidbodt2D 컴포넌트
     private Vector3 position;                           // 주사위 초기 위치값
-
-    [HideInInspector] public bool isRollEnd = false;    // 굴리기 끝
-    [HideInInspector] public int currentDice;           // 현재 주사위 눈
-    
     private int chance = 3;                             // 굴리기 횟수
-    private float time = 1.5f;                          // 제한 시간
+    private float time = 2f;                          // 제한 시간
     private float currentTime;                          // 현재 시간
     
     private void Awake()
@@ -46,15 +45,15 @@ public class RollDice : MonoBehaviour
         if(currentTime <= 0)
         {
             timerSlider.transform.GetChild(1).gameObject.SetActive(false);
-            SetRollEnd();
             rb.velocity = Vector3.zero;
+            Invoke("SetRollEnd", 0.5f);
         }
 
         currentTime -= Time.deltaTime;
         timerSlider.value = currentTime;
 
         // 스페이스바를 눌러 주사위를 다시 굴림
-        if(chance != 0 && Input.GetKeyDown(KeyCode.Space))
+        if(chance != 0 && Input.GetKeyDown(KeyCode.Space) && currentTime > 0)
         {
             chance--;
             SetDice();

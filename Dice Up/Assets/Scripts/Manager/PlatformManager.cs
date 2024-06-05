@@ -44,12 +44,19 @@ public class PlatformManager : MonoBehaviour
                 Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
             }
-
-            if(count >= 40)
+            
+            if(count >= 60)
+            {
+                platform = Instantiate(platform_Prefabs[Random.Range(0, platform_Prefabs.Length)], position, Quaternion.identity, transform);
+            }
+            else if(count >= 50)
+            {
+                platform = Instantiate(platform_Prefabs[5], position, Quaternion.identity, transform);
+            }
+            else if(count >= 40)
             {
                 platform = Instantiate(platform_Prefabs[4], position, Quaternion.identity, transform);
             }
-
             else if(count >= 30)
             {
                 platform = Instantiate(platform_Prefabs[3], position, Quaternion.identity, transform);

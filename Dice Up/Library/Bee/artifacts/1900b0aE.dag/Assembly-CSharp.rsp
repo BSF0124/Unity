@@ -438,6 +438,7 @@
 "Assets/Scripts/Platform/MovingPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
 "Assets/Scripts/Platform/PlayingCard.cs"
+"Assets/Scripts/SceneLoader.cs"
 "Assets/Scripts/UI/ButtonEffect.cs"
 "Assets/Scripts/UI/HowToPlay.cs"
 "Assets/Scripts/UI/MainMenu.cs"
