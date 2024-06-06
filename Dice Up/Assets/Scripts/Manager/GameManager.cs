@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
     [SerializeField] private Image exitCircle;
+    [SerializeField] private TextMeshProUGUI bestScoreText;
 
     private int diceJumpType;
     private float exitTime = 1f;
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Score", 0);
         currentTime = 0;
+        bestScoreText.text = "Best\n" + PlayerPrefs.GetInt("HighScore");
     }
     
     private void Update()
