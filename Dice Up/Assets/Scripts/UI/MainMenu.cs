@@ -5,15 +5,14 @@ using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
-    [HideInInspector] public int currentButton;
+    public RectTransform howtoplayPanel;
     public ButtonEffect[] buttons;
-    public GameObject howtoplayPanel;
-    private RectTransform rectTransform;
+    
+    [HideInInspector] public int currentButton;
     private bool isCoroutineRun = false;
 
     void Awake()
     {
-        rectTransform = howtoplayPanel.transform.GetComponent<RectTransform>();
         currentButton = -1;
         RefreshSprite();
     }
@@ -23,7 +22,7 @@ public class MainMenu : MonoBehaviour
         if(isCoroutineRun)
         {return;}
 
-        if(howtoplayPanel.activeSelf)
+        if(howtoplayPanel.gameObject.activeSelf)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
             {
@@ -105,17 +104,17 @@ public class MainMenu : MonoBehaviour
         isCoroutineRun = true;
         if(isActivated)
         {
-            rectTransform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+            howtoplayPanel.DOScale(0, 0.5f).SetEase(Ease.InBack);
             yield return new WaitForSeconds(0.6f);
-            howtoplayPanel.SetActive(false);
-            rectTransform.localScale = Vector3.zero;
+            howtoplayPanel.gameObject.SetActive(false);
+            howtoplayPanel.localScale = Vector3.zero;
         }
 
         else
         {
-            howtoplayPanel.SetActive(true);
-            rectTransform.localScale = Vector3.zero;
-            rectTransform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+            howtoplayPanel.gameObject.SetActive(true);
+            howtoplayPanel.localScale = Vector3.zero;
+            howtoplayPanel.DOScale(1, 0.5f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.6f);
         }
         isCoroutineRun = false;

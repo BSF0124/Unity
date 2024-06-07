@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,32 +13,46 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RollDice rolltheDice;
     [SerializeField] private GameObject rollDicePanel;
     [SerializeField] private Image exitCircle;
+    [SerializeField] private RectTransform gameoverPanel;
+    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
+    [SerializeField] private TextMeshProUGUI gameoverText;
 
     private int diceJumpType;
     private float exitTime = 1f;
     private float currentTime;
+    private float duration = 1f;
+
+    private Coroutine fadeCoroutine;
+    private float textDuration = 0.5f;
 
     private void Awake()
     {
         PlayerPrefs.SetInt("Score", 0);
         currentTime = 0;
-        bestScoreText.text = "Best\n" + PlayerPrefs.GetInt("HighScore");
     }
     
     private void Update()
     {
         if(isGameOver)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(gameoverPanel.gameObject.activeSelf)
             {
-                isGameOver = false;
-                StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+                if(Input.GetKeyDown(KeyCode.Escape))
+                {
+                    isGameOver = false;
+                    StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+                }
+                else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                {
+                    isGameOver = false;
+                    StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
+                }
             }
-            else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+
+            else
             {
-                isGameOver = false;
-                StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
+                StartCoroutine(GameOverEffect());
             }
         }
         else
@@ -94,5 +110,58 @@ public class GameManager : MonoBehaviour
             dice.isDiceRoll = true;
             rollDicePanel.SetActive(true);
         }
+    }
+
+    private IEnumerator GameOverEffect()
+    {
+        gameoverPanel.localScale = Vector3.zero;
+        gameoverPanel.gameObject.SetActive(true);
+        scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+        bestScoreText.text = PlayerPrefs.GetInt("HighScore").ToString();
+
+        yield return new WaitForSeconds(duration);
+
+        gameoverPanel.DOScale(1, duration).SetEase(Ease.OutBack);
+        
+        yield return new WaitForSeconds(duration);
+        StartFadeLoop();
+    }
+
+    public void StartFadeLoop()
+    {
+        if (fadeCoroutine == null)
+        {
+            fadeCoroutine = StartCoroutine(TextFadeLoop());
+        }
+    }
+
+    public void StopFadeLoop()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
+    }
+
+    private IEnumerator TextFadeLoop()
+    {
+        bool fadeIn = true;
+        while (true)
+        {
+            if (fadeIn)
+            {
+                gameoverText.DOFade(1, textDuration);
+            }
+
+            else
+            {
+                gameoverText.DOFade(0, textDuration);
+            }
+
+            fadeIn = !fadeIn;
+            yield return new WaitForSeconds(textDuration);
+        }
+
     }
 }

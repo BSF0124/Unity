@@ -56,13 +56,17 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSeconds(duration * 2);
 
         // 다른 씬을 비활성화
-        if(sceneName == "Menu")
+        if(sceneName == "Menu" && SceneManager.GetSceneByName("Game").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Game");
         }
-        else if(sceneName == "Game")
+        else if(sceneName == "Game" && SceneManager.GetSceneByName("Menu").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Menu");
+        }
+        else
+        {
+            SceneManager.UnloadSceneAsync("Game");
         }
         // 씬을 불러옴
         SceneManager.LoadScene(sceneName, mode);

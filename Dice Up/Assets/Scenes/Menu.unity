@@ -1353,12 +1353,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2973a90fe46fc72448891f6ed87b3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentButton: 0
+  howtoplayPanel: {fileID: 1151104783}
   buttons:
   - {fileID: 443150261}
   - {fileID: 451818546}
   - {fileID: 53966015}
-  howtoplayPanel: {fileID: 1151104782}
+  currentButton: 0
 --- !u!1 &443150256
 GameObject:
   m_ObjectHideFlags: 0
