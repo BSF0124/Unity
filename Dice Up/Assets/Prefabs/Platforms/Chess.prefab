@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chess_Prefab:
-  - {fileID: 8457139466889189954, guid: fce353cc9d4dc8949aa6efa334c9162b, type: 3}
+  - {fileID: 8956644761585807332, guid: fce353cc9d4dc8949aa6efa334c9162b, type: 3}
   - {fileID: 2613355261016781428, guid: a410ba549ddd70c49bd7563e2439a903, type: 3}
   - {fileID: 3918761422044417102, guid: ace5f35381db14b4b9e7b2036f2d1ecf, type: 3}
   - {fileID: 408326610956877738, guid: b98d4afbd6b4eea4cb7238979053ffbc, type: 3}
