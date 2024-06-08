@@ -66,7 +66,6 @@ public class CloneDice : MonoBehaviour
 
         if(transform.position.y + objectHeight <= PlayerPrefs.GetFloat("DeadLine") + 1f)
         {
-            GameManager.isGameOver = true;
             Destroy(gameObject);
         }
     }

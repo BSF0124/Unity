@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     private float duration = 1f;
 
     private Coroutine fadeCoroutine;
-    private float textDuration = 0.5f;
+    private float textDuration = 1f;
 
     private void Awake()
     {
@@ -71,11 +71,6 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
-            {
-                PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
-            }
-
             if(Input.GetKey(KeyCode.Escape))
             {
                 if(currentTime < exitTime)
@@ -92,6 +87,11 @@ public class GameManager : MonoBehaviour
             }
 
             exitCircle.fillAmount = currentTime/exitTime;
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
         }
     }
 
@@ -116,13 +116,27 @@ public class GameManager : MonoBehaviour
     {
         gameoverPanel.localScale = Vector3.zero;
         gameoverPanel.gameObject.SetActive(true);
-        scoreText.text = PlayerPrefs.GetInt("Score").ToString();
-        bestScoreText.text = PlayerPrefs.GetInt("HighScore").ToString();
+        int score = 0;
 
         yield return new WaitForSeconds(duration);
-
         gameoverPanel.DOScale(1, duration).SetEase(Ease.OutBack);
-        
+        yield return new WaitForSeconds(duration);
+
+        while(score < PlayerPrefs.GetInt("Score"))
+        {
+            score++;
+            scoreText.text = score.ToString();
+            if(score > PlayerPrefs.GetInt("HighScore"))
+            {
+                bestScoreText.text = score.ToString();
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+        if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
+        }
+
         yield return new WaitForSeconds(duration);
         StartFadeLoop();
     }
