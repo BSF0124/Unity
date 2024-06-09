@@ -16,7 +16,6 @@ public class Dice : MonoBehaviour
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] TextMeshProUGUI scoreText;
 
     public Sprite[] diceSprites;
 
@@ -122,16 +121,12 @@ public class Dice : MonoBehaviour
     {
         isJumping = false;
 
-        if(scoreCheck)
+        if(scoreCheck && !IsWalled())
         {
-            if(rb.velocityY == 0)
+            int score = int.Parse(other.transform.name);
+            if(score > PlayerPrefs.GetInt("Score"))
             {
-                int score = int.Parse(other.transform.name);
-                if(score > PlayerPrefs.GetInt("Score"))
-                {
-                    PlayerPrefs.SetInt("Score", score);
-                    scoreText.text = PlayerPrefs.GetInt("Score").ToString();
-                }
+                PlayerPrefs.SetInt("Score", score);
             }
         }
     }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject rollDicePanel;
     [SerializeField] private Image exitCircle;
     [SerializeField] private RectTransform gameoverPanel;
+    [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI gameoverText;
@@ -85,13 +86,21 @@ public class GameManager : MonoBehaviour
                     currentTime -= Time.deltaTime;
                 }
             }
-
+            score.text = PlayerPrefs.GetInt("Score").ToString();
             exitCircle.fillAmount = currentTime/exitTime;
         }
 
         if(Input.GetKeyDown(KeyCode.K))
         {
             PlayerPrefs.SetInt("HighScore", 0);
+        }
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score")+1);
+        }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score")-1);
         }
     }
 
