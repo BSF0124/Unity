@@ -42,7 +42,7 @@ public class RollDice : MonoBehaviour
         {return;}
 
         // 제한 시간 종료
-        if(currentTime <= 0)
+        if(currentTime <= 0.1f)
         {
             timerSlider.transform.GetChild(1).gameObject.SetActive(false);
             rb.velocity = Vector3.zero;

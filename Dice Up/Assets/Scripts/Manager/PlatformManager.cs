@@ -3,16 +3,15 @@ using UnityEngine;
 public class PlatformManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] platform_Prefabs;
-    private int count = 0;
+    // private int count = 0;
+    private bool isLeft = false;
 
     private float coordinates_Y;
     
     void Awake()
     {
         coordinates_Y = Random.Range(-4.0f, -3.0f);
-        count++;
-        GameObject platform = Instantiate(platform_Prefabs[0], new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")), coordinates_Y), Quaternion.identity, transform);
-        platform.transform.name = count.ToString();
+        Instantiate(platform_Prefabs[0], new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")), coordinates_Y), Quaternion.identity, transform);
     }
 
     void Update()
@@ -27,53 +26,52 @@ public class PlatformManager : MonoBehaviour
 
         else
         {
-            GameObject platform;
             Vector2 position;
 
-            count++;
-            if(count % 2 == 0)
-            {
-                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
-                Random.Range(3.0f, 4.0f) + coordinates_Y);
-                coordinates_Y = position.y;
-            }
-
-            else
+            if(isLeft)
             {
                 position = new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")),
                 Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
+                isLeft = false;
+            }
+
+            else
+            {
+                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
+                Random.Range(3.0f, 4.0f) + coordinates_Y);
+                coordinates_Y = position.y;
+                isLeft = true;
             }
             
-            if(count >= 60)
+            if(PlayerPrefs.GetInt("Score") >= 60)
             {
-                platform = Instantiate(platform_Prefabs[Random.Range(0, platform_Prefabs.Length)], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[Random.Range(0, platform_Prefabs.Length)], position, Quaternion.identity, transform);
             }
-            else if(count >= 50)
+            else if(PlayerPrefs.GetInt("Score") >= 50)
             {
-                platform = Instantiate(platform_Prefabs[5], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[5], position, Quaternion.identity, transform);
             }
-            else if(count >= 40)
+            else if(PlayerPrefs.GetInt("Score") >= 40)
             {
-                platform = Instantiate(platform_Prefabs[4], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[4], position, Quaternion.identity, transform);
             }
-            else if(count >= 30)
+            else if(PlayerPrefs.GetInt("Score") >= 30)
             {
-                platform = Instantiate(platform_Prefabs[3], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[3], position, Quaternion.identity, transform);
             }
-            else if(count >= 20)
+            else if(PlayerPrefs.GetInt("Score") >= 20)
             {
-                platform = Instantiate(platform_Prefabs[2], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[2], position, Quaternion.identity, transform);
             }
-            else if(count >= 10)
+            else if(PlayerPrefs.GetInt("Score") >= 10)
             {
-                platform = Instantiate(platform_Prefabs[1], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[1], position, Quaternion.identity, transform);
             }
             else
             {
-                platform = Instantiate(platform_Prefabs[0], position, Quaternion.identity, transform);
+                Instantiate(platform_Prefabs[0], position, Quaternion.identity, transform);
             }
-            platform.transform.name = count.ToString();
         }
     }
 }

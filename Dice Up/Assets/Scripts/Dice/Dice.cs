@@ -1,8 +1,8 @@
 using System;
 using System.Collections; 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using DG.Tweening;
 
 public class Dice : MonoBehaviour
@@ -15,6 +15,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private Image arrowFill;
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
+    [SerializeField] private Transform scoreCheck;  // 오른쪽 벽 체크
     [SerializeField] private LayerMask wallLayer;
 
     public Sprite[] diceSprites;
@@ -32,13 +33,15 @@ public class Dice : MonoBehaviour
     private Vector2 jumpDirection;
 
     private bool isCoroutineRun = false;
-    public bool scoreCheck = false;
 
     private float radious = 0.2f;
     private float jumpForce = 700;                      // 점프 힘
     private float jumpCoolDownTime = 0.5f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
     private float currentTime;                          // 현재 시간
+
+    private int score = 1;
+    private GameObject platform;
 
     private void Awake()
     {
@@ -67,8 +70,8 @@ public class Dice : MonoBehaviour
             {
                 SetJumpDirection();
                 isWallJumping = false;
-                scoreCheck = true;
                 setCamera = true;
+
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     gameManager.rollDicePanelOnOff();
@@ -120,22 +123,12 @@ public class Dice : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         isJumping = false;
-
-        if(scoreCheck && !IsWalled())
-        {
-            int score = int.Parse(other.transform.name);
-            if(score > PlayerPrefs.GetInt("Score"))
-            {
-                PlayerPrefs.SetInt("Score", score);
-            }
-        }
     }
 
     // 땅에서 벗어나면 isJumping = true
     private void OnCollisionExit2D(Collision2D other) 
     {
         isJumping = true;
-        scoreCheck = false;
         setCamera = false;
     }
 
@@ -144,15 +137,35 @@ public class Dice : MonoBehaviour
     {
         if(IsWalled() && isWallJumping)
         {
-            // isWallJumping = false;
             jumpDirection.x *= -1;
             rb.velocity = new Vector2(0,0);
             StartCoroutine(Jump(jumpForce));
+            if(platform == null || other.transform.position.y >= platform.transform.position.y)
+            {score++;}
         }
         else
         {
             Instantiate(landingEffect, transform.position, Quaternion.identity);
             mainCamera.CameraShake();
+        }
+
+        if(GetScore())
+        {
+            if(platform == null || other.transform.position.y >= platform.transform.position.y)
+            {   
+                platform = other.gameObject;
+                PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + score);
+            }
+            score = 1;
+        }
+
+        if(other.transform.tag == "MovingPlatform")
+        {
+            transform.SetParent(other.transform);
+        }
+        else
+        {
+            transform.SetParent(other.transform.parent);
         }
     }
 
@@ -160,6 +173,12 @@ public class Dice : MonoBehaviour
     private bool IsWalled()
     {
         return Physics2D.OverlapCircle(leftwallCheck.position, radious, wallLayer) || Physics2D.OverlapCircle(rightwallCheck.position, radious, wallLayer);
+    }
+
+    // 
+    private bool GetScore()
+    {
+        return Physics2D.OverlapCircle(scoreCheck.position, radious, wallLayer);
     }
 
     /// <summary>
@@ -271,7 +290,7 @@ public class Dice : MonoBehaviour
         StartCoroutine(Jump(jumpForce));
     }
     /// <summary>
-    /// (3눈)
+    /// 투명화(3눈)
     /// </summary>
     public IEnumerator Transparent()
     {
@@ -286,6 +305,7 @@ public class Dice : MonoBehaviour
     {
         isCoroutineRun = true;
         arrowFill.fillAmount = 0;
+        score = 3;
         yield return StartCoroutine(ArrowBackandForth());
         yield return StartCoroutine(ArrowBackandForth());
 
