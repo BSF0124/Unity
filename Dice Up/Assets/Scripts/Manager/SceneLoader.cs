@@ -82,7 +82,7 @@ public class SceneLoader : MonoBehaviour
         diceSequence.Append(diceImage.DOAnchorPos(new Vector2(0, 0), duration).SetEase(Ease.OutQuad))
         .Join(diceImage.DORotate(new Vector3(0, 0, 0), duration).SetEase(Ease.OutQuad))
         .AppendInterval(duration)
-        .Append(diceImage.DOAnchorPos(new Vector2(1920, 0), duration).SetEase(Ease.OutQuad))
+        .Append(diceImage.DOAnchorPos(new Vector2(-diceAnchoredPosition.x, 0), duration).SetEase(Ease.OutQuad))
         .Join(diceImage.DORotate(new Vector3(0, 0, -45), duration).SetEase(Ease.OutQuad))
         .OnComplete(SetDiceImageReset)
         .SetAutoKill(false)
@@ -92,7 +92,7 @@ public class SceneLoader : MonoBehaviour
     // 화면 전환 후 DiceImage 초기화
     private void SetDiceImageReset()
     {
-        // diceImage.gameObject.SetActive(false);
+        diceImage.gameObject.SetActive(false);
         diceImage.anchoredPosition = diceAnchoredPosition;
         diceImage.rotation = Quaternion.Euler(0, 0, 45);
     }

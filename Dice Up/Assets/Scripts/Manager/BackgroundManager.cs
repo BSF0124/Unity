@@ -30,19 +30,6 @@ public class BackgroundManager : MonoBehaviour
         {
             if(odd)
             {
-                if(!backgroundImage1.gameObject.activeSelf)
-                {
-                    backgroundImage1.gameObject.SetActive(true);
-                    backgroundImage1.sprite = backgrounds[bgType];
-                    Sequence bgSequence = DOTween.Sequence();
-                    bgSequence.Append(backgroundImage1.DOFade(1, duration))
-                    .Join(backgroundImage2.DOFade(0, duration));
-                    yield return bgSequence.WaitForCompletion();
-                    backgroundImage2.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
                 if(!backgroundImage2.gameObject.activeSelf)
                 {
                     backgroundImage2.gameObject.SetActive(true);
@@ -52,6 +39,19 @@ public class BackgroundManager : MonoBehaviour
                     .Join(backgroundImage1.DOFade(0, duration));
                     yield return bgSequence.WaitForCompletion();
                     backgroundImage1.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                if(!backgroundImage1.gameObject.activeSelf)
+                {
+                    backgroundImage1.gameObject.SetActive(true);
+                    backgroundImage1.sprite = backgrounds[bgType];
+                    Sequence bgSequence = DOTween.Sequence();
+                    bgSequence.Append(backgroundImage1.DOFade(1, duration))
+                    .Join(backgroundImage2.DOFade(0, duration));
+                    yield return bgSequence.WaitForCompletion();
+                    backgroundImage2.gameObject.SetActive(false);
                 }
             }
         }

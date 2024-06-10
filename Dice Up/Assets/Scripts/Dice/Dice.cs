@@ -1,6 +1,5 @@
 using System;
 using System.Collections; 
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -15,7 +14,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private Image arrowFill;
     [SerializeField] private Transform leftwallCheck;   // 왼쪽 벽 체크
     [SerializeField] private Transform rightwallCheck;  // 오른쪽 벽 체크
-    [SerializeField] private Transform scoreCheck;  // 오른쪽 벽 체크
+    [SerializeField] private Transform scoreCheck;  // 점수 체크
     [SerializeField] private LayerMask wallLayer;
 
     public Sprite[] diceSprites;
@@ -276,6 +275,7 @@ public class Dice : MonoBehaviour
     {
         isJumping = true;
         lastJumpTime = Time.time;
+        score = 1;
         rb.AddForce(jumpDirection * jumpForce);
         yield return new WaitForSeconds(0.1f);
     }
@@ -284,6 +284,7 @@ public class Dice : MonoBehaviour
     /// </summary>
     public IEnumerator DoubleJump()
     {
+        score = 1;
         StartCoroutine(Jump(jumpForce));
         yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector3.zero;
@@ -294,6 +295,7 @@ public class Dice : MonoBehaviour
     /// </summary>
     public IEnumerator Transparent()
     {
+        score = 1;
         GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(Jump(jumpForce * 1.2f));
         yield return null;
@@ -325,6 +327,7 @@ public class Dice : MonoBehaviour
     public IEnumerator WallJump()
     {
         yield return null;
+        score = 1;
         isWallJumping = true;
         StartCoroutine(Jump(jumpForce));
     }
@@ -334,6 +337,7 @@ public class Dice : MonoBehaviour
     public IEnumerator SuperJump()
     {
         yield return null;
+        score = 1;
         StartCoroutine(Jump(jumpForce*1.5f));
     }
 

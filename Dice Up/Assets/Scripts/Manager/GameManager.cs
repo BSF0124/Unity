@@ -125,8 +125,8 @@ public class GameManager : MonoBehaviour
     {
         gameoverPanel.localScale = Vector3.zero;
         gameoverPanel.gameObject.SetActive(true);
+        bestScoreText.text = PlayerPrefs.GetInt("HighScore").ToString();
         int score = 0;
-
         yield return new WaitForSeconds(duration);
         gameoverPanel.DOScale(1, duration).SetEase(Ease.OutBack);
         yield return new WaitForSeconds(duration);
