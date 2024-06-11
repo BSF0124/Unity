@@ -150,7 +150,7 @@ public class Dice : MonoBehaviour
 
         if(GetScore())
         {
-            if(platform == null || other.transform.position.y >= platform.transform.position.y)
+            if(platform == null || other.transform.position.y > platform.transform.position.y)
             {   
                 platform = other.gameObject;
                 PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + score);

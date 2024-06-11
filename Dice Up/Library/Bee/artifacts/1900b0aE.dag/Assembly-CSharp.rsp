@@ -432,7 +432,6 @@
 "Assets/Scripts/Manager/GameManager.cs"
 "Assets/Scripts/Manager/PlatformManager.cs"
 "Assets/Scripts/Manager/SceneLoader.cs"
-"Assets/Scripts/Manager/ScreenSet.cs"
 "Assets/Scripts/Platform/BasicPlatform.cs"
 "Assets/Scripts/Platform/Chess.cs"
 "Assets/Scripts/Platform/Janggi.cs"
@@ -450,6 +449,7 @@
 "Assets/Scripts/UI/Page_4.cs"
 "Assets/Scripts/UI/Page_5.cs"
 "Assets/Scripts/UI/Page_6.cs"
+"Assets/Scripts/UI/SoundButton.cs"
 -langversion:9.0
 
 /deterministic

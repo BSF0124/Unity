@@ -6,8 +6,8 @@ using DG.Tweening;
 public class BackgroundManager : MonoBehaviour
 {
     public Sprite[] backgrounds;
-    public Image backgroundImage1;
-    public Image backgroundImage2;
+    public Image backgroundImage1; // 024
+    public Image backgroundImage2; // 135
     private float duration = 1f;
     private int max = 5;
     private int bgType = 0;

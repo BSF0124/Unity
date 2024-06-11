@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
+        if(!isGameOver && currentTime >= exitTime)
+        {
+            StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+        }
+
         if(isGameOver)
         {
             if(gameoverPanel.gameObject.activeSelf)
@@ -58,11 +63,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if(currentTime >= exitTime)
-            {
-                StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
-            }
-
             if(rollDicePanel.activeSelf)
             {
                 if(rolltheDice.isRollEnd)
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if(currentTime != 0)
+                if(currentTime > 0)
                 {
                     currentTime -= Time.deltaTime;
                 }
