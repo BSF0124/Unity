@@ -427,6 +427,7 @@
 "Assets/Scripts/Dice/Dice.cs"
 "Assets/Scripts/Dice/ObjectDestroyByTime.cs"
 "Assets/Scripts/Dice/RollDice.cs"
+"Assets/Scripts/Manager/AudioManager.cs"
 "Assets/Scripts/Manager/BackgroundManager.cs"
 "Assets/Scripts/Manager/CameraManager.cs"
 "Assets/Scripts/Manager/GameManager.cs"
