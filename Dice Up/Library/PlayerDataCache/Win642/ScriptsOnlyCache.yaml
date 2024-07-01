@@ -1,8 +1,10 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - AudioManager
     - BackgroundManager
     - BasicPlatform
+    - BgmOnOff
     - ButtonEffect
     - CameraManager
     - Chess
@@ -27,6 +29,7 @@ ScriptsOnlyBuild:
     - PlayingCard
     - RollDice
     - SceneLoader
+    - SfxOnOff
     DOTween.dll:
     - DG.Tweening.Core.DOTweenSettings
     Unity.2D.Animation.Editor.dll:
@@ -40,11 +43,9 @@ ScriptsOnlyBuild:
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridBrushPickStore
-    - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
-    - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
@@ -99,7 +100,9 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Style
     - TMPro.VertexGradient
     UnityEngine.CoreModule:
+    - UnityEngine.Events.ArgumentCache
     - UnityEngine.Events.PersistentCallGroup
+    - UnityEngine.Events.PersistentListenerMode
     UnityEngine.TextCoreFontEngineModule:
     - UnityEngine.TextCore.FaceInfo
     - UnityEngine.TextCore.Glyph
@@ -116,7 +119,16 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.Slider/SliderEvent
     - UnityEngine.UI.SpriteState
-  methodsToPreserve: []
+  methodsToPreserve:
+  - assembly: Assembly-CSharp
+    fullTypeName: BgmOnOff
+    methodName: _BgmOnOff
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
+    methodName: ClickLicenseButton
+  - assembly: Assembly-CSharp
+    fullTypeName: SfxOnOff
+    methodName: _SfxOnOff
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -144,58 +156,60 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 26554}
+      Script: {instanceID: 26560}
     - Class: 114
-      Script: {instanceID: 26692}
+      Script: {instanceID: 26698}
     - Class: 114
-      Script: {instanceID: 26872}
+      Script: {instanceID: 26878}
     - Class: 114
-      Script: {instanceID: 27740}
+      Script: {instanceID: 27748}
     - Class: 114
-      Script: {instanceID: 28050}
+      Script: {instanceID: 28058}
     - Class: 114
-      Script: {instanceID: 28294}
+      Script: {instanceID: 28302}
     - Class: 114
-      Script: {instanceID: 28484}
+      Script: {instanceID: 28492}
     - Class: 114
-      Script: {instanceID: 28758}
+      Script: {instanceID: 28766}
     - Class: 114
-      Script: {instanceID: 28910}
+      Script: {instanceID: 28918}
     - Class: 114
-      Script: {instanceID: 29160}
+      Script: {instanceID: 29168}
     - Class: 114
-      Script: {instanceID: 29418}
+      Script: {instanceID: 29426}
     - Class: 114
-      Script: {instanceID: 29760}
+      Script: {instanceID: 29768}
     - Class: 114
-      Script: {instanceID: 29974}
+      Script: {instanceID: 29982}
     - Class: 114
-      Script: {instanceID: 30416}
+      Script: {instanceID: 30424}
     - Class: 114
-      Script: {instanceID: 30426}
+      Script: {instanceID: 30434}
     - Class: 114
-      Script: {instanceID: 31210}
+      Script: {instanceID: 31220}
     - Class: 114
-      Script: {instanceID: 31228}
+      Script: {instanceID: 31238}
     - Class: 114
-      Script: {instanceID: 31670}
+      Script: {instanceID: 31682}
     - Class: 114
-      Script: {instanceID: 32268}
+      Script: {instanceID: 32280}
     - Class: 114
-      Script: {instanceID: 32498}
+      Script: {instanceID: 32510}
     - Class: 114
-      Script: {instanceID: 33346}
+      Script: {instanceID: 33358}
     - Class: 114
-      Script: {instanceID: 33426}
+      Script: {instanceID: 33438}
     - Class: 114
-      Script: {instanceID: 34268}
+      Script: {instanceID: 34280}
     - Class: 114
-      Script: {instanceID: 34282}
+      Script: {instanceID: 34294}
     - Class: 114
-      Script: {instanceID: 34604}
+      Script: {instanceID: 34616}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 165
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
@@ -226,28 +240,32 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 26872}
+      Script: {instanceID: 26878}
     - Class: 114
-      Script: {instanceID: 27508}
+      Script: {instanceID: 27516}
     - Class: 114
-      Script: {instanceID: 28294}
+      Script: {instanceID: 28302}
     - Class: 114
-      Script: {instanceID: 31108}
+      Script: {instanceID: 30680}
     - Class: 114
-      Script: {instanceID: 31988}
+      Script: {instanceID: 31118}
     - Class: 114
-      Script: {instanceID: 32268}
+      Script: {instanceID: 32000}
     - Class: 114
-      Script: {instanceID: 33276}
+      Script: {instanceID: 32280}
     - Class: 114
-      Script: {instanceID: 33346}
+      Script: {instanceID: 33288}
     - Class: 114
-      Script: {instanceID: 34812}
+      Script: {instanceID: 33358}
+    - Class: 114
+      Script: {instanceID: 34824}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -284,41 +302,45 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 26554}
+      Script: {instanceID: 26560}
     - Class: 114
-      Script: {instanceID: 26872}
+      Script: {instanceID: 26878}
     - Class: 114
-      Script: {instanceID: 27198}
+      Script: {instanceID: 27168}
     - Class: 114
-      Script: {instanceID: 27562}
+      Script: {instanceID: 27206}
     - Class: 114
-      Script: {instanceID: 28294}
+      Script: {instanceID: 27570}
     - Class: 114
-      Script: {instanceID: 28722}
+      Script: {instanceID: 28302}
     - Class: 114
-      Script: {instanceID: 28910}
+      Script: {instanceID: 28730}
     - Class: 114
-      Script: {instanceID: 29160}
+      Script: {instanceID: 28918}
     - Class: 114
-      Script: {instanceID: 29450}
+      Script: {instanceID: 29168}
     - Class: 114
-      Script: {instanceID: 29974}
+      Script: {instanceID: 29458}
     - Class: 114
-      Script: {instanceID: 31060}
+      Script: {instanceID: 29982}
     - Class: 114
-      Script: {instanceID: 31930}
+      Script: {instanceID: 31070}
     - Class: 114
-      Script: {instanceID: 32268}
+      Script: {instanceID: 31366}
     - Class: 114
-      Script: {instanceID: 32794}
+      Script: {instanceID: 31942}
     - Class: 114
-      Script: {instanceID: 33346}
+      Script: {instanceID: 32280}
     - Class: 114
-      Script: {instanceID: 33680}
+      Script: {instanceID: 32806}
     - Class: 114
-      Script: {instanceID: 34116}
+      Script: {instanceID: 33358}
     - Class: 114
-      Script: {instanceID: 34340}
+      Script: {instanceID: 33692}
+    - Class: 114
+      Script: {instanceID: 34128}
+    - Class: 114
+      Script: {instanceID: 34352}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -454,6 +476,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.Tilemap.Extras
     namespaceName: UnityEngine
     className: HexagonalRuleTile
+  - hash:
+      serializedVersion: 2
+      Hash: f1d2a87d312f9f2d7eca9c8723fabe03
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SfxOnOff
   - hash:
       serializedVersion: 2
       Hash: 9d1a4dd0d9602af7334427245ea34c46
@@ -924,6 +952,12 @@ ScriptsOnlyBuild:
     className: MacroScriptableObject
   - hash:
       serializedVersion: 2
+      Hash: 161420c8f9d379f180a707926f584de3
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: AudioManager
+  - hash:
+      serializedVersion: 2
       Hash: 5874b789cd9832847c61ebfa803213af
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UIElements
@@ -1020,7 +1054,7 @@ ScriptsOnlyBuild:
     className: BasicPlatform
   - hash:
       serializedVersion: 2
-      Hash: 3aa03bc909bfc6612a03200cec88274d
+      Hash: 4aafd2a184aad6339f7979cd0ba1a661
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -1036,6 +1070,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.Tilemap.Extras
     namespaceName: UnityEngine
     className: RuleTile
+  - hash:
+      serializedVersion: 2
+      Hash: bff260d84c49d8a739a220056688a444
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: BgmOnOff
   - hash:
       serializedVersion: 2
       Hash: d5cd7f207e91ca8336c65a577a6fb2a0
@@ -1152,7 +1192,7 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
-      Hash: c82ecf54ffc2ae4c4bd1e15c42d945c7
+      Hash: 29519a77f4bf9a05b5d7a8aec9a06e63
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: MainMenu
@@ -1492,15 +1532,9 @@ ScriptsOnlyBuild:
     assemblyName: DemiLib.dll
     namespaceName: DG.DemiLib.External
     className: DeHierarchyComponent
-  - hash:
-      serializedVersion: 2
-      Hash: c0ebeaa953fe7385a9c4fa592f42d441
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: ScreenSet
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main.unity
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
-  playerPath: D:/Github/Unity/Dice Up/test/Dice Up.exe
+  playerPath: D:/Github/Unity/Dice Up/Dice Up/Dice Up.exe

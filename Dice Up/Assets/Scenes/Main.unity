@@ -238,6 +238,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8b6d3fd828967459c85c7b6accd671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: 122690262ead4174593621730aa0ce48, type: 3}
+  bgmVolumn: 0.5
+  sfxClips:
+  - {fileID: 8300000, guid: ba8303d1d8b96f9429d4fbe2c0b879a4, type: 3}
+  - {fileID: 8300000, guid: 93296ce3b44bbcc43a9ee61773a1c6d9, type: 3}
+  - {fileID: 8300000, guid: 0f2bc6774c3d536419266a063a478e2e, type: 3}
+  - {fileID: 8300000, guid: 7eaafef057278064aa67ae3f85300dec, type: 3}
+  - {fileID: 8300000, guid: f44f3d423c4292f4d88ba6654af65550, type: 3}
+  - {fileID: 8300000, guid: 780198d5975f76642a7a3c7748c732ce, type: 3}
+  - {fileID: 8300000, guid: d3a05e8df1113fe4dbf5953e653272ba, type: 3}
+  - {fileID: 8300000, guid: a78ee9e9a3dd8fb4b8dd0ee61007c757, type: 3}
+  - {fileID: 8300000, guid: 89fab590486fea54997441c1317c2d64, type: 3}
+  sfxVolumn: 0.7
+  channels: 16
 --- !u!1 &844474840
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +329,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 3

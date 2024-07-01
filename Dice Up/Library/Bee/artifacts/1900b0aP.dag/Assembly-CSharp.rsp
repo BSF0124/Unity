@@ -342,12 +342,12 @@
 "Assets/Scripts/Dice/Dice.cs"
 "Assets/Scripts/Dice/ObjectDestroyByTime.cs"
 "Assets/Scripts/Dice/RollDice.cs"
+"Assets/Scripts/Manager/AudioManager.cs"
 "Assets/Scripts/Manager/BackgroundManager.cs"
 "Assets/Scripts/Manager/CameraManager.cs"
 "Assets/Scripts/Manager/GameManager.cs"
 "Assets/Scripts/Manager/PlatformManager.cs"
 "Assets/Scripts/Manager/SceneLoader.cs"
-"Assets/Scripts/Manager/ScreenSet.cs"
 "Assets/Scripts/Platform/BasicPlatform.cs"
 "Assets/Scripts/Platform/Chess.cs"
 "Assets/Scripts/Platform/Janggi.cs"
@@ -356,6 +356,7 @@
 "Assets/Scripts/Platform/MovingPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
 "Assets/Scripts/Platform/PlayingCard.cs"
+"Assets/Scripts/UI/BgmOnOff.cs"
 "Assets/Scripts/UI/ButtonEffect.cs"
 "Assets/Scripts/UI/HowToPlay.cs"
 "Assets/Scripts/UI/MainMenu.cs"
@@ -365,6 +366,7 @@
 "Assets/Scripts/UI/Page_4.cs"
 "Assets/Scripts/UI/Page_5.cs"
 "Assets/Scripts/UI/Page_6.cs"
+"Assets/Scripts/UI/SfxOnOff.cs"
 -langversion:9.0
 
 /deterministic

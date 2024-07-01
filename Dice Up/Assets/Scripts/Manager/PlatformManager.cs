@@ -30,7 +30,7 @@ public class PlatformManager : MonoBehaviour
 
             if(isLeft)
             {
-                position = new Vector2(Random.Range(2, PlayerPrefs.GetFloat("screenRight")),
+                position = new Vector2(Random.Range(1f, PlayerPrefs.GetFloat("screenRight")),
                 Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
                 isLeft = false;
@@ -38,7 +38,7 @@ public class PlatformManager : MonoBehaviour
 
             else
             {
-                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -2),
+                position = new Vector2(Random.Range(PlayerPrefs.GetFloat("screenLeft"), -1f),
                 Random.Range(3.0f, 4.0f) + coordinates_Y);
                 coordinates_Y = position.y;
                 isLeft = true;

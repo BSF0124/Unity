@@ -6,6 +6,7 @@ using DG.Tweening;
 public class MainMenu : MonoBehaviour
 {
     public RectTransform howtoplayPanel;
+    public RectTransform licensePanel;
     public ButtonEffect[] buttons;
     
     [HideInInspector] public int currentButton;
@@ -15,6 +16,7 @@ public class MainMenu : MonoBehaviour
     {
         currentButton = -1;
         RefreshSprite();
+        AudioManager.instance.PlayBgm(false);
     }
 
     void Update()
@@ -30,15 +32,25 @@ public class MainMenu : MonoBehaviour
             }
         }
 
+        else if(licensePanel.gameObject.activeSelf)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                StartCoroutine(LicensePanelEffect(true));
+            }
+        }
+
         else
         {
             if(Input.GetKeyDown(KeyCode.UpArrow) && currentButton > 0)
             {
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.SelectButton);
                 currentButton--;
                 RefreshSprite();
             }
             if(Input.GetKeyDown(KeyCode.DownArrow) && currentButton < 2)
             {
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.SelectButton);
                 currentButton++;
                 RefreshSprite();
             }
@@ -46,10 +58,6 @@ public class MainMenu : MonoBehaviour
             {
                 StartCoroutine(ButtonEffect());
                 ButtonClick();
-            }
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();
             }
         }
     }
@@ -74,10 +82,12 @@ public class MainMenu : MonoBehaviour
         switch(currentButton)
             {
                 case 0:
-                    StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
+                    StartCoroutine(SceneLoader.instance.LoadScene("Game", LoadSceneMode.Additive));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.PressButton);
                     break;
                 case 1:
                     StartCoroutine(HowToPlayPanelEffect(false));
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.PressButton);
                     break;
                 case 2:
                     Application.Quit();
@@ -85,7 +95,7 @@ public class MainMenu : MonoBehaviour
             }
     }
 
-    IEnumerator ButtonEffect()
+    private IEnumerator ButtonEffect()
     {
         if(currentButton != -1)
         {
@@ -99,7 +109,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    IEnumerator HowToPlayPanelEffect(bool isActivated)
+    private IEnumerator HowToPlayPanelEffect(bool isActivated)
     {
         isCoroutineRun = true;
         if(isActivated)
@@ -115,6 +125,32 @@ public class MainMenu : MonoBehaviour
             howtoplayPanel.gameObject.SetActive(true);
             howtoplayPanel.localScale = Vector3.zero;
             howtoplayPanel.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+            yield return new WaitForSeconds(0.6f);
+        }
+        isCoroutineRun = false;
+    }
+
+    public void ClickLicenseButton()
+    {
+        StartCoroutine(LicensePanelEffect(false));
+    }
+
+    private IEnumerator LicensePanelEffect(bool isActivated)
+    {
+        isCoroutineRun = true;
+        if(isActivated)
+        {
+            licensePanel.DOScale(0, 0.5f).SetEase(Ease.InBack);
+            yield return new WaitForSeconds(0.6f);
+            licensePanel.gameObject.SetActive(false);
+            licensePanel.localScale = Vector3.zero;
+        }
+
+        else
+        {
+            licensePanel.gameObject.SetActive(true);
+            licensePanel.localScale = Vector3.zero;
+            licensePanel.DOScale(1, 0.5f).SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.6f);
         }
         isCoroutineRun = false;

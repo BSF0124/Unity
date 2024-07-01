@@ -17,7 +17,9 @@
 		<type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true"/>
 	</assembly>
 	<assembly fullname="UnityEngine.CoreModule">
+		<type fullname="UnityEngine.Events.ArgumentCache" preserve="nothing" serialized="true"/>
 		<type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true"/>
+		<type fullname="UnityEngine.Events.PersistentListenerMode" preserve="nothing" serialized="true"/>
 	</assembly>
 	<assembly fullname="UnityEngine.TextCoreFontEngineModule">
 		<type fullname="UnityEngine.TextCore.FaceInfo" preserve="nothing" serialized="true"/>

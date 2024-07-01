@@ -33,7 +33,7 @@ public class Dice : MonoBehaviour
 
     private bool isCoroutineRun = false;
 
-    private float radious = 0.2f;
+    private float radious = 0.4f;
     private float jumpForce = 700;                      // 점프 힘
     private float jumpCoolDownTime = 0.5f;                // 점프 쿨타임
     private float lastJumpTime;                         // 마지막으로 점프한 시간
@@ -114,6 +114,7 @@ public class Dice : MonoBehaviour
         if(transform.position.y + objectHeight <= PlayerPrefs.GetFloat("DeadLine") + 1f)
         {
             GameManager.isGameOver = true;
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Gameover);
             Destroy(gameObject);
         }
     }
@@ -131,9 +132,9 @@ public class Dice : MonoBehaviour
         setCamera = false;
     }
 
-    // 벽점프
     private void OnCollisionEnter2D(Collision2D other) 
     {
+        // 벽점프
         if(IsWalled() && isWallJumping)
         {
             jumpDirection.x *= -1;
@@ -144,6 +145,7 @@ public class Dice : MonoBehaviour
         }
         else
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Bump);
             Instantiate(landingEffect, transform.position, Quaternion.identity);
             mainCamera.CameraShake();
         }
@@ -153,6 +155,7 @@ public class Dice : MonoBehaviour
             if(platform == null || other.transform.position.y > platform.transform.position.y)
             {   
                 platform = other.gameObject;
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.IncreaseScore);
                 PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + score);
             }
             score = 1;
@@ -276,6 +279,7 @@ public class Dice : MonoBehaviour
         isJumping = true;
         lastJumpTime = Time.time;
         score = 1;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Jump);
         rb.AddForce(jumpDirection * jumpForce);
         yield return new WaitForSeconds(0.1f);
     }

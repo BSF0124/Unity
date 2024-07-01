@@ -18,89 +18,96 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI gameoverText;
+    [SerializeField] private TextMeshProUGUI newrecordText;
 
+    private Coroutine fadeCoroutine;
     private int diceJumpType;
     private float exitTime = 1f;
     private float currentTime;
     private float duration = 1f;
-
-    private Coroutine fadeCoroutine;
     private float textDuration = 1f;
+    private bool exitGame = false;
 
     private void Awake()
     {
         PlayerPrefs.SetInt("Score", 0);
         currentTime = 0;
+        // newrecordText.gameObject.SetActive(false);
+        AudioManager.instance.SetBgmEffect(Camera.main.GetComponent<AudioHighPassFilter>());
+        AudioManager.instance.PlayBgm(true);
     }
     
     private void Update()
     {
-        if(!isGameOver && currentTime >= exitTime)
+        if(!isGameOver && !exitGame && currentTime >= exitTime)
         {
-            StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
+            exitGame = true;
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.PressButton);
+            StartCoroutine(SceneLoader.instance.LoadScene("Menu", LoadSceneMode.Additive));
+            AudioManager.instance.PlayBgm(false);
         }
 
-        if(isGameOver)
-        {
-            if(gameoverPanel.gameObject.activeSelf)
-            {
-                if(Input.GetKeyDown(KeyCode.Escape))
-                {
-                    isGameOver = false;
-                    StartCoroutine(SceneLoader.Instance.LoadScene("Menu", LoadSceneMode.Additive));
-                }
-                else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    isGameOver = false;
-                    StartCoroutine(SceneLoader.Instance.LoadScene("Game", LoadSceneMode.Additive));
-                }
-            }
-
-            else
-            {
-                StartCoroutine(GameOverEffect());
-            }
-        }
         else
         {
-            if(rollDicePanel.activeSelf)
+            // 게임 오버 시
+            if(isGameOver)
             {
-                if(rolltheDice.isRollEnd)
+                if(gameoverPanel.gameObject.activeSelf)
                 {
-                    diceJumpType = rolltheDice.currentDice;
-                    rollDicePanelOnOff();
+                    // 메인 메뉴로
+                    if(Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        isGameOver = false;
+                        StartCoroutine(SceneLoader.instance.LoadScene("Menu", LoadSceneMode.Additive));
+                        AudioManager.instance.PlayBgm(false);
+                    }
+
+                    // 재시작
+                    else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+                    {
+                        isGameOver = false;
+                        StartCoroutine(SceneLoader.instance.LoadScene("Game", LoadSceneMode.Additive));
+                    }
+                }
+
+                // 게임 오버 패널 등장
+                else
+                {
+                    StartCoroutine(GameOverEffect());
                 }
             }
 
-            if(Input.GetKey(KeyCode.Escape))
-            {
-                if(currentTime < exitTime)
-                {
-                    currentTime += Time.deltaTime;
-                }
-            }
             else
             {
-                if(currentTime > 0)
+                // 주사위 굴리기
+                if(rollDicePanel.activeSelf)
                 {
-                    currentTime -= Time.deltaTime;
+                    if(rolltheDice.isRollEnd)
+                    {
+                        diceJumpType = rolltheDice.currentDice;
+                        rollDicePanelOnOff();
+                    }
                 }
-            }
-            score.text = PlayerPrefs.GetInt("Score").ToString();
-            exitCircle.fillAmount = currentTime/exitTime;
-        }
 
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            PlayerPrefs.SetInt("HighScore", 0);
-        }
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score")+1);
-        }
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score")-1);
+                // esc 누름
+                if(Input.GetKey(KeyCode.Escape))
+                {
+                    if(currentTime < exitTime)
+                    {
+                        currentTime += Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    if(currentTime > 0)
+                    {
+                        currentTime -= Time.deltaTime;
+                    }
+                }
+                
+                score.text = PlayerPrefs.GetInt("Score").ToString();
+                exitCircle.fillAmount = currentTime/exitTime;
+            }
         }
     }
 
@@ -109,8 +116,12 @@ public class GameManager : MonoBehaviour
     {
         if(rollDicePanel.activeSelf)
         {
+            if(diceJumpType == 3)
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.RandomJump);
+
             dice.isDiceRoll = false;
             rollDicePanel.SetActive(false);
+            AudioManager.instance.EffectBgm(false);
             StartCoroutine(dice.DoJump(diceJumpType));
         }
 
@@ -118,6 +129,7 @@ public class GameManager : MonoBehaviour
         {
             dice.isDiceRoll = true;
             rollDicePanel.SetActive(true);
+            AudioManager.instance.EffectBgm(true);
         }
     }
 
@@ -133,6 +145,7 @@ public class GameManager : MonoBehaviour
 
         while(score < PlayerPrefs.GetInt("Score"))
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.GameResult);
             score++;
             scoreText.text = score.ToString();
             if(score > PlayerPrefs.GetInt("HighScore"))
@@ -141,9 +154,12 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
         }
+        
         if(PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore"))
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BestScore);
             PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("Score"));
+            NewRecordEffect();
         }
 
         yield return new WaitForSeconds(duration);
@@ -185,6 +201,15 @@ public class GameManager : MonoBehaviour
             fadeIn = !fadeIn;
             yield return new WaitForSeconds(textDuration);
         }
+    }
 
+    private void NewRecordEffect()
+    {
+        if(!newrecordText.gameObject.activeSelf)
+            newrecordText.gameObject.SetActive(true);
+
+        newrecordText.DOScale(1.5f,duration)
+        .OnComplete(() => newrecordText.DOScale(1f, duration)
+        .OnComplete(() => NewRecordEffect()));
     }
 }

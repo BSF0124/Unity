@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class SceneLoader : MonoBehaviour
 {
-    public static SceneLoader Instance;
+    public static SceneLoader instance;
 
     public RectTransform diceImage;         // 화면 전환에 사용될 diceImage
 
@@ -19,9 +19,9 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if(instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

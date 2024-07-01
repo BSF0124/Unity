@@ -17,7 +17,7 @@ public class CloneDice : MonoBehaviour
     private Rigidbody2D rb; // rigidbodt2D 컴포넌트
     private SpriteRenderer diceSprite;
 
-    private float radious = 0.2f;
+    private float radious = 0.4f;
     private float jumpForce = 700; // 점프 힘
     private float timer = 1f;
     private float currentTime = 0; // 현재 시간

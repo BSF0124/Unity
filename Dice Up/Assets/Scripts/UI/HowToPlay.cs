@@ -17,18 +17,28 @@ public class HowToPlay : MonoBehaviour
 
     private void Update()
     {
-        if(currentPage > 0 && Input.GetKeyDown(KeyCode.LeftArrow))
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            currentPage--;
+            if(currentPage > 0)
+                currentPage--;
+            else
+                currentPage = pages.Length-1;
+                
             PageActivate();
             SetSprite();
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.SelectButton);
         }
 
-        if(currentPage < pages.Length - 1 && Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            currentPage++;
+            if(currentPage < pages.Length - 1)
+                currentPage++;
+            else
+                currentPage = 0;
+
             PageActivate();
             SetSprite();
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.SelectButton);
         }
     }
 

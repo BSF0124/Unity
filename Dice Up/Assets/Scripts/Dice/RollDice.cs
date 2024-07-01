@@ -77,7 +77,8 @@ public class RollDice : MonoBehaviour
                 spriteRenderer.sprite = diceImages[currentDice];
                 break;
             }
-    }
+        }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Bump);
     }
 
     // 굴리기 전 각종 설정을 한 뒤, 주사위를 굴림

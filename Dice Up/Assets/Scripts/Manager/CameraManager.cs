@@ -8,7 +8,6 @@ public class CameraManager: MonoBehaviour
     private Dice myDice;
     private Camera mainCamera;
     private Vector2 screenVector;
-    // private float min_Y = 0;
     private float max_Y = 0;
 
     private void Awake()
@@ -16,8 +15,8 @@ public class CameraManager: MonoBehaviour
         myDice = dice.GetComponent<Dice>();
         mainCamera = Camera.main;
         screenVector = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        PlayerPrefs.SetFloat("screenLeft", -screenVector.x);
-        PlayerPrefs.SetFloat("screenRight", screenVector.x);
+        PlayerPrefs.SetFloat("screenLeft", -screenVector.x + 1f);
+        PlayerPrefs.SetFloat("screenRight", screenVector.x - 1f);
         PlayerPrefs.SetFloat("CreateLine", transform.position.y + screenVector.y + 1.5f);
         PlayerPrefs.SetFloat("DeadLine", transform.position.y - screenVector.y - 1.5f);
     }
@@ -47,9 +46,9 @@ public class CameraManager: MonoBehaviour
 
     IEnumerator SetPosition()
     {
-        if(dice != null && dice.transform.position.y > max_Y)
+        if(dice != null && dice.transform.position.y + 3f > max_Y)
         {
-            max_Y = dice.transform.position.y;
+            max_Y = dice.transform.position.y + 3f;
             Vector3 position = new Vector3(transform.position.x, max_Y, transform.position.z);
             yield return transform.DOMove(position, 1f).SetEase(Ease.InOutSine);
         }

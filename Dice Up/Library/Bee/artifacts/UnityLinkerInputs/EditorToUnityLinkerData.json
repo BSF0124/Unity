@@ -4,6 +4,13 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "AudioManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "BackgroundManager",
             "moduleName": "",
             "usedInScenes": []
@@ -12,6 +19,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "BasicPlatform",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "BgmOnOff",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -302,6 +316,13 @@
             "usedInScenes": []
         },
         {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "SfxOnOff",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
             "managedAssemblyName": "",
             "nativeClass": "ShaderNameRegistry",
             "fullManagedTypeName": "",
@@ -419,12 +440,48 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AudioResource",
+            "fullManagedTypeName": "UnityEngine.Audio.AudioResource",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/Scenes/Main.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "SampleClip",
+            "fullManagedTypeName": "UnityEngine.Audio.AudioResource",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/Scenes/Main.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "AudioBehaviour",
             "fullManagedTypeName": "UnityEngine.AudioBehaviour",
             "moduleName": "Audio",
             "usedInScenes": [
                 "Assets/Scenes/Game.unity",
                 "Assets/Scenes/Menu.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AudioClip",
+            "fullManagedTypeName": "UnityEngine.AudioClip",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/Scenes/Main.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AudioHighPassFilter",
+            "fullManagedTypeName": "UnityEngine.AudioHighPassFilter",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/Scenes/Game.unity"
             ]
         },
         {
@@ -446,6 +503,15 @@
                 "Assets/Scenes/Game.unity",
                 "Assets/Scenes/Main.unity",
                 "Assets/Scenes/Menu.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AudioFilter",
+            "fullManagedTypeName": "UnityEngine.Behaviour",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/Scenes/Game.unity"
             ]
         },
         {

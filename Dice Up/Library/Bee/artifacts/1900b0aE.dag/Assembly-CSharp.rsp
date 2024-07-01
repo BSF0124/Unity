@@ -441,6 +441,7 @@
 "Assets/Scripts/Platform/MovingPlatform.cs"
 "Assets/Scripts/Platform/Platform.cs"
 "Assets/Scripts/Platform/PlayingCard.cs"
+"Assets/Scripts/UI/BgmOnOff.cs"
 "Assets/Scripts/UI/ButtonEffect.cs"
 "Assets/Scripts/UI/HowToPlay.cs"
 "Assets/Scripts/UI/MainMenu.cs"
@@ -450,7 +451,7 @@
 "Assets/Scripts/UI/Page_4.cs"
 "Assets/Scripts/UI/Page_5.cs"
 "Assets/Scripts/UI/Page_6.cs"
-"Assets/Scripts/UI/SoundButton.cs"
+"Assets/Scripts/UI/SfxOnOff.cs"
 -langversion:9.0
 
 /deterministic
