@@ -1,0 +1,18 @@
+[
+  {
+    "id": "start",
+    "text": "당신은 깨어났다. 무엇을 할 것인가?",
+    "choices": [
+      { "text": "일어난다", "nextId": "wake_up" },
+      { "text": "계속 잔다", "nextId": "sleep" }
+    ]
+  },
+  {
+    "id": "wake_up",
+    "text": "당신은 일어났다.",
+    "choices": [
+      { "text": "밖으로 나간다", "nextId": "go_out" },
+      { "text": "다시 잠든다", "nextId": "sleep" }
+    ]
+  }
+]
